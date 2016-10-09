@@ -22,7 +22,3 @@ function rocketBoots(hero) {
 	hero.initialSpeed = 6;
 	}
 }
-
-function secondCommit() {
-    console.log("ffs");
-}
