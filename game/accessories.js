@@ -22,3 +22,7 @@ function rocketBoots(hero) {
 	hero.initialSpeed = 6;
 	}
 }
+
+function secondCommigt(hero) {
+    console.log("ffs");
+}
