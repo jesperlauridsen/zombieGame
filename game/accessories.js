@@ -23,6 +23,6 @@ function rocketBoots(hero) {
 	}
 }
 
-function secondCommigt(hero) {
+function secondCommit() {
     console.log("ffs");
 }
