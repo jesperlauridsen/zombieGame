@@ -80,10 +80,14 @@ function obtainedSchematicShow(schematic, schematics, inventory, heroObject) {
 
 function craftSpecificSchematic(inventory,schematic,hero,schematics) {
 	if(schematic === "schematicBoots") {
+        document.getElementById("gameAbilityFive").className = "gameAbility activated";
+        document.getElementById("gamingAbilityNameFive").className = "gameAbilityName";
 		hero.rocketBootsObtained = 1;
 		hero.rocketBootsOn = 1;
 	}
 	if(schematic === "schematicScope") {
+        document.getElementById("gameAbilityThree").className = "gameAbility activated";
+        document.getElementById("gamingAbilityNameThree").className = "gameAbilityName";
 		hero.scopeObtained = 1;
 		hero.scopeOn = 1;
 	}
@@ -92,14 +96,20 @@ function craftSpecificSchematic(inventory,schematic,hero,schematics) {
 		hero.radioOn = 1;
 	}
 	if(schematic === "schematicGoogles") {
+        document.getElementById("gameAbilityTwo").className = "gameAbility activated";
+        document.getElementById("gamingAbilityNameTwo").className = "gameAbilityName";
 		hero.heatGogglesObtained = 1;
 		hero.heatGogglesOn = 1;
 	}
 	if(schematic === "schematicPulse") {
+        document.getElementById("gameAbilitySix").className = "gameAbility activated";
+        document.getElementById("gamingAbilityNameSix").className = "gameAbilityName";
 		hero.pulseTransmitterObtained = 1;
 		hero.pulseTransmitterOn = 1;
 	}
 	if(schematic === "schematicTrash") {
+        document.getElementById("gameAbilityFour").className = "gameAbility activated";
+        document.getElementById("gamingAbilityNameFour").className = "gameAbilityName";
 		hero.scavangerObtained = 1;
 		hero.scavangerOn = 1;
 	}
@@ -332,14 +342,21 @@ function useMedkit(hero) {
 	recountMedkit(hero);
 }
 
+function GuidePlayerToObjective(missionArray,hero,image,gameVariables) {
+    //Tag spillerens mission - tjek om der er punkter som giver mening at pege mod
+    //Vis pilen i 5 sekunder
+    //showArrowToMission(pointX,pointY,image);
+    //Sluk den igen.
+}
+
 function showArrowToMission(pointX,pointY,image) {
-/*	var angle = Math.atan2(pointY - 300, pointX - 400) * 180 / Math.PI + 90;
+	var angle = Math.atan2(pointY - 300, pointX - 400) * 180 / Math.PI + 90;
 	ctx.beginPath();
 	ctx.lineWidth = 3;
 	ctx.strokeStyle = 'rgba(255,230,87,0.7)';
 	ctx.arc(pointX,pointY,5,0,2*Math.PI);
 	ctx.stroke();
-	drawRotatedArrow(image,400,300,angle); */
+	drawRotatedArrow(image,400,300,angle);
 }
 
 function showMissionInPlay(hero,missionArray) {
@@ -469,6 +486,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	document.getElementById("gameVision").style.display = "block";
 	document.getElementById("missionProgressContainer").style.display = "block";
 	document.getElementById("gameStatistics").style.display = "none";
+    document.getElementById("gameAbilityOverallContainer").style.display = "block";
 	initiateBackground(gameArrays.backgroundArray, gameArrays.backgroundObjectArray, backgroundImage);
 	initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray);
 	weaponAvailability(hero);

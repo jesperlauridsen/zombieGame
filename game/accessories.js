@@ -17,8 +17,63 @@ function lazerScope(hero) {
 	}
 }
 
+function activateLazerScope(hero) {
+    if(hero.scopeObtained === 1) {
+        if(hero.scopeOn === 1) {
+            hero.scopeOn = 0;
+        }
+        else {
+            hero.scopeOn = 1;
+        }
+    }
+    else {
+
+    }
+}
+
 function rocketBoots(hero) {
 	if(hero.rocketBootsObtained === 1 && hero.rocketBootsOn === 1) {
 	hero.initialSpeed = 6;
 	}
+}
+
+function activateScavanger(hero) {
+    if(hero.scavangerObtained === 1) {
+        if(hero.scavangerOn === 1) {
+            hero.scavangerOn = 0;
+        }
+        else {
+            hero.scavangerOn = 1;
+        }
+    }
+    else {
+    }
+}
+
+function activateRocketBoots(hero) {
+    if(hero.rocketBootsObtained === 1) {
+        if(hero.rocketBootsOn === 1) {
+            hero.rocketBootsOn = 0;
+            hero.initialSpeed = 5;
+        }
+        else {
+            hero.rocketBootsOn = 1;
+            hero.initialSpeed = 6;
+        }
+    }
+    else {
+    }
+}
+
+function activateHeatGoggles(hero) {
+    if(hero.heatGogglesObtained === 1) {
+        if(hero.heatGogglesOn === 1) {
+            hero.heatGogglesOn = 0;
+        }
+        else {
+            hero.heatGogglesOn = 1;
+        }
+    }
+    else {
+    }
 }

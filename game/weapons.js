@@ -88,9 +88,24 @@ function bulletFire(damageDealt,shooter,bulletArray,gameVariables) {
 	bulletArray.push(bullet);
 }
 
+function showPulseTransmitterCooldown(hero,timeControler) {
+    //console.log(((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
+    if((((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1)) <= 0 && hero.pulseTransmitterObtained === 1) {
+        document.getElementById("gameAbilitySix").innerHTML = "";
+        //console.log("ready");
+    }
+    else if((((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1)) > 0 && hero.pulseTransmitterObtained === 1) {
+        document.getElementById("gameAbilitySix").innerHTML = ((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1);
+        //console.log("Ready in: " + ((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
+    }
+    else {
+        //console.log("not obtained");
+    }
+}
+
 function firePulseTransmitter(hero,timeControler) {
-	console.log(((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
-	if(hero.pulseTransmitterCountdown+30000 < timeControler.getTime()) {
+	//console.log(((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
+	if(hero.pulseTransmitterCountdown+30000 < timeControler.getTime() && hero.pulseTransmitterObtained === 1) {
 		hero.pulseTransmitterFired = 1;
 		hero.pulseTransmitterCountdown = timeControler.getTime();
 	}

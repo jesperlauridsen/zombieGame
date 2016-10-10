@@ -18,6 +18,7 @@ function heroDeath(hero,monsterArray,granadeArray,timeEnd,archivedBulletArray, a
 	document.getElementById("missionProgressContainer").style.display = "none";
 	document.getElementById("gameVision").style.display = "none";
 	document.getElementById("inventoryBackpack").className = "closedInventory";
+    document.getElementById("gameAbilityOverallContainer").style.display = "none";
 }
 
 function heroTestFunction() {

@@ -25,7 +25,15 @@ function playgame() {
 	document.getElementById('utilitiesMedkit').onclick=function(){useMedkit(hero);};
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
-	document.getElementById('testbutton').onclick=function(){};
+	document.getElementById('testbutton').onclick=function(){showPulseTransmitterCooldown(hero,gameVariables.timeControler);};
+    //set specialAbilityButtons
+    document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,image,gameVariables);};
+    document.getElementById('gameAbilityTwo').onclick=function(){activateHeatGoggles(hero);};
+    document.getElementById('gameAbilityThree').onclick=function(){activateLazerScope(hero);};
+    document.getElementById('gameAbilityFour').onclick=function(){activateScavanger(hero);};
+    document.getElementById('gameAbilityFive').onclick=function(){activateRocketBoots(hero);};
+    document.getElementById('gameAbilitySix').onclick=function(){firePulseTransmitter(hero,gameVariables.timeControler);};
+
 
 	// Arrays and variables.
 	var gameArrays = {
@@ -365,33 +373,6 @@ function playgame() {
 	monsterImageIdle1.src = "graphics/monster1-idle.png";
 	monsterImageIdle2.src = "graphics/monster2-idle.png";
 	monsterImageIdle3.src = "graphics/monster3-idle.png";
-
-	// Game objects
-
-	var objective1 = {
-		mission: 1,
-		kills:40,
-		discover:"door"
-	}
-
-	var objective2 = {
-		mission: 2,
-		kills:50,
-		obtain:"blood"
-	}
-
-	var objective3 = {
-		mission: 3,
-		kills:50,
-		save:5
-	}
-
-	var objective4 = {
-		mission: 4,
-		last:5
-	}
-
-	//console.log(objective1.hasOwnProperty('kills'));
 
 	granadeToPlayer(200,75, gameArrays.granadeArray);
 	granadeToPlayer(200,75, gameArrays.granadeArray);
@@ -822,6 +803,7 @@ function playgame() {
 					}
 					else {
 						//console.log("hit!");
+                        //Hero losing health!
 						hero.health = hero.health - gameArrays.monsterArray[b].damage;
 					}
 					gameArrays.monsterArray[b].attackIni = 0;
@@ -1019,7 +1001,8 @@ function playgame() {
 				damageHitOnHero(gameArrays.monsterArray[n],monsterHitImage,gameVariables.timeControler);
 			}
 		}
-
+        //Status on Pulse Emitter
+        showPulseTransmitterCooldown(hero,gameVariables.timeControler);
 		//check if user has lazer scope enabled.
 		lazerScope(hero);
 		//check if user has rocketBoots enabled.
