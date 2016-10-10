@@ -19,3 +19,7 @@ function heroDeath(hero,monsterArray,granadeArray,timeEnd,archivedBulletArray, a
 	document.getElementById("gameVision").style.display = "none";
 	document.getElementById("inventoryBackpack").className = "closedInventory";
 }
+
+function heroTestFunction() {
+    console.log("ayyy");
+}
