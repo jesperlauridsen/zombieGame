@@ -424,10 +424,10 @@ function recountAntidote(hero) {
 function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints) {
 	for(y=0;y<drops.length;y++) {
 		if(drops[y].itemType === "mat") {
-			inventory[drops[y].imgName] = {"amount":100, "name":drops[y].name,"constructor":drops[y].imgName};
+			inventory[drops[y].imgName] = {"amount":0, "name":drops[y].name,"constructor":drops[y].imgName};
 		}
 		if(drops[y].itemType === "schematic") {
-			schematics[drops[y].imgName] = {"obtained":10,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
+			schematics[drops[y].imgName] = {"obtained":0,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
 		}
 	}
 
