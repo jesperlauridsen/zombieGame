@@ -255,7 +255,8 @@ function newEnvironment(startPointX, startPointY) {
 }
 
 function setEnvironmentalPoints(environmentalPoints) {
-	console.log(environmentalPoints.basecampPosition.indexX + "hessllo");
+    environmentalPoints.basecampPosition.indexX = 5;
+	console.log(environmentalPoints.basecampPosition.indexX);
 }
 
 function drawTileShadow(tileStartPointX, tileStartPointY, lightX,lightY,radius) {

@@ -211,12 +211,12 @@ function playgame() {
 	//console.log(missionArray);
 
 	var environmentalPoints = {
-		basecampPosition:{indexX:0,indexY:0,name:"Basecamp"},
-		cityPosition:{indexX:0, indexY:0,name:"City of Valisburg"},
-		survivorPosition:{indexX:0,indexY:0,name:"Lone survivor"},
-		forestPosition:{indexX:0,indexY:0,name:"Forest"},
-		groundZeroPosition:{indexX:0,indexY:0,name:"Ground zero"},
-		zombiePlayground:{indexX:0,indexY:0,name:"Zombie playground"}
+		basecampPosition:{indexX:0,indexY:0,x:0,y:0,name:"Basecamp"},
+		cityPosition:{indexX:0, indexY:0,x:0,y:0,name:"City of Valisburg"},
+		survivorPosition:{indexX:0,indexY:0,x:0,y:0,name:"Lone survivor"},
+		forestPosition:{indexX:0,indexY:0,x:0,y:0,name:"Forest"},
+		groundZeroPosition:{indexX:0,indexY:0,x:0,y:0,name:"Ground zero"},
+		zombiePlayground:{indexX:0,indexY:0,x:0,y:0,name:"Zombie playground"}
 	};
 	var gameDisplay  = {x: canvas.width/2, y:canvas.height/2, indexX:0, indexY:0};
 	var tileDisplay = {x:canvas.width/2,y:canvas.height/2};

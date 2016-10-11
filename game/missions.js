@@ -1,5 +1,4 @@
 function initiateMissions(missionArray,environmentalPoints) {
-	setEnvironmentalPoints(environmentalPoints);
 	var missionDistance = 5000; //2000 variable
 	var missionQuads = [0,120,240,0,120,240]; //120 variable
 	//Index er Math.round(X/800)

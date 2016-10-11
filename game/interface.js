@@ -367,10 +367,10 @@ function showArrowToMission(pointX,pointY,image) {
 function showMissionInPlay(hero,missionArray) {
 	var missionNumber = parseFloat(hero.currentMission) + 1;
 	document.getElementById("missionProgressContainer").innerHTML = "<h4>Mission " + missionNumber + "</h4>";
-	console.log(hero.currentMission + " | mission number");
-	console.log(missionArray[hero.currentMission][0].func + " | access to elements");
+	//console.log(hero.currentMission + " | mission number");
+	//console.log(missionArray[hero.currentMission][0].func + " | access to elements");
 	//data[i]['action'][0]['text']
-	console.log(missionArray[hero.currentMission].length + " | number of objectives");
+	//console.log(missionArray[hero.currentMission].length + " | number of objectives");
 	for(h=0;h<missionArray[hero.currentMission].length;h++) {
 		if(missionArray[hero.currentMission][h].type === "get") {
 		document.getElementById("missionProgressContainer").innerHTML += "<li><span class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "<span class='amountDisplay'> " + missionArray[hero.currentMission][h].gathered + "/" + missionArray[hero.currentMission][h].amount + "</span></span></li>";
@@ -430,7 +430,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 			schematics[drops[y].imgName] = {"obtained":0,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
 		}
 	}
-
+    setEnvironmentalPoints(environmentalPoints);
 	hero.gun = "machete";
 	hero.clip = 7;
 	hero.shotgunclip = 8;
