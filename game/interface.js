@@ -82,12 +82,14 @@ function craftSpecificSchematic(inventory,schematic,hero,schematics) {
 	if(schematic === "schematicBoots") {
         document.getElementById("gameAbilityFive").className = "gameAbility activated";
         document.getElementById("gamingAbilityNameFive").className = "gameAbilityName";
+        document.getElementById("gameAbilityFive").innerHTML = "on";
 		hero.rocketBootsObtained = 1;
 		hero.rocketBootsOn = 1;
 	}
 	if(schematic === "schematicScope") {
         document.getElementById("gameAbilityThree").className = "gameAbility activated";
         document.getElementById("gamingAbilityNameThree").className = "gameAbilityName";
+        document.getElementById("gameAbilityThree").innerHTML = "on";
 		hero.scopeObtained = 1;
 		hero.scopeOn = 1;
 	}
@@ -98,18 +100,21 @@ function craftSpecificSchematic(inventory,schematic,hero,schematics) {
 	if(schematic === "schematicGoogles") {
         document.getElementById("gameAbilityTwo").className = "gameAbility activated";
         document.getElementById("gamingAbilityNameTwo").className = "gameAbilityName";
+        document.getElementById("gameAbilityTwo").innerHTML = "on";
 		hero.heatGogglesObtained = 1;
 		hero.heatGogglesOn = 1;
 	}
 	if(schematic === "schematicPulse") {
         document.getElementById("gameAbilitySix").className = "gameAbility activated";
         document.getElementById("gamingAbilityNameSix").className = "gameAbilityName";
+        document.getElementById("gameAbilitySix").innerHTML = "on";
 		hero.pulseTransmitterObtained = 1;
 		hero.pulseTransmitterOn = 1;
 	}
 	if(schematic === "schematicTrash") {
         document.getElementById("gameAbilityFour").className = "gameAbility activated";
         document.getElementById("gamingAbilityNameFour").className = "gameAbilityName";
+        document.getElementById("gameAbilityFour").innerHTML = "on";
 		hero.scavangerObtained = 1;
 		hero.scavangerOn = 1;
 	}
@@ -419,10 +424,10 @@ function recountAntidote(hero) {
 function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints) {
 	for(y=0;y<drops.length;y++) {
 		if(drops[y].itemType === "mat") {
-			inventory[drops[y].imgName] = {"amount":0, "name":drops[y].name,"constructor":drops[y].imgName};
+			inventory[drops[y].imgName] = {"amount":100, "name":drops[y].name,"constructor":drops[y].imgName};
 		}
 		if(drops[y].itemType === "schematic") {
-			schematics[drops[y].imgName] = {"obtained":0,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
+			schematics[drops[y].imgName] = {"obtained":10,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
 		}
 	}
 
