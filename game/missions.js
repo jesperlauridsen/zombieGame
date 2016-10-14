@@ -1,6 +1,16 @@
 function initiateMissions(missionArray,environmentalPoints) {
-	var missionDistance = 5000; //2000 variable
-	var missionQuads = [0,120,240,0,120,240]; //120 variable
+    var missionDistance = 2000; // +500 each loop variable
+	var missionQuads = [0,120,240,270,120,240]; //120 variable
+    var randomAngle = "";
+    for(y=1;y<Object.keys(environmentalPoints).length;y++) {
+        var randomNumber = Math.round(Math.random() * (missionQuads.length-1) - 0 ) + 0;
+        //console.log(randomNumber);
+        randomAngle = (Math.round(Math.random() * (120 - 0 + 1) + 0)) + missionQuads[randomNumber];
+        missionQuads.splice(randomNumber-1, 1);
+        console.log("Angle: " +  randomAngle + " | Randomnumber: " + randomNumber + " | Array: " + missionQuads.length);
+      //  console.log(environmentalPoints[Object.keys(environmentalPoints)[y]].name);
+        missionDistance = missionDistance + 500;
+         }
 	//Index er Math.round(X/800)
 	//	   Math.round(Y/600)
 	//set basecamp

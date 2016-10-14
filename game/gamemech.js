@@ -288,7 +288,7 @@ function playgame() {
 	arrowImage.onload = function () {
 		arrowImageReady = true;
 	};
-	arrowImage.src = "graphics/starreplace-blue.png";
+	arrowImage.src = "graphics/missionpointerarrow.png";
 
 	//Hero images
 	var heroArray = ['graphics/hero-new/hero-standing-machete.png','graphics/hero-new/hero-standing-pistol.png','graphics/hero-new/hero-standing-shotgun.png','graphics/hero-new/hero-standing-machinegun.png','graphics/hero-new/hero-standing-flamethrower.png'];
