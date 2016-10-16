@@ -354,7 +354,7 @@ function GuidePlayerToObjective(missionArray,hero,image,gameVariables) {
     //Sluk den igen.
 }
 
-function showArrowToMission(pointX,pointY,image) {
+function showArrowToMission(missionArray,image) {
 	var angle = Math.atan2(pointY - 300, pointX - 400) * 180 / Math.PI + 90;
 	ctx.beginPath();
 	ctx.lineWidth = 3;
