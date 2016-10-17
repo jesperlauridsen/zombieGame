@@ -354,7 +354,8 @@ function GuidePlayerToObjective(missionArray,hero,image,gameVariables) {
     //Sluk den igen.
 }
 
-function showArrowToMission(missionArray,image) {
+function showArrowToMission(missionArray,image,hero,timeControler) {
+    if(hero.trackerActivatedTime+3000 > timeControler.getTime()) {
 	var angle = Math.atan2(pointY - 300, pointX - 400) * 180 / Math.PI + 90;
 	ctx.beginPath();
 	ctx.lineWidth = 3;
@@ -362,6 +363,7 @@ function showArrowToMission(missionArray,image) {
 	ctx.arc(pointX,pointY,5,0,2*Math.PI);
 	ctx.stroke();
 	drawRotatedArrow(image,400,300,angle);
+    }
 }
 
 function showMissionInPlay(hero,missionArray) {
@@ -387,6 +389,29 @@ function showMissionInPlay(hero,missionArray) {
 		else if(missionArray[hero.currentMission][h].type === "win") {
 		document.getElementById("missionProgressContainer").innerHTML += "<li><span class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "</span></li>";
 		}
+	}
+}
+
+function showMissionTrackerCooldown(hero,timeControler) {
+    //console.log(((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
+    if((((hero.trackerCountdown+30000 - timeControler.getTime())/1000).toFixed(1)) <= 0) {
+        document.getElementById("gameAbilityOne").innerHTML = "";
+        //console.log("ready");
+    }
+    else if((((hero.trackerCountdown+30000 - timeControler.getTime())/1000).toFixed(1)) > 0) {
+        document.getElementById("gameAbilityOne").innerHTML = ((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1);
+        //console.log("Ready in: " + ((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
+    }
+    else {
+        //console.log("not obtained");
+    }
+}
+
+function fireMissionTracker(hero,timeControler) {
+	//console.log(((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
+	if(hero.trackerCountdown+30000 < timeControler.getTime()) {
+		hero.trackerActivated = 1;
+		hero.trackerCountdown = timeControler.getTime();
 	}
 }
 

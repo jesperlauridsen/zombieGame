@@ -128,6 +128,9 @@ function playgame() {
 		scopeOn:0,
 		scavangerObtained:0, // 4
 		scavangerOn:0,
+        trackerActivated:0,
+        trackerActivatedTime:0,
+        trackerCountdown:0,
 		rocketBootsObtained:0, // 5
 		rocketBootsOn:0,
 		pulseTransmitterObtained:0, //6
@@ -1007,6 +1010,14 @@ function playgame() {
 		lazerScope(hero);
 		//check if user has rocketBoots enabled.
 		rocketBoots(hero);
+        //check if missionTracker was fired.
+        if(hero.trackerActivated === 1) {
+            if(hero.trackerActivatedTime == 0) {
+			hero.trackerActivatedTime = gameVariables.timeControler.getTime();
+			}
+			//var  counter = hero.pulseTransmitterCounter = hero.pulseTransmitterCounter + 5;
+			//pulseEmitter(gameArrays.monsterArray,hero,gameVariables.timeControler,counter,gameArrays.archivedMonsterArray,missionArray);
+        }
 		//check if pulseEmitter was fired.
 		if(hero.pulseTransmitterFired === 1) {
 			if(hero.pulseTransmitterFiredTime == 0) {
