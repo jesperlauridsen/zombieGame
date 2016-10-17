@@ -27,7 +27,7 @@ function playgame() {
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('testbutton').onclick=function(){showPulseTransmitterCooldown(hero,gameVariables.timeControler);};
     //set specialAbilityButtons
-    document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,image,gameVariables);};
+    document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,arrowImage,gameVariables);};
     document.getElementById('gameAbilityTwo').onclick=function(){activateHeatGoggles(hero);};
     document.getElementById('gameAbilityThree').onclick=function(){activateLazerScope(hero);};
     document.getElementById('gameAbilityFour').onclick=function(){activateScavanger(hero);};
@@ -131,6 +131,8 @@ function playgame() {
         trackerActivated:0,
         trackerActivatedTime:0,
         trackerCountdown:0,
+        trackerFadeInit:0.2,
+        trackerMaxFadeReached:0,
 		rocketBootsObtained:0, // 5
 		rocketBootsOn:0,
 		pulseTransmitterObtained:0, //6
@@ -147,11 +149,11 @@ function playgame() {
 	var missionArray = [
 		//0: Get to basecamp.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,completed:"no",statement:"Find the basecamp.",message:"Listen up soldier! You've been deployed to check out this zombie threat - Go find the basecamp and get your orders!",completion:"Welcome, soldier!"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the basecamp.",message:"Listen up soldier! You've been deployed to check out this zombie threat - Go find the basecamp and get your orders!",completion:"Welcome, soldier!"}
 		],
 		//1: Get Radio schematic & find the city.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"City of Valisburg",indexX:0,indexY:0,completed:"no",statement:"Find the city.",message:"Your first objective is to get to the city of Valisburg, and see if you can find any survivors who can tell us what the hell happend!",completion:"So, you found the city, soldier!"},
+			objective = {completionTime:0,func:"primary",type:"find",name:"City of Valisburg",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the city.",message:"Your first objective is to get to the city of Valisburg, and see if you can find any survivors who can tell us what the hell happend!",completion:"So, you found the city, soldier!"},
 			objective = {completionTime:0,func:"secondary",type:"get",item:"Schematic: Radio",amount:1,gathered:0,completed:"no",statement:"Build a radio.",message:"Our engineers fixed together a schematic for a low-end radio - See if you can find the materials required, so you can communicate with the base on radio - otherwise you have to run back here to report back!",completion:"*Rrrrrrr* Come in, soldier. Well done, now we can communicate over radio. Now get back to work on your primary objectives. Over."}
 		],
 		//2: Kill 50 zombies & find survivor.
@@ -161,7 +163,7 @@ function playgame() {
 		],
 		//3: Back go base to tell story.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,completed:"no",statement:"Find the basecamp.",message:"You must go back to tell your commander what happened!",completion:"Well, soldier, what did you discover?"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the basecamp.",message:"You must go back to tell your commander what happened!",completion:"Well, soldier, what did you discover?"}
 		],
 		//4: Collect 10 specimens from monsters.
 		mission = [
@@ -170,7 +172,7 @@ function playgame() {
 		//5: Find ground zero.
 		//IMPORTANT! Given a radio if they don't have one!
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Ground zero",indexX:0,indexY:0,completed:"no",statement:"Locate ground zero.",message:"In the meantime, i got a new job for you! We located ground zero of the disaster, and we need someone to go check it out! That's right - you, soldier! Get moving!",completion:"*Rrrrrrr* So, you found it. Any clues about what caused this? What's that sound in the back? Are you being attacked? Soldier? SOLDIER, REPORT ABACK!"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Ground zero",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Locate ground zero.",message:"In the meantime, i got a new job for you! We located ground zero of the disaster, and we need someone to go check it out! That's right - you, soldier! Get moving!",completion:"*Rrrrrrr* So, you found it. Any clues about what caused this? What's that sound in the back? Are you being attacked? Soldier? SOLDIER, REPORT ABACK!"}
 		],
 		//6: Ambushed - kill the attackers.
 		mission = [
@@ -180,7 +182,7 @@ function playgame() {
 		],
 		//7: Back to base, its under attack.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,completed:"no",statement:"Get back to the basecamp.",message:"*Rrrrrrr* Soldier! Get back to the base immedieately - we're under attack!",completion:"Help us!"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Get back to the basecamp.",message:"*Rrrrrrr* Soldier! Get back to the base immedieately - we're under attack!",completion:"Help us!"}
 		],
 		//8: Repel attack
 		mission = [
@@ -188,18 +190,18 @@ function playgame() {
 		],
 		//9: Antidote probably fixed - need stuff to test.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Forest",indexX:0,indexY:0,completed:"no",statement:"Find the forest.",message:"Our scientists believe they've worked out a cure - they need you to go to the forest and get the following items!",completion:"Good work, soldier!"},
+			objective = {completionTime:0,func:"primary",type:"find",name:"Forest",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the forest.",message:"Our scientists believe they've worked out a cure - they need you to go to the forest and get the following items!",completion:"Good work, soldier!"},
 			objective = {completionTime:0,func:"primary",type:"get",item:"Elderweed",amount:10,gathered:0,completed:"no",statement:"Gather 10 Elderweed.",message:"Find some elderweed",completion:"This should do."},
 			objective = {completionTime:0,func:"primary",type:"get",item:"Zombie excrement",amount:5,gathered:0,completed:"no",statement:"Gather 5 zombie excrement",message:"Find some zombie excrement *Ewww*",completion:"This should do... fine..."},
 			objective = {completionTime:0,func:"primary",type:"get",item:"Butterfly dust",amount:5,gathered:0,completed:"no",statement:"Gather 5 butterfly dust",message:"Fund some butterfly dust",completion:"Excellent, this is the stuff"}
 		],
 		//10: deliver to base.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,completed:"no",statement:"Get back to the basecamp with the stuff.",message:"*Rrrrrrr* Have you found the items? Then get back here, damnit!",completion:"That took you long enough - hand it over! We should be able to cure the zombies now."}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Get back to the basecamp with the stuff.",message:"*Rrrrrrr* Have you found the items? Then get back here, damnit!",completion:"That took you long enough - hand it over! We should be able to cure the zombies now."}
 		],
 		//11: Base discovered master moster hide out. Get there!
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Zombie playground",indexX:0,indexY:0,completed:"no",statement:"Find the zombie playground.",message:"While you worked out the cure, we discovered the zombie base. Get there and end the threat once and for all, so no other people can be infected!",completion:"*Rrrrrr* You've found it, good job!"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Zombie playground",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the zombie playground.",message:"While you worked out the cure, we discovered the zombie base. Get there and end the threat once and for all, so no other people can be infected!",completion:"*Rrrrrr* You've found it, good job!"}
 		],
 		//12: Kill master monster!
 		mission = [
@@ -291,7 +293,7 @@ function playgame() {
 	arrowImage.onload = function () {
 		arrowImageReady = true;
 	};
-	arrowImage.src = "graphics/missionpointerarrow.png";
+	arrowImage.src = "graphics/missionArrow.png";
 
 	//Hero images
 	var heroArray = ['graphics/hero-new/hero-standing-machete.png','graphics/hero-new/hero-standing-pistol.png','graphics/hero-new/hero-standing-shotgun.png','graphics/hero-new/hero-standing-machinegun.png','graphics/hero-new/hero-standing-flamethrower.png'];
@@ -415,6 +417,11 @@ function playgame() {
 			for(n=0;n<gameArrays.thrownGranadeArray.length;n++) {
 				newPositionForward(gameArrays.thrownGranadeArray[n],hero);
 			}
+            for(u=0;u<missionArray.length;u++) {
+                if(missionArray[u][0].type === "find") {
+                    newPositionForward(missionArray[u][0],hero);
+                }
+            }
 			for(h=0;h<gameArrays.numberOfLampsOnScreen.length;h++) {
 				newPositionForward(gameArrays.numberOfLampsOnScreen[h],hero);
 				newPositionForwardShadow(gameArrays.numberOfLampsOnScreen[h],hero);
@@ -458,6 +465,12 @@ function playgame() {
 			for(n=0;n<gameArrays.thrownGranadeArray.length;n++) {
 				newPositionBackward(gameArrays.thrownGranadeArray[n],hero);
 			}
+            for(u=0;u<missionArray.length;u++) {
+                if(missionArray[u][0].type === "find") {
+                    newPositionBackward(missionArray[u][0],hero);
+                }
+            }
+            console.log("-------------");
 			for(h=0;h<gameArrays.numberOfLampsOnScreen.length;h++) {
 				newPositionBackward(gameArrays.numberOfLampsOnScreen[h],hero);
 				newPositionBackwardShadow(gameArrays.numberOfLampsOnScreen[h],hero);
@@ -944,10 +957,6 @@ function playgame() {
 				}
 			}
 		}
-		//Draw arrow
-		/*if(1===1) {
-			showArrowToMission(randomPoint.x,randomPoint.y,arrowImage);
-		} */
 		//Display game-mode / Lamps / flashlight
 		if (lampReady && gameVariables.missionType === "Poles") {
 			for(y=0;y<gameArrays.numberOfLampsOnScreen.length;y++) {
@@ -970,7 +979,10 @@ function playgame() {
 
 		else {
 		}
-
+        //Draw arrow
+        if(hero.trackerActivated === 1) {
+			showArrowToMission(missionArray,arrowImage,hero,gameVariables.timeControler);
+		}
 		if(hero.heatGogglesObtained === 1 && hero.heatGogglesOn === 1) {
 			for(h=0;h<gameArrays.monsterArray.length;h++) {
 				if(gameArrays.monsterArray[h].state != 'idle') {
@@ -1006,6 +1018,8 @@ function playgame() {
 		}
         //Status on Pulse Emitter
         showPulseTransmitterCooldown(hero,gameVariables.timeControler);
+        //Status on mission tracker
+        showMissionTrackerCooldown(hero,gameVariables.timeControler);
 		//check if user has lazer scope enabled.
 		lazerScope(hero);
 		//check if user has rocketBoots enabled.
@@ -1081,6 +1095,7 @@ function playgame() {
 		//Display granade explosion & wrapup
 		for(y=0;y<gameArrays.thrownGranadeArray.length;y++) {
 			if(gameArrays.thrownGranadeArray[y].explosion === 1) {
+                //console.log(gameArrays.thrownGranadeArray[y].explosionFade);
 				//console.log(gameVariables.timeControler.getTime() + ">" + gameArrays.thrownGranadeArray[y].explosionTime);
 				ctx.globalAlpha = gameArrays.thrownGranadeArray[y].explosionFade;
 				ctx.drawImage(explosionImage, gameArrays.thrownGranadeArray[y].x-(125/gameArrays.thrownGranadeArray[y].explosionExpansion),gameArrays.thrownGranadeArray[y].y-(125/gameArrays.thrownGranadeArray[y].explosionExpansion),(250/gameArrays.thrownGranadeArray[y].explosionExpansion),(250/gameArrays.thrownGranadeArray[y].explosionExpansion));

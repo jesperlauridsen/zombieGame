@@ -39,28 +39,44 @@ function initiateMissions(missionArray,environmentalPoints) {
     console.log(missionArray[0][0].completed);
 	missionArray[0][0].indexX = environmentalPoints.basecampPosition.indexX;
 	missionArray[0][0].indexY = environmentalPoints.basecampPosition.indexY;
+    missionArray[0][0].x = environmentalPoints.basecampPosition.x;
+	missionArray[0][0].y = environmentalPoints.basecampPosition.y;
 
 	missionArray[1][0].indexX = environmentalPoints.cityPosition.indexX;
 	missionArray[1][0].indexY = environmentalPoints.cityPosition.indexY;
+    missionArray[1][0].x = environmentalPoints.cityPosition.x;
+	missionArray[1][0].y = environmentalPoints.cityPosition.y;
 
 	missionArray[3][0].indexX = environmentalPoints.basecampPosition.indexX;
 	missionArray[3][0].indexY = environmentalPoints.basecampPosition.indexY;
+    missionArray[3][0].x = environmentalPoints.basecampPosition.x;
+	missionArray[3][0].y = environmentalPoints.basecampPosition.y;
 
 	missionArray[5][0].indexX = environmentalPoints.groundZeroPosition.indexX;
 	missionArray[5][0].indexY = environmentalPoints.groundZeroPosition.indexY;
+    missionArray[5][0].x = environmentalPoints.groundZeroPosition.x;
+	missionArray[5][0].y = environmentalPoints.groundZeroPosition.y;
 
 	missionArray[7][0].indexX = environmentalPoints.basecampPosition.indexX;
 	missionArray[7][0].indexY = environmentalPoints.basecampPosition.indexY;
+    missionArray[7][0].x = environmentalPoints.basecampPosition.x;
+	missionArray[7][0].y = environmentalPoints.basecampPosition.y;
 
 	missionArray[9][0].indexX = environmentalPoints.forestPosition.indexX;
 	missionArray[9][0].indexY = environmentalPoints.forestPosition.indexY;
-    console.log(environmentalPoints.forestPosition.indexX + " " + environmentalPoints.forestPosition.indexY);
+    missionArray[9][0].x = environmentalPoints.forestPosition.x;
+	missionArray[9][0].y = environmentalPoints.forestPosition.y;
+    //console.log(environmentalPoints.forestPosition.indexX + " " + environmentalPoints.forestPosition.indexY);
 
 	missionArray[10][0].indexX = environmentalPoints.basecampPosition.indexX;
 	missionArray[10][0].indexY = environmentalPoints.basecampPosition.indexY;
+    missionArray[10][0].x = environmentalPoints.basecampPosition.x;
+	missionArray[10][0].y = environmentalPoints.basecampPosition.y;
 
 	missionArray[11][0].indexX = environmentalPoints.zombiePlayground.indexX;
 	missionArray[11][0].indexY = environmentalPoints.zombiePlayground.indexY;
+    missionArray[11][0].x = environmentalPoints.zombiePlayground.x;
+	missionArray[11][0].y = environmentalPoints.zombiePlayground.y;
     console.log(missionArray);
 }
 

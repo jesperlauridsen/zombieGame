@@ -348,21 +348,45 @@ function useMedkit(hero) {
 }
 
 function GuidePlayerToObjective(missionArray,hero,image,gameVariables) {
-    //Tag spillerens mission - tjek om der er punkter som giver mening at pege mod
-    //Vis pilen i 5 sekunder
-    //showArrowToMission(pointX,pointY,image);
-    //Sluk den igen.
+    //console.log(hero.trackerCountdown+30000 + "  " + gameVariables.timeControler.getTime());
+    if(missionArray[hero.currentMission][0].type === "find" && hero.trackerCountdown+3000 < gameVariables.timeControler.getTime()) {
+        hero.trackerActivated = 1;
+        hero.trackerActivatedTime = gameVariables.timeControler.getTime();
+    }
 }
 
 function showArrowToMission(missionArray,image,hero,timeControler) {
-    if(hero.trackerActivatedTime+3000 > timeControler.getTime()) {
-	var angle = Math.atan2(pointY - 300, pointX - 400) * 180 / Math.PI + 90;
+    if(hero.trackerActivatedTime+3500 > timeControler.getTime() && missionArray[hero.currentMission][0].type === "find") {
+	var angle = Math.atan2(missionArray[hero.currentMission][0].y - 300, missionArray[hero.currentMission][0].x - 400) * 180 / Math.PI + 90;
 	ctx.beginPath();
 	ctx.lineWidth = 3;
 	ctx.strokeStyle = 'rgba(255,230,87,0.7)';
-	ctx.arc(pointX,pointY,5,0,2*Math.PI);
+	ctx.arc(missionArray[hero.currentMission][0].x,missionArray[hero.currentMission][0].y,5,0,2*Math.PI);
 	ctx.stroke();
+    console.log(missionArray[hero.currentMission][0].x + ", " + missionArray[hero.currentMission][0].y);
+    if(hero.trackerFadeInit <= 0.8 && hero.trackerFadeInit >= 0.02 && hero.trackerMaxFadeReached === 0) {
+      hero.trackerFadeInit = hero.trackerFadeInit + 0.02;
+    }
+    else if(hero.trackerFadeInit <= 0.8 && hero.trackerFadeInit >= 0.02 && hero.trackerMaxFadeReached === 1) {
+        hero.trackerFadeInit = hero.trackerFadeInit - 0.02;
+    }
+    else if(hero.trackerFadeInit >= 0.8) {
+         hero.trackerMaxFadeReached = 1;
+         hero.trackerFadeInit = 0.8;
+    }
+    else if(hero.trackerFadeInit <= 0.2) {
+        hero.trackerMaxFadeReached = 0;
+        hero.trackerFadeInit = 0.2;
+    }
+    ctx.globalAlpha = hero.trackerFadeInit;
 	drawRotatedArrow(image,400,300,angle);
+    ctx.globalAlpha = 1;
+    }
+    else {
+        hero.trackerMaxFadeReached = 0;
+        hero.trackerCountdown = timeControler.getTime();
+        hero.trackerActivated = 0;
+        hero.trackerFadeInit = 0.2;
     }
 }
 
@@ -393,13 +417,13 @@ function showMissionInPlay(hero,missionArray) {
 }
 
 function showMissionTrackerCooldown(hero,timeControler) {
-    //console.log(((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
-    if((((hero.trackerCountdown+30000 - timeControler.getTime())/1000).toFixed(1)) <= 0) {
+    //console.log(((hero.trackerCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
+    if((((hero.trackerCountdown+3000 - timeControler.getTime())/1000).toFixed(1)) <= 0) {
         document.getElementById("gameAbilityOne").innerHTML = "";
         //console.log("ready");
     }
-    else if((((hero.trackerCountdown+30000 - timeControler.getTime())/1000).toFixed(1)) > 0) {
-        document.getElementById("gameAbilityOne").innerHTML = ((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1);
+    else if((((hero.trackerCountdown+3000 - timeControler.getTime())/1000).toFixed(1)) > 0) {
+        document.getElementById("gameAbilityOne").innerHTML = ((hero.trackerCountdown+3000 - timeControler.getTime())/1000).toFixed(1);
         //console.log("Ready in: " + ((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
     }
     else {

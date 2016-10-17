@@ -21,7 +21,7 @@ function drawRotatedArrow(image,x,y,angle) {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle * TO_RADIANS);
-    ctx.drawImage(image, -(image.width/1), -(image.height/1),60,60);
+    ctx.drawImage(image, -(image.width/2), -(image.height/2),100,100);
     ctx.restore();
 }
 
