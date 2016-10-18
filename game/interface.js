@@ -349,7 +349,7 @@ function useMedkit(hero) {
 
 function GuidePlayerToObjective(missionArray,hero,image,gameVariables) {
     //console.log(hero.trackerCountdown+30000 + "  " + gameVariables.timeControler.getTime());
-    if(missionArray[hero.currentMission][0].type === "find" && hero.trackerCountdown+3000 < gameVariables.timeControler.getTime()) {
+    if(missionArray[hero.currentMission][0].type === "find" && hero.trackerCountdown+15000 < gameVariables.timeControler.getTime()) {
         hero.trackerActivated = 1;
         hero.trackerActivatedTime = gameVariables.timeControler.getTime();
     }
@@ -363,7 +363,7 @@ function showArrowToMission(missionArray,image,hero,timeControler) {
 	ctx.strokeStyle = 'rgba(255,230,87,0.7)';
 	ctx.arc(missionArray[hero.currentMission][0].x,missionArray[hero.currentMission][0].y,5,0,2*Math.PI);
 	ctx.stroke();
-    console.log(missionArray[hero.currentMission][0].x + ", " + missionArray[hero.currentMission][0].y);
+    //console.log(missionArray[hero.currentMission][0].x + ", " + missionArray[hero.currentMission][0].y);
     if(hero.trackerFadeInit <= 0.8 && hero.trackerFadeInit >= 0.02 && hero.trackerMaxFadeReached === 0) {
       hero.trackerFadeInit = hero.trackerFadeInit + 0.02;
     }
@@ -418,12 +418,12 @@ function showMissionInPlay(hero,missionArray) {
 
 function showMissionTrackerCooldown(hero,timeControler) {
     //console.log(((hero.trackerCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
-    if((((hero.trackerCountdown+3000 - timeControler.getTime())/1000).toFixed(1)) <= 0) {
+    if((((hero.trackerCountdown+15000 - timeControler.getTime())/1000).toFixed(1)) <= 0) {
         document.getElementById("gameAbilityOne").innerHTML = "";
         //console.log("ready");
     }
-    else if((((hero.trackerCountdown+3000 - timeControler.getTime())/1000).toFixed(1)) > 0) {
-        document.getElementById("gameAbilityOne").innerHTML = ((hero.trackerCountdown+3000 - timeControler.getTime())/1000).toFixed(1);
+    else if((((hero.trackerCountdown+15000 - timeControler.getTime())/1000).toFixed(1)) > 0) {
+        document.getElementById("gameAbilityOne").innerHTML = ((hero.trackerCountdown+15000 - timeControler.getTime())/1000).toFixed(1);
         //console.log("Ready in: " + ((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
     }
     else {

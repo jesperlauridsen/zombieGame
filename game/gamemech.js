@@ -390,6 +390,7 @@ function playgame() {
 
 	// Update game objects
 	var update = function () {
+        validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay);
 		if(hero.death === 0) {
 		gameVariables.timeControler = new Date();
 		if(hero.angle > 360) {
@@ -470,7 +471,6 @@ function playgame() {
                     newPositionBackward(missionArray[u][0],hero);
                 }
             }
-            console.log("-------------");
 			for(h=0;h<gameArrays.numberOfLampsOnScreen.length;h++) {
 				newPositionBackward(gameArrays.numberOfLampsOnScreen[h],hero);
 				newPositionBackwardShadow(gameArrays.numberOfLampsOnScreen[h],hero);
