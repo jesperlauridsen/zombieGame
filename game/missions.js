@@ -93,7 +93,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 			}
 		}
 		else if(missionArray[hero.currentMission][h].type === "find") {
-            //console.log(missionArray[hero.currentMission][h].indexX + "," + missionArray[hero.currentMission][h].indexY + " -- " + gameDisplay.indexX + "," + gameDisplay.indexY);
+            console.log(missionArray[hero.currentMission][h].indexX + "," + missionArray[hero.currentMission][h].indexY + " -- " + gameDisplay.indexX + "," + gameDisplay.indexY);
 			if(missionArray[hero.currentMission][h].indexX === gameDisplay.indexX && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";

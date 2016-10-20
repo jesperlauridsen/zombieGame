@@ -166,6 +166,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		gameDisplay.indexX = gameDisplay.indexX + 1;
 		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray);
 	}
+    console.log(gameDisplay.indexX + "," + gameDisplay.indexY);
 }
 
 function addLampToScreenArrayVersion2(indexXX,indexYY,startPointX,startPointY,radius,numberOfLampsOnScreen) {
