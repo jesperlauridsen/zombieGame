@@ -398,26 +398,28 @@ function showMissionInPlay(hero,missionArray) {
 	//data[i]['action'][0]['text']
 	//console.log(missionArray[hero.currentMission].length + " | number of objectives");
 	for(h=0;h<missionArray[hero.currentMission].length;h++) {
-		if(missionArray[hero.currentMission][h].type === "get") {
-		document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "'  class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "<span class='amountDisplay'> " + missionArray[hero.currentMission][h].gathered + "/" + missionArray[hero.currentMission][h].amount + "</span></span></li>";
-		}
-		else if(missionArray[hero.currentMission][h].type === "find") {
-		document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" +missionArray[hero.currentMission][h].statement + "</span></li>";
-		}
-		else if(missionArray[hero.currentMission][h].type === "kill") {
-		document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "<span class='amountDisplay'> " + missionArray[hero.currentMission][h].gathered + "/" + missionArray[hero.currentMission][h].amount + "</span></span></li>";
-		}
-		else if(missionArray[hero.currentMission][h].type === "interact") {
-		document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "</span></li>";
-		}
-		else if(missionArray[hero.currentMission][h].type === "win") {
-		document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "</span></li>";
-		}
-        else {
-        }
         if(missionArray[hero.currentMission][h].completed === "yes") {
             document.getElementById('missionContentSpan' + h).style.color = "rgba(255,0,255,1)";
             console.log("ayy");
+        }
+            else {
+            if(missionArray[hero.currentMission][h].type === "get") {
+                document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "'  class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "<span class='amountDisplay'> " + missionArray[hero.currentMission][h].gathered + "/" + missionArray[hero.currentMission][h].amount + "</span></span></li>";
+            }
+            else if(missionArray[hero.currentMission][h].type === "find") {
+                document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" +missionArray[hero.currentMission][h].statement + "</span></li>";
+            }
+            else if(missionArray[hero.currentMission][h].type === "kill") {
+                document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "<span class='amountDisplay'> " + missionArray[hero.currentMission][h].gathered + "/" + missionArray[hero.currentMission][h].amount + "</span></span></li>";
+            }
+            else if(missionArray[hero.currentMission][h].type === "interact") {
+                document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "</span></li>";
+            }
+            else if(missionArray[hero.currentMission][h].type === "win") {
+                document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "</span></li>";
+            }
+                else {
+            }
         }
 	}
 }

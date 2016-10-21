@@ -76,13 +76,13 @@ function initiateMissions(missionArray,environmentalPoints) {
 	missionArray[11][0].indexY = environmentalPoints.zombiePlayground.indexY;
     missionArray[11][0].x = environmentalPoints.zombiePlayground.x;
 	missionArray[11][0].y = environmentalPoints.zombiePlayground.y;
-    console.log(missionArray[0][0].indexX + "," + missionArray[0][0].indexX)
+    console.log(missionArray[0][0].indexX + "," + missionArray[0][0].indexY)
 }
 
 function validateMission(missionArray,hero,timeControler,gameDisplay) {
 	var missionCompleted = false;
 	for(h=0;h<missionArray[hero.currentMission].length;h++) {
-		if(missionArray[hero.currentMission][h].type === "get") {
+		if(missionArray[hero.currentMission][h].type === "get" && missionArray[hero.currentMission][h].func === "primary") {
 			if(missionArray[hero.currentMission][h].gathered >= missionArray[hero.currentMission][h].amount) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
@@ -92,9 +92,10 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 				missionCompleted = false;
 			}
 		}
-		else if(missionArray[hero.currentMission][h].type === "find") {
+		else if(missionArray[hero.currentMission][h].type === "find" && missionArray[hero.currentMission][h].func === "primary") {
             console.log(missionArray[hero.currentMission][h].indexX + "," + missionArray[hero.currentMission][h].indexY + " -- " + gameDisplay.indexX + "," + gameDisplay.indexY);
 			if(missionArray[hero.currentMission][h].indexX === gameDisplay.indexX && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY) {
+                console.log("completed!")
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
                 missionCompleted = true;
@@ -103,7 +104,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 				missionCompleted = false;
 			}
 		}
-		else if(missionArray[hero.currentMission][h].type === "kill") {
+		else if(missionArray[hero.currentMission][h].type === "kill" && missionArray[hero.currentMission][h].func === "primary") {
 			if(missionArray[hero.currentMission][h].gathered >= missionArray[hero.currentMission][h].amount) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
@@ -113,7 +114,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 				missionCompleted = false;
 			}
 		}
-		else if(missionArray[hero.currentMission][h].type === "interact") {
+		else if(missionArray[hero.currentMission][h].type === "interact" && missionArray[hero.currentMission][h].func === "primary") {
 			if(missionArray[hero.currentMission][h].interacted === 1) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
@@ -123,7 +124,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 				missionCompleted = false;
 			}
 		}
-		else if(missionArray[hero.currentMission][h].type === "win") {
+		else if(missionArray[hero.currentMission][h].type === "win" && missionArray[hero.currentMission][h].func === "primary") {
 			if(missionArray[hero.currentMission][h].won === "yes") {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
