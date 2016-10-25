@@ -1,4 +1,4 @@
-function initiateMissions(missionArray,environmentalPoints) {
+function initiateMissions(missionArray,environmentalPoints,objectArray,survivorImage) {
     var missionDistance = 2000; // +500 each loop variable
 	var missionQuads = [0,120,240,270,120,240]; //120 variable
     var randomAngle = "";
@@ -46,6 +46,11 @@ function initiateMissions(missionArray,environmentalPoints) {
     missionArray[1][0].x = environmentalPoints.cityPosition.x;
 	missionArray[1][0].y = environmentalPoints.cityPosition.y;
 
+    missionArray[2][0].indexX = environmentalPoints.cityPosition.indexX;
+	missionArray[2][0].indexY = environmentalPoints.cityPosition.indexY;
+    missionArray[2][0].x = environmentalPoints.cityPosition.x;
+	missionArray[2][0].y = environmentalPoints.cityPosition.y;
+
 	missionArray[3][0].indexX = environmentalPoints.basecampPosition.indexX;
 	missionArray[3][0].indexY = environmentalPoints.basecampPosition.indexY;
     missionArray[3][0].x = environmentalPoints.basecampPosition.x;
@@ -76,7 +81,16 @@ function initiateMissions(missionArray,environmentalPoints) {
 	missionArray[11][0].indexY = environmentalPoints.zombiePlayground.indexY;
     missionArray[11][0].x = environmentalPoints.zombiePlayground.x;
 	missionArray[11][0].y = environmentalPoints.zombiePlayground.y;
-    console.log(missionArray[0][0].indexX + "," + missionArray[0][0].indexY)
+    //console.log(missionArray[3][0].x + "," + missionArray[3][0].y);
+    var survivor = {
+        name:"survivor",
+        x:missionArray[2][0].x,
+        y:missionArray[2][0].y,
+        image: survivorImage,
+    }
+    objectArray.push(survivor);
+    console.log(objectArray);
+    console.log(missionArray);
 }
 
 function validateMission(missionArray,hero,timeControler,gameDisplay) {
@@ -93,7 +107,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 			}
 		}
 		else if(missionArray[hero.currentMission][h].type === "find" && missionArray[hero.currentMission][h].func === "primary") {
-            console.log(missionArray[hero.currentMission][h].indexX + "," + missionArray[hero.currentMission][h].indexY + " -- " + gameDisplay.indexX + "," + gameDisplay.indexY);
+            //console.log(missionArray[hero.currentMission][h].indexX + "," + missionArray[hero.currentMission][h].indexY + " -- " + gameDisplay.indexX + "," + gameDisplay.indexY);
 			if(missionArray[hero.currentMission][h].indexX === gameDisplay.indexX && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY) {
                 console.log("completed!")
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();

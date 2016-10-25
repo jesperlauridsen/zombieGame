@@ -14,7 +14,7 @@ var TO_RADIANS = Math.PI/180;
 
 function playgame() {
 	//set interface buttons
-	document.getElementById('restartGameFromStats').onclick=function(){reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints);};
+	document.getElementById('restartGameFromStats').onclick=function(){reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage);};
 	document.getElementById('weaponMachete').onclick=function(){selectWeapon('machete',hero);};
 	document.getElementById('weaponPistol').onclick=function(){selectWeapon('pistol',hero);};
 	document.getElementById('weaponShotgun').onclick=function(){selectWeapon('shotgun',hero);};
@@ -154,12 +154,12 @@ function playgame() {
 		//1: Get Radio schematic & find the city.
 		mission = [
 			objective = {completionTime:0,func:"primary",type:"find",name:"City of Valisburg",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the city.",message:"Your first objective is to get to the city of Valisburg, and see if you can find any survivors who can tell us what the hell happend!",completion:"So, you found the city, soldier!"},
-			objective = {completionTime:0,func:"secondary",type:"get",item:"Schematic: Radio",amount:1,gathered:0,completed:"no",statement:"Build a radio.",message:"Our engineers fixed together a schematic for a low-end radio - See if you can find the materials required, so you can communicate with the base on radio - otherwise you have to run back here to report back!",completion:"*Rrrrrrr* Come in, soldier. Well done, now we can communicate over radio. Now get back to work on your primary objectives. Over."}
+			//objective = {completionTime:0,func:"secondary",type:"get",item:"Schematic: Radio",amount:1,gathered:0,completed:"no",statement:"Build a radio.",message:"Our engineers fixed together a schematic for a low-end radio - See if you can find the materials required, so you can communicate with the base on radio - otherwise you have to run back here to report back!",completion:"*Rrrrrrr* Come in, soldier. Well done, now we can communicate over radio. Now get back to work on your primary objectives. Over."}
 		],
 		//2: Kill 50 zombies & find survivor.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:50,gathered:0,completed:"no",statement:"Kill 50 zombies.",message:"Looks like the city has been infected allright. Get to sorting it out, soldier!",completion:"Well done, that should make it possible to start rebuilding here"},
-			objective = {completionTime:0,func:"primary",type:"interact",interacted:0,name:"Survivor",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find and talk to the survivor.",message:"Also, look for any survivors who might know what the hell happend here, and report back what they have to tell. Move out!",completion:"You're not infected?! You must get out of there. That madman scientist Albert Nokovic released a toxin that turned everyone into zombies. It's horrible!"}
+            objective = {completionTime:0,func:"primary",type:"interact",interacted:0,name:"Survivor",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find and talk to the survivor.",message:"Also, look for any survivors who might know what the hell happend here, and report back what they have to tell. Move out!",completion:"You're not infected?! You must get out of there. That madman scientist Albert Nokovic released a toxin that turned everyone into zombies. It's horrible!"},
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:50,gathered:0,completed:"no",statement:"Kill 50 zombies.",message:"Looks like the city has been infected allright. Get to sorting it out, soldier!",completion:"Well done, that should make it possible to start rebuilding here"}
 		],
 		//3: Back go base to tell story.
 		mission = [
@@ -306,6 +306,14 @@ function playgame() {
 	heroImage.src = heroArray[y];
 	}
 
+    //survivorImage
+    var survivorReady = false;
+	var survivorImage = new Image();
+	survivorImage.onload = function () {
+		survivorReady = true;
+	};
+	survivorImage.src = "graphics/star-green.png";
+
 	//drop images
 	var objectImageArray = [];
 	for(h=0;h<drops.length;h++) {
@@ -419,7 +427,7 @@ function playgame() {
 				newPositionForward(gameArrays.thrownGranadeArray[n],hero);
 			}
             for(u=0;u<missionArray.length;u++) {
-                if(missionArray[u][0].type === "find") {
+                if(missionArray[u][0].type === "find" || missionArray[u][0].type === "interact") {
                     newPositionForward(missionArray[u][0],hero);
                 }
             }
@@ -467,7 +475,7 @@ function playgame() {
 				newPositionBackward(gameArrays.thrownGranadeArray[n],hero);
 			}
             for(u=0;u<missionArray.length;u++) {
-                if(missionArray[u][0].type === "find") {
+                if(missionArray[u][0].type === "find" || missionArray[u][0].type === "interact") {
                     newPositionBackward(missionArray[u][0],hero);
                 }
             }
@@ -716,7 +724,16 @@ function playgame() {
 				//console.log(gameArrays.objectArray[v].name + " " + gameArrays.objectArray[v].itemType + " " + gameArrays.objectArray[v].imageSource);
 				//console.log(hero[gameArrays.objectArray[v].imageSource]);
 				//console.log("---");
-				if(gameArrays.objectArray[v].name === "Handgun rounds") {
+                if(gameArrays.objectArray[v].name === "survivor") {
+                    if(hero.currentMission === 2 && missionArray[2][0].completed === "no") {
+                        console.log("And you completed mission 2 first step. Now go kill zombies!");
+                        missionArray[2][0].completed = "yes";
+                        missionArray[2][0].completionTime === gameVariables.timeControler.getTime();
+                        hero.missionPresented = 0;
+                        console.log(hero.currentMission + " " + hero.missionProgress);
+                    }
+                }
+				else if(gameArrays.objectArray[v].name === "Handgun rounds") {
 					hero.gunshots = hero.gunshots + parseInt(gameArrays.objectArray[v].amount);
 					gameArrays.objectArray.splice(v,1);
 				}
@@ -820,7 +837,7 @@ function playgame() {
 					else {
 						//console.log("hit!");
                         //Hero losing health!
-						hero.health = hero.health - gameArrays.monsterArray[b].damage;
+						//hero.health = hero.health - gameArrays.monsterArray[b].damage;
 					}
 					gameArrays.monsterArray[b].attackIni = 0;
 				}
@@ -1107,10 +1124,13 @@ function playgame() {
 				}
 			}
 		}
+        //console.log(hero.currentMission + " = " + hero.missionProgress + " | " + hero.missionPresented);
 		if(hero.currentMission == hero.missionProgress && hero.missionPresented === 0) {
+        console.log("I AM DOING IT DAMNIT!");
 		showMissionInPlay(hero,missionArray);
 		hero.missionPresented = 1;
 		}
+        document.getElementById("testbutton").innerHTML = "X: " + gameDisplay.x + ",Y:" + gameDisplay.y + "<br /> index X:" + gameDisplay.indexX + ",Y:" + gameDisplay.indexY;
 };
 // The main game loop
 var main = function () {
@@ -1128,6 +1148,6 @@ var main = function () {
 
 // Let's play this game!
 var then = Date.now();
-reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints);
+reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage);
 main();
 }

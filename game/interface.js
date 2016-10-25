@@ -349,14 +349,15 @@ function useMedkit(hero) {
 
 function GuidePlayerToObjective(missionArray,hero,image,gameVariables) {
     //console.log(hero.trackerCountdown+30000 + "  " + gameVariables.timeControler.getTime());
-    if(missionArray[hero.currentMission][0].type === "find" && hero.trackerCountdown+15000 < gameVariables.timeControler.getTime()) {
+    if(missionArray[hero.currentMission][0].type === "find" && hero.trackerCountdown+15000 < gameVariables.timeControler.getTime()  || missionArray[hero.currentMission][0].type === "interact"  && hero.trackerCountdown+15000 < gameVariables.timeControler.getTime()) {
         hero.trackerActivated = 1;
         hero.trackerActivatedTime = gameVariables.timeControler.getTime();
     }
 }
 
 function showArrowToMission(missionArray,image,hero,timeControler) {
-    if(hero.trackerActivatedTime+3500 > timeControler.getTime() && missionArray[hero.currentMission][0].type === "find") {
+    if(hero.trackerActivatedTime+3500 > timeControler.getTime() && missionArray[hero.currentMission][0].type === "find" || missionArray[hero.currentMission][0].type === "interact" && hero.trackerActivatedTime+3500 > timeControler.getTime()) {
+    //console.log(missionArray[hero.currentMission][0].x + "," + missionArray[hero.currentMission][0].y)
 	var angle = Math.atan2(missionArray[hero.currentMission][0].y - 300, missionArray[hero.currentMission][0].x - 400) * 180 / Math.PI + 90;
 	ctx.beginPath();
 	ctx.lineWidth = 3;
@@ -391,6 +392,7 @@ function showArrowToMission(missionArray,image,hero,timeControler) {
 }
 
 function showMissionInPlay(hero,missionArray) {
+    console.log("REPRESENT!");
 	var missionNumber = parseFloat(hero.currentMission) + 1;
 	document.getElementById("missionProgressContainer").innerHTML = "<h4>Mission " + missionNumber + "</h4>";
 	//console.log(hero.currentMission + " | mission number");
@@ -398,11 +400,6 @@ function showMissionInPlay(hero,missionArray) {
 	//data[i]['action'][0]['text']
 	//console.log(missionArray[hero.currentMission].length + " | number of objectives");
 	for(h=0;h<missionArray[hero.currentMission].length;h++) {
-        if(missionArray[hero.currentMission][h].completed === "yes") {
-            document.getElementById('missionContentSpan' + h).style.color = "rgba(255,0,255,1)";
-            console.log("ayy");
-        }
-            else {
             if(missionArray[hero.currentMission][h].type === "get") {
                 document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "'  class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "<span class='amountDisplay'> " + missionArray[hero.currentMission][h].gathered + "/" + missionArray[hero.currentMission][h].amount + "</span></span></li>";
             }
@@ -420,7 +417,12 @@ function showMissionInPlay(hero,missionArray) {
             }
                 else {
             }
-        }
+            if(missionArray[hero.currentMission][h].completed === "yes") {
+            console.log("YEA");
+            document.getElementById("missionContentSpan" + h).style.textDecoration = "line-through";
+            }
+            else {
+            }
 	}
 }
 
@@ -478,7 +480,7 @@ function recountAntidote(hero) {
 	document.getElementById("utilitiesAntidote").innerHTML = hero.antidote;
 }
 
-function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints) {
+function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage) {
 	for(y=0;y<drops.length;y++) {
 		if(drops[y].itemType === "mat") {
 			inventory[drops[y].imgName] = {"amount":0, "name":drops[y].name,"constructor":drops[y].imgName};
@@ -525,7 +527,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	gameVariables.numberOfDrops = 0;
 	gameVariables.pickUp = 0;
 	newPickUpsDisplayed(gameVariables);
-	initiateMissions(missionArray,environmentalPoints);
+	initiateMissions(missionArray,environmentalPoints,gameArrays.objectArray,survivorImage);
 	gameVariables.isPressed = 0;
 	gameVariables.timeStamp = new Date();
 	gameVariables.timeStart = new Date();
