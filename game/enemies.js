@@ -95,9 +95,6 @@ function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,cat
 	//console.log(monster.x + "," + monster.y + " | " + xStart + "," + yStart);
 }
 
-function monsterDeathCountForMission(monster,hero,missionArray) {
-}
-
 function monsterDrop(monster, drops, objectArray, gameVariables) {
 	for(y=0;y<monster.drop;y++) {
 		var randomAngle = (Math.round(Math.random() * 360 + 0));

@@ -141,8 +141,8 @@ function playgame() {
 		pulseTransmitterCountdown:0,
 		pulseTransmitterCounter:4,
 		reloadDelay:0,
-		missionProgress:0,
-		currentMission:0,
+		missionProgress:2,
+		currentMission:2,
 		missionPresented:0
 	};
 
@@ -159,7 +159,7 @@ function playgame() {
 		//2: Kill 50 zombies & find survivor.
 		mission = [
             objective = {completionTime:0,func:"primary",type:"interact",interacted:0,name:"Survivor",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find and talk to the survivor.",message:"Also, look for any survivors who might know what the hell happend here, and report back what they have to tell. Move out!",completion:"You're not infected?! You must get out of there. That madman scientist Albert Nokovic released a toxin that turned everyone into zombies. It's horrible!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:50,gathered:0,completed:"no",statement:"Kill 50 zombies.",message:"Looks like the city has been infected allright. Get to sorting it out, soldier!",completion:"Well done, that should make it possible to start rebuilding here"}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:50,gathered:49,completed:"no",statement:"Kill 50 zombies.",message:"Looks like the city has been infected allright. Get to sorting it out, soldier!",completion:"Well done, that should make it possible to start rebuilding here"}
 		],
 		//3: Back go base to tell story.
 		mission = [
@@ -205,7 +205,7 @@ function playgame() {
 		],
 		//12: Kill master monster!
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie boss",amount:1,gathered:0,completed:"no",statement:"Kill the zombie boss.",message:"Kill their leader, fast! Before too many of his zombie-servants get to you!",completion:"You did it!"}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie boss",amount:1,gathered:0,completed:"no",statement:"Kill the zombie boss.",message:"Kill their leader, fast! Before too many of his zombie-servants get to you!",completion:"You did it! You bloddy did it! Excellent job, soldier!"}
 		],
 		//13: Yay, you saved the world! Party the night away!
 		mission = [
@@ -398,7 +398,6 @@ function playgame() {
 
 	// Update game objects
 	var update = function () {
-        validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay);
 		if(hero.death === 0) {
 		gameVariables.timeControler = new Date();
 		if(hero.angle > 360) {
@@ -687,7 +686,7 @@ function playgame() {
 						monsterDrop(gameArrays.monsterArray[l],drops, gameArrays.objectArray,gameVariables);
 						gameArrays.archivedMonsterArray.push(gameArrays.monsterArray[l]);
 						//Check mission state && check zombie number - if mission is exact - add to the total killed
-						monsterDeathCountForMission(gameArrays.monsterArray[l],hero,missionArray);
+                        missionKillCounter(missionArray,gameArrays.monsterArray[l],hero);
 						//remove monster from active array.
 						gameArrays.monsterArray.splice(l,1);
 					}
@@ -728,6 +727,7 @@ function playgame() {
                     if(hero.currentMission === 2 && missionArray[2][0].completed === "no") {
                         console.log("And you completed mission 2 first step. Now go kill zombies!");
                         missionArray[2][0].completed = "yes";
+                        missionArray[2][0].interacted = 1;
                         missionArray[2][0].completionTime === gameVariables.timeControler.getTime();
                         hero.missionPresented = 0;
                         console.log(hero.currentMission + " " + hero.missionProgress);
@@ -851,6 +851,7 @@ function playgame() {
 			}
 		}
 		mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray);
+        validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay);
 		}
 		else {
 		}
@@ -1126,7 +1127,6 @@ function playgame() {
 		}
         //console.log(hero.currentMission + " = " + hero.missionProgress + " | " + hero.missionPresented);
 		if(hero.currentMission == hero.missionProgress && hero.missionPresented === 0) {
-        console.log("I AM DOING IT DAMNIT!");
 		showMissionInPlay(hero,missionArray);
 		hero.missionPresented = 1;
 		}

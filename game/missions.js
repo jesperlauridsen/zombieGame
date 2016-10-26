@@ -94,13 +94,15 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 }
 
 function validateMission(missionArray,hero,timeControler,gameDisplay) {
-	var missionCompleted = false;
+	var missionCompleted = undefined;
 	for(h=0;h<missionArray[hero.currentMission].length;h++) {
 		if(missionArray[hero.currentMission][h].type === "get" && missionArray[hero.currentMission][h].func === "primary") {
 			if(missionArray[hero.currentMission][h].gathered >= missionArray[hero.currentMission][h].amount) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
-                missionCompleted = true;
+                if(missionCompleted === undefined || missionCompleted === true) {
+                    missionCompleted = true;
+                }
 			}
 			else {
 				missionCompleted = false;
@@ -109,10 +111,12 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 		else if(missionArray[hero.currentMission][h].type === "find" && missionArray[hero.currentMission][h].func === "primary") {
             //console.log(missionArray[hero.currentMission][h].indexX + "," + missionArray[hero.currentMission][h].indexY + " -- " + gameDisplay.indexX + "," + gameDisplay.indexY);
 			if(missionArray[hero.currentMission][h].indexX === gameDisplay.indexX && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY) {
-                console.log("completed!")
+                console.log("completed!");
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
-                missionCompleted = true;
+                if(missionCompleted === undefined || missionCompleted === true) {
+                    missionCompleted = true;
+                }
 			}
 			else {
 				missionCompleted = false;
@@ -122,7 +126,9 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 			if(missionArray[hero.currentMission][h].gathered >= missionArray[hero.currentMission][h].amount) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
-                missionCompleted = true;
+                if(missionCompleted === undefined || missionCompleted === true) {
+                    missionCompleted = true;
+                }
 			}
 			else {
 				missionCompleted = false;
@@ -132,7 +138,9 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 			if(missionArray[hero.currentMission][h].interacted === 1) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
-                missionCompleted = true;
+                if(missionCompleted === undefined || missionCompleted === true) {
+                    missionCompleted = true;
+                }
 			}
 			else {
 				missionCompleted = false;
@@ -142,13 +150,16 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 			if(missionArray[hero.currentMission][h].won === "yes") {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
-                missionCompleted = true;
+                if(missionCompleted === undefined || missionCompleted === true) {
+                    missionCompleted = true;
+                }
 			}
 			else {
 				missionCompleted = false;
 			}
 		}
 	}
+    //console.log(missionCompleted);
     if(missionCompleted === true) {
         console.log("next mission!");
         if(hero.currentMission < 13);
@@ -156,5 +167,46 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
         hero.missionProgress = hero.missionProgress + 1;
         hero.missionPresented = 0;
         console.log(hero.currentMission);
+    }
+}
+
+function missionKillCounter(missionArray,monster,hero) {
+    if(hero.currentMission === 2) {
+        missionArray[2][1].gathered = missionArray[2][1].gathered + 1;
+        hero.missionPresented = 0;
+    }
+    else if(hero.currentMission === 6) {
+        if(monster.category === 1) {
+            missionArray[6][0].gathered = missionArray[6][0].gathered + 1;
+            hero.missionPresented = 0;
+        }
+        else if(monster.category === 2) {
+            missionArray[6][1].gathered = missionArray[6][1].gathered + 1;
+            hero.missionPresented = 0;
+        }
+        else if(monster.catagory === 3) {
+            missionArray[6][2].gathered = missionArray[6][2].gathered + 1;
+            hero.missionPresented = 0;
+        }
+        else {
+        }
+
+    }
+    else if(hero.currentMission === 8) {
+        missionArray[8][0].gathered = missionArray[0][0].gathered + 1;
+        hero.missionPresented = 0;
+
+    }
+    else if(hero.currentMission === 12) {
+        if(monster.category === 4) {
+            missionArray[12][0].gathered = missionArray[12][0].gathered + 1;
+            hero.missionPresented = 0;
+        }
+        else {
+
+        }
+    }
+    else {
+
     }
 }

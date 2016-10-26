@@ -392,7 +392,6 @@ function showArrowToMission(missionArray,image,hero,timeControler) {
 }
 
 function showMissionInPlay(hero,missionArray) {
-    console.log("REPRESENT!");
 	var missionNumber = parseFloat(hero.currentMission) + 1;
 	document.getElementById("missionProgressContainer").innerHTML = "<h4>Mission " + missionNumber + "</h4>";
 	//console.log(hero.currentMission + " | mission number");
@@ -407,7 +406,14 @@ function showMissionInPlay(hero,missionArray) {
                 document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" +missionArray[hero.currentMission][h].statement + "</span></li>";
             }
             else if(missionArray[hero.currentMission][h].type === "kill") {
-                document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "<span class='amountDisplay'> " + missionArray[hero.currentMission][h].gathered + "/" + missionArray[hero.currentMission][h].amount + "</span></span></li>";
+                var kills = "";
+                if(missionArray[hero.currentMission][h].gathered < missionArray[hero.currentMission][h].amount) {
+                    kills = missionArray[hero.currentMission][h].gathered;
+                }
+                else {
+                    kills = missionArray[hero.currentMission][h].amount;
+                }
+                document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "<span class='amountDisplay'> " + kills + "/" + missionArray[hero.currentMission][h].amount + "</span></span></li>";
             }
             else if(missionArray[hero.currentMission][h].type === "interact") {
                 document.getElementById("missionProgressContainer").innerHTML += "<li><span id='missionContentSpan" + h + "' class='missionContentSpan'>" + missionArray[hero.currentMission][h].statement + "</span></li>";

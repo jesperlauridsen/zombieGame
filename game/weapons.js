@@ -149,7 +149,7 @@ function pulseEmitter(monsterArray,hero,timeControler,j,archivedMonsterArray,mis
 						monsterArray[h].timeOfDeath = timeControler.getTime();
 						archivedMonsterArray.push(monsterArray[h]);
 						//Check mission state && check zombie number - if mission is exact - add to the total killed
-						monsterDeathCountForMission(monsterArray[h],hero,missionArray);
+                        missionKillCounter(missionArray,monsterArray[h],hero);
 						//remove monster from active array;
 						monsterArray.splice(h,1);
 					}
@@ -304,7 +304,7 @@ function thrownGranade(granade,timeControler,monsterArray, archivedMonsterArray,
 						monsterArray[i].timeOfDeath = timeControler.getTime();
 						archivedMonsterArray.push(monsterArray[i]);
 						//Check mission state && check zombie number - if mission is exact - add to the total killed
-						monsterDeathCountForMission(monsterArray[l],hero,missionArray);
+                        missionKillCounter(missionArray,monsterArray[i],hero);
 						//remove monster from active array;
 						monsterArray.splice(i,1);
 					}
