@@ -141,8 +141,8 @@ function playgame() {
 		pulseTransmitterCountdown:0,
 		pulseTransmitterCounter:4,
 		reloadDelay:0,
-		missionProgress:2,
-		currentMission:2,
+		missionProgress:4,
+		currentMission:4,
 		missionPresented:0
 	};
 
@@ -167,7 +167,7 @@ function playgame() {
 		],
 		//4: Collect 10 specimens from monsters.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"get",name:"Specimens",amount:10,gathered:0,completed:"no",statement:"Get 10 specimens from zombies.",message:"This doesn't look good, soldier. We need to find out what caused this - by getting some examples. Gather 10 specimens from the zombies, and bring them back to our researchers for testing.",completion:"Good job, soldier! Hopefully our scientists will be able to find out what the hell is going on!"}
+			objective = {completionTime:0,func:"primary",type:"get",name:"Specimens",amount:10,gathered:0,completed:"no",statement:"Get 10 brains from zombies.",message:"This doesn't look good, soldier. We need to find out what caused this - by getting some examples. Gather 10 non-smashed brains from the zombies, and bring them back to our researchers for testing.",completion:"Good job, soldier! Hopefully our scientists will be able to find out what the hell is going on!"}
 		],
 		//5: Find ground zero.
 		//IMPORTANT! Given a radio if they don't have one!
@@ -320,6 +320,8 @@ function playgame() {
 		objectImageArray[h] = new Image();
 		objectImageArray[h].src = "graphics/" + "star.png";//drops[h].imgName + ".png";
 	}
+    questItemImage = new Image();
+    questItemImage.src = "graphics/" + "star.png"; //questItem picture
 
 	//Treasure image
 	var treasureReady = false;
@@ -687,7 +689,12 @@ function playgame() {
 						gameArrays.archivedMonsterArray.push(gameArrays.monsterArray[l]);
 						//Check mission state && check zombie number - if mission is exact - add to the total killed
                         missionKillCounter(missionArray,gameArrays.monsterArray[l],hero);
+                        if(hero.currentMission === 4 && missionArray[4][0].gathered <= 10) {
+                            console.log("dropping!");
+                            monsterBrainDrop(gameArrays.objectArray,gameVariables,gameArrays.monsterArray[l],questItemImage);
+                        }
 						//remove monster from active array.
+                        console.log("removing");
 						gameArrays.monsterArray.splice(l,1);
 					}
 					if(gameArrays.bulletArray[i].firedFrom === 'machete') {
@@ -768,6 +775,22 @@ function playgame() {
 					schematics[gameArrays.objectArray[v].imageSource].obtained = 1; //parseInt(schematics[gameArrays.objectArray[v].imageSource].amount) + parseInt(gameArrays.objectArray[v].amount);
 					gameArrays.objectArray.splice(v,1);
 				}
+                else if(gameArrays.objectArray[v].itemType === "questItem") {
+                    console.log(hero.currentMission);
+                    console.log(missionArray[4][0].gathered + "/" + missionArray[4][0].amount + " fucks sake?");
+                    if(hero.currentMission === 4) {
+                        if(missionArray[4][0].gathered < missionArray[4][0].amount) {
+                            missionArray[4][0].gathered = missionArray[4][0].gathered + 1;
+                            hero.missionPresented = 0;
+                        }
+                        else {
+                        }
+                    }
+                   else if(hero.currentMission === 9) {
+
+                    }
+                    gameArrays.objectArray.splice(v,1);
+                }
 				else if(gameArrays.objectArray[v].itemType === "gun") {
 					if(hero[gameArrays.objectArray[v].imageSource] === 0) {
 						hero[gameArrays.objectArray[v].imageSource] = 1;
@@ -889,10 +912,18 @@ function playgame() {
 			else if(gameArrays.objectArray[i].itemType === 'schematic') {
 				ctx.fillStyle = 'rgba(0,102,255,1)';
 			}
+            else if(gameArrays.objectArray[i].itemType === 'questItem') {
+                ctx.fillStyle = 'rgba(255,255,255,1)';
+            }
 			//ctx.fillRect(gameArrays.objectArray[i].x,gameArrays.objectArray[i].y,15,15);
 			ctx.font = "bold 10px Lato";
 			ctx.fillText(gameArrays.objectArray[i].name,gameArrays.objectArray[i].x-gameArrays.objectArray[i].offset,gameArrays.objectArray[i].y-3);
-			ctx.drawImage(objectImageArray[i], gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+            if(gameArrays.objectArray[i].itemType === 'questItem') {
+                ctx.drawImage(questItemImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+            }
+            else {
+                ctx.drawImage(objectImageArray[i], gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+            }
 			//ctx.beginPath();
 			//ctx.arc(gameArrays.objectArray[i].x+14,gameArrays.objectArray[j].y+15,15,0,2*Math.PI); //Show the affected area (touchwise).
 			//ctx.fill();
@@ -931,6 +962,7 @@ function playgame() {
 				}
 			}
 		}
+        //Check up on thrown granades.
 		for(c=0;c<gameArrays.thrownGranadeArray.length;c++) {
 			if(gameArrays.thrownGranadeArray[c].hit != 0) {
 				damageHitOnHero(gameArrays.thrownGranadeArray[c],monsterHitImage,gameVariables.timeControler);

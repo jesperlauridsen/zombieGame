@@ -120,6 +120,32 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
 	}
 }
 
+function monsterBrainDrop(objectArray,gameVariables,monster,imgSource) {
+    console.log("checking drop");
+    if(Math.round(Math.random() * 100 + 0) > 66) {
+        console.log("confirmed drop");
+        var randomAngle = (Math.round(Math.random() * 360 + 0));
+		if(randomAngle > 360) {
+			 randomAngle = randomAngle - 360;
+		}
+        randomAngle = randomAngle * TO_RADIANS;
+        var dropObject = {
+            number:0,
+            name:"Non-smashed brain",
+            itemType:"questItem",
+            x: Math.round(monster.x + Math.cos(randomAngle) * 10),
+            y:Math.round(monster.y + Math.sin(randomAngle) * 10),
+            imageSource:imgSource,
+            amount:1,
+            offset:25,
+            dropTime:gameVariables.timeControler.getTime(),
+            pickUpTime:0,
+        };
+    objectArray.push(dropObject);
+    }
+    console.log("finished");
+}
+
 function monsterState(monster,hero,gameVariables) {
 	//console.log(monster.state);
 	if(monster.state == "idle") {
