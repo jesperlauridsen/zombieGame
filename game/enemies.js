@@ -1,4 +1,4 @@
-function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,category,monsterArray) {
+function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,category,monsterArray,state) {
 	var dropNumber = 0;
 	var randomNumber = 0;
 	if(category == 1) {
@@ -72,7 +72,7 @@ function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,cat
 		y: randomY,
 		speed: (Math.random() * 3 + 5),
 		angle:(Math.random() * 360 - 0),
-		state:"idle",
+		state:state,
 		category: category,
 		fullHealth:fullHealth,
 		health: health,
@@ -134,7 +134,7 @@ function monsterBrainDrop(objectArray,gameVariables,monster,imgSource) {
             name:"Non-smashed brain",
             itemType:"questItem",
             x: Math.round(monster.x + Math.cos(randomAngle) * 10),
-            y:Math.round(monster.y + Math.sin(randomAngle) * 10),
+            y: Math.round(monster.y + Math.sin(randomAngle) * 10),
             imageSource:imgSource,
             amount:1,
             offset:25,
@@ -219,11 +219,17 @@ function monsterState(monster,hero,gameVariables) {
 		else {
 		}
 	}
+    else if(monster.state == "desperate") {
+        monster.angle = ((Math.atan2(hero.y-10 - monster.y, hero.x-10 - monster.x) * 180 / Math.PI) - 90);
+		monster.angle = monster.angle + monster.offAngle;
+		monster.x -= (monster.speed/1.5) * Math.sin(monster.angle * TO_RADIANS);
+		monster.y += (monster.speed/1.5) * Math.cos(monster.angle * TO_RADIANS);
+    }
 }
 
 function monsterStateRevision(monster, hero) {
 	//document.getElementById("testdiv2").innerHTML = Math.sqrt((monster.x-400)*(monster.x-400) + (monster.y-300)*(monster.y-300)) + " " + monster.state + " " + monster.angle;
-	if(monster.state == "startled" || monster.state == "insane") {
+	if(monster.state == "startled" || monster.state == "insane" || monster.state == 'desperate') {
 	}
 	else {
 		if(hero.walking == '1') {

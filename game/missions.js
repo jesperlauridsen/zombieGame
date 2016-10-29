@@ -170,6 +170,53 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
     }
 }
 
+function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterArray) {
+    if(hero.currentMission === 6) {
+        //console.log(missionArray[5][0].completionTime + (missionArray[6][0].wave * 3000) + ">" + timeControler.getTime());
+        if(missionArray[5][0].completionTime + (missionArray[6][0].wave * 5000) < timeControler.getTime() && missionArray[6][0].wave < 7) {
+            //new wave
+            console.log("new wave of small zombies! (wave " + missionArray[6][0].wave + ")");
+            for(x=0;x<4;x++) {
+                var randomAngle = (Math.round(Math.random() * 360 + 0));
+                var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 900 + 600));
+                var  yPoint = Math.round(400 + Math.sin(randomAngle) * Math.round(Math.random() * 900 + 600));
+                spawnMonster(xPoint,yPoint,20,500,100,100,1,monsterArray,"desperate");
+                //console.log("spawned mob");
+            }
+            //spawnMonster(0,canvas.height,20,500,100,100,1,monsterArray,"idle");
+            //spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,category,monsterArray,state)
+            missionArray[6][0].wave = missionArray[6][0].wave + 1;
+        }
+        if(missionArray[5][0].completionTime + (missionArray[6][1].wave * 7000) < timeControler.getTime() && missionArray[6][1].wave < 4) {
+            //new wave
+            console.log("new wave of medium zombies! (wave " + missionArray[6][1].wave + ")");
+            for(x=0;x<2;x++) {
+                var randomAngle = (Math.round(Math.random() * 360 + 0));
+                var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 600));
+                var  yPoint = Math.round(400 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 600));
+                spawnMonster(xPoint,yPoint,35,1000,200,200,2,monsterArray,"desperate");
+                //console.log("spawned semileader");
+            }
+            missionArray[6][1].wave = missionArray[6][1].wave + 1;
+        }
+        if(missionArray[5][0].completionTime + (missionArray[6][2].wave * 12000) < timeControler.getTime() && missionArray[6][2].wave < 4) {
+            //new wave
+            console.log("new wave of large zombies! (wave " + missionArray[6][2].wave + ")");
+            for(x=0;x<1;x++) {
+                var randomAngle = (Math.round(Math.random() * 360 + 0));
+                var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1200 + 1000));
+                var  yPoint = Math.round(400 + Math.sin(randomAngle) * Math.round(Math.random() * 1200 + 1000));
+                spawnMonster(xPoint,yPoint,40,500,250,250,3,monsterArray,"desperate");
+                console.log("spawned leader");
+            }
+            missionArray[6][2].wave = missionArray[6][2].wave + 1;
+        }
+    }
+    if(hero.currentMission === 8) {
+
+    }
+}
+
 function missionKillCounter(missionArray,monster,hero) {
     if(hero.currentMission === 2) {
         missionArray[2][1].gathered = missionArray[2][1].gathered + 1;
@@ -184,7 +231,7 @@ function missionKillCounter(missionArray,monster,hero) {
             missionArray[6][1].gathered = missionArray[6][1].gathered + 1;
             hero.missionPresented = 0;
         }
-        else if(monster.catagory === 3) {
+        else if(monster.category === 3) {
             missionArray[6][2].gathered = missionArray[6][2].gathered + 1;
             hero.missionPresented = 0;
         }

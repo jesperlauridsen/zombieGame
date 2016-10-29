@@ -141,8 +141,8 @@ function playgame() {
 		pulseTransmitterCountdown:0,
 		pulseTransmitterCounter:4,
 		reloadDelay:0,
-		missionProgress:4,
-		currentMission:4,
+		missionProgress:5,
+		currentMission:5,
 		missionPresented:0
 	};
 
@@ -176,9 +176,9 @@ function playgame() {
 		],
 		//6: Ambushed - kill the attackers.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:25,gathered:0,completed:"no",statement:"Kill 25 zombies",message:"Survive the attacks!",completion:"Well done!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Super zombie",amount:6,gathered:0,completed:"no",statement:"Kill 6 super zombies",message:"Survive the attacks!",completion:"nice!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Master zombie",amount:3,gathered:0,completed:"no",statement:"Kill 3 master zombies",message:"Survive the attack",completion:"Excellent!"}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:25,gathered:0,completed:"no",wave:1,statement:"Kill 25 zombies",message:"Survive the attacks!",completion:"Well done!"},
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Super zombie",amount:6,gathered:0,completed:"no",wave:1,statement:"Kill 6 super zombies",message:"Survive the attacks!",completion:"nice!"},
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Master zombie",amount:3,gathered:0,completed:"no",wave:1,statement:"Kill 3 master zombies",message:"Survive the attack",completion:"Excellent!"}
 		],
 		//7: Back to base, its under attack.
 		mission = [
@@ -186,7 +186,7 @@ function playgame() {
 		],
 		//8: Repel attack
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"kill",amount:30,gathered:0,completed:"no",message:"Kill the intruders!",statement:"Repel the attack.",completion:"Good work soldier - they appeared shortly after you left!"},
+			objective = {completionTime:0,func:"primary",type:"kill",amount:30,gathered:0,completed:"no",wave:0,message:"Kill the intruders!",statement:"Repel the attack.",completion:"Good work soldier - they appeared shortly after you left!"},
 		],
 		//9: Antidote probably fixed - need stuff to test.
 		mission = [
@@ -656,7 +656,8 @@ function playgame() {
 			delete keysDown[73];
 			gameVariables.isPressed = 1;
 		}
-
+        //Check for monster spawwn missions
+        ambushMissionSpawn(hero,gameArrays.objectArray,gameVariables.timeControler,missionArray,gameArrays.monsterArray);
 		//Update all bullets still on screen or fired
 		for(i=0;i<gameArrays.bulletArray.length;i++) {
 			for(l=0;l<gameArrays.monsterArray.length;l++) {
@@ -694,7 +695,7 @@ function playgame() {
                             monsterBrainDrop(gameArrays.objectArray,gameVariables,gameArrays.monsterArray[l],questItemImage);
                         }
 						//remove monster from active array.
-                        console.log("removing");
+                        //console.log("removing");
 						gameArrays.monsterArray.splice(l,1);
 					}
 					if(gameArrays.bulletArray[i].firedFrom === 'machete') {

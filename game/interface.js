@@ -424,7 +424,7 @@ function showMissionInPlay(hero,missionArray) {
                 else {
             }
             if(missionArray[hero.currentMission][h].completed === "yes") {
-            console.log("YEA");
+            //console.log("YEA");
             document.getElementById("missionContentSpan" + h).style.textDecoration = "line-through";
             }
             else {

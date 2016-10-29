@@ -372,10 +372,10 @@ body {
 }
 
 #missionProgressContainer {
-    webkit-transition: all 0.1s linear;
-    -moz-transition: all 0.1s linear;
-    -o-transition: all 0.1s linear;
-    transition: all 0.1s linear;
+    webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all 0.5s linear;
     width: 230px;
     height: auto;
     padding:5px;

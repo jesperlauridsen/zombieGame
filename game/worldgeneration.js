@@ -5,49 +5,49 @@ function initialNineTileGameboard(numberOfLampsOnScreen, monsterArray) {
 	addLampToScreenArrayVersion2(0,-1,0,-canvas.height,300,numberOfLampsOnScreen);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
-		spawnMonster(0, -canvas.height,20,500,100,100,1,monsterArray);
+		spawnMonster(0, -canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//bottom
 	addLampToScreenArrayVersion2(0,1,0,canvas.height,300,numberOfLampsOnScreen);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
-		spawnMonster(0,canvas.height,20,500,100,100,1,monsterArray);
+		spawnMonster(0,canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//left
 	addLampToScreenArrayVersion2(-1,0,-canvas.width,0,300,numberOfLampsOnScreen);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
-		spawnMonster(-canvas.width,0,20,500,100,100,1,monsterArray);
+		spawnMonster(-canvas.width,0,20,500,100,100,1,monsterArray,"idle");
 	}
 	//right
 	addLampToScreenArrayVersion2(1,0,canvas.width,0,300,numberOfLampsOnScreen);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
-		spawnMonster(canvas.width,0,20,500,100,100,1,monsterArray);
+		spawnMonster(canvas.width,0,20,500,100,100,1,monsterArray,"idle");
 	}
 	//top right
 	addLampToScreenArrayVersion2(1,-1,canvas.width,-canvas.height,300,numberOfLampsOnScreen);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
-		spawnMonster(canvas.width,-canvas.height,20,500,100,100,1,monsterArray);
+		spawnMonster(canvas.width,-canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//top left
 	addLampToScreenArrayVersion2(-1,-1,-canvas.width,-canvas.height,300,numberOfLampsOnScreen);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
-		spawnMonster(-canvas.width,-canvas.height,20,500,100,100,1,monsterArray);
+		spawnMonster(-canvas.width,-canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//bottom right
 	addLampToScreenArrayVersion2(1,1,canvas.width,canvas.height,300,numberOfLampsOnScreen);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
-		spawnMonster(canvas.width,canvas.height,20,500,100,100,1,monsterArray);
+		spawnMonster(canvas.width,canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//bottom left
 	addLampToScreenArrayVersion2(-1,1,-canvas.width,canvas.height,300,numberOfLampsOnScreen);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
-		spawnMonster(-canvas.width,canvas.height,20,500,100,100,1,monsterArray);
+		spawnMonster(-canvas.width,canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 }
 
