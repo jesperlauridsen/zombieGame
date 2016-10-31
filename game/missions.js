@@ -1,5 +1,5 @@
 function initiateMissions(missionArray,environmentalPoints,objectArray,survivorImage) {
-    var missionDistance = 2000; // +500 each loop variable
+    var missionDistance = 1500; // +500 each loop variable
 	var missionQuads = [0,120,240,270,120,240]; //120 variable
     var randomAngle = "";
     var randomMissionDistance = "";
@@ -16,8 +16,14 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
         //Calculate points;
         //X = Math.round(Math.cos(angle * Math.PI / 180) * distance + x);
         //Y = Math.round(Math.sin(angle * Math.PI / 180) * distance + y);
-        missionPointX = Math.round(Math.cos(randomAngle * TO_RADIANS) * randomMissionDistance + 400);
-        missionPointY = Math.round(Math.sin(randomAngle * TO_RADIANS) * randomMissionDistance + 300);
+        missionPointX = Math.round(Math.cos(randomAngle * TO_RADIANS) * randomMissionDistance);
+        missionPointY = Math.round(Math.sin(randomAngle * TO_RADIANS) * randomMissionDistance);
+        missionPointX = Math.floor(missionPointX/800);
+        missionPointY = Math.floor(missionPointY/600);
+        console.log(missionPointX + "," + missionPointY);
+        missionPointX = missionPointX * 800 + 400;
+        missionPointY = missionPointY * 600 + 300;
+        console.log(missionPointX + "," + missionPointY);
         //console.log("Ny X = " + missionPointX + "| Ny Y = " + missionPointY);
         //ctx.beginPath();
         //ctx.moveTo(400, 300);
@@ -173,7 +179,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterArray) {
     if(hero.currentMission === 6) {
         //console.log(missionArray[5][0].completionTime + (missionArray[6][0].wave * 3000) + ">" + timeControler.getTime());
-        if(missionArray[5][0].completionTime + (missionArray[6][0].wave * 5000) < timeControler.getTime() && missionArray[6][0].wave < 7) {
+        if(missionArray[5][0].completionTime + (missionArray[6][0].wave * 7000) < timeControler.getTime() && missionArray[6][0].wave < 7) {
             //new wave
             console.log("new wave of small zombies! (wave " + missionArray[6][0].wave + ")");
             for(x=0;x<4;x++) {
@@ -187,7 +193,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
             //spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,category,monsterArray,state)
             missionArray[6][0].wave = missionArray[6][0].wave + 1;
         }
-        if(missionArray[5][0].completionTime + (missionArray[6][1].wave * 7000) < timeControler.getTime() && missionArray[6][1].wave < 4) {
+        if(missionArray[5][0].completionTime + (missionArray[6][1].wave * 12000) < timeControler.getTime() && missionArray[6][1].wave < 4) {
             //new wave
             console.log("new wave of medium zombies! (wave " + missionArray[6][1].wave + ")");
             for(x=0;x<2;x++) {
@@ -199,7 +205,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
             }
             missionArray[6][1].wave = missionArray[6][1].wave + 1;
         }
-        if(missionArray[5][0].completionTime + (missionArray[6][2].wave * 12000) < timeControler.getTime() && missionArray[6][2].wave < 4) {
+        if(missionArray[5][0].completionTime + (missionArray[6][2].wave * 17000) < timeControler.getTime() && missionArray[6][2].wave < 4) {
             //new wave
             console.log("new wave of large zombies! (wave " + missionArray[6][2].wave + ")");
             for(x=0;x<1;x++) {
@@ -213,6 +219,18 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
         }
     }
     if(hero.currentMission === 8) {
+       if(missionArray[7][0].completionTime + (missionArray[8][0].wave * 3000) < timeControler.getTime() && missionArray[8][0].wave < 8) {
+            //new wave
+            console.log("new wave of zombies to repel! (wave " + missionArray[8][0].wave + ")");
+            for(x=0;x<2;x++) {
+                var randomAngle = (Math.round(Math.random() * 360 + 0));
+                var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 900 + 600));
+                var  yPoint = Math.round(400 + Math.sin(randomAngle) * Math.round(Math.random() * 900 + 600));
+                spawnMonster(xPoint,yPoint,40,500,250,250,1,monsterArray,"desperate");
+                console.log("spawned leader");
+            }
+            missionArray[8][0].wave = missionArray[8][0].wave + 1;
+        }
 
     }
 }
@@ -240,7 +258,7 @@ function missionKillCounter(missionArray,monster,hero) {
 
     }
     else if(hero.currentMission === 8) {
-        missionArray[8][0].gathered = missionArray[0][0].gathered + 1;
+        missionArray[8][0].gathered = missionArray[8][0].gathered + 1;
         hero.missionPresented = 0;
 
     }

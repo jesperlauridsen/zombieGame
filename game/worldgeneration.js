@@ -3,7 +3,7 @@ function initialNineTileGameboard(numberOfLampsOnScreen, monsterArray) {
 	addLampToScreenArrayVersion2(0,0,0,0,300,numberOfLampsOnScreen);
 	//top
 	addLampToScreenArrayVersion2(0,-1,0,-canvas.height,300,numberOfLampsOnScreen);
-	randomStartNumber = Math.round(Math.random() * 1 + 2);
+	randomStartNumber = Math.round(Math.random() * 1 + 1);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(0, -canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
@@ -234,7 +234,7 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
 		addLampToScreenArrayVersion2(arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y, arrayOfNewAdditions[g].startPointX, arrayOfNewAdditions[g].startPointY,300,numberOfLampsOnScreen);
 		newEnvironment(arrayOfNewAdditions[g].startPointX, arrayOfNewAdditions[g].startPointY);
 		//Tilføj monstre indenfor det givne område!
-		var randomNumber = Math.round(Math.random() * 1 + 3);
+		var randomNumber = Math.round(Math.random() * 3 + 1);
 		for(x=0;x<randomNumber;x++) {
 			spawnMonster(arrayOfNewAdditions[g].startPointX, arrayOfNewAdditions[g].startPointY,20,500,100,100,1,monsterArray);
 		}
