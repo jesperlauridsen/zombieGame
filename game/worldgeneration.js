@@ -119,7 +119,7 @@ function initiateBackground(backgroundArray, backgroundObjectArray, backgroundIm
 	}
 }
 
-function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,gameDisplay,monsterArray) {
+function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,gameDisplay,monsterArray,objectArray) {
 	var newTile = 0;
 	if(backgroundObjectArray[8].y > canvas.height/2) {
 		//new tile upwards!
@@ -166,7 +166,12 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		gameDisplay.indexX = gameDisplay.indexX + 1;
 		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray);
 	}
+    tileEnvironmentSpawn(gameDisplay.indexX,gameDisplay.indexY,objectArray);
     //console.log(gameDisplay.indexX + "," + gameDisplay.indexY);
+}
+
+function tileEnvironmentSpawn(indexX,indexY,objectArray) {
+
 }
 
 function addLampToScreenArrayVersion2(indexXX,indexYY,startPointX,startPointY,radius,numberOfLampsOnScreen) {

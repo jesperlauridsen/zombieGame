@@ -114,16 +114,17 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
 			amount:drops[randomDrop].amount,
 			offset:drops[randomDrop].offset,
 			dropTime:gameVariables.timeControler.getTime(),
-			pickUpTime:0
+			pickUpTime:0,
+            solid:0
 		};
 		objectArray.push(dropObject);
 	}
 }
 
 function monsterBrainDrop(objectArray,gameVariables,monster,imgSource) {
-    console.log("checking drop");
+    //console.log("checking drop");
     if(Math.round(Math.random() * 100 + 0) > 66) {
-        console.log("confirmed drop");
+        //console.log("confirmed drop");
         var randomAngle = (Math.round(Math.random() * 360 + 0));
 		if(randomAngle > 360) {
 			 randomAngle = randomAngle - 360;
@@ -140,10 +141,11 @@ function monsterBrainDrop(objectArray,gameVariables,monster,imgSource) {
             offset:25,
             dropTime:gameVariables.timeControler.getTime(),
             pickUpTime:0,
+            solid:0
         };
     objectArray.push(dropObject);
     }
-    console.log("finished");
+    //console.log("finished");
 }
 
 function monsterState(monster,hero,gameVariables) {

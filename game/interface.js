@@ -486,7 +486,7 @@ function recountAntidote(hero) {
 	document.getElementById("utilitiesAntidote").innerHTML = hero.antidote;
 }
 
-function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage) {
+function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage) {
 	for(y=0;y<drops.length;y++) {
 		if(drops[y].itemType === "mat") {
 			inventory[drops[y].imgName] = {"amount":0, "name":drops[y].name,"constructor":drops[y].imgName};
@@ -533,7 +533,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	gameVariables.numberOfDrops = 0;
 	gameVariables.pickUp = 0;
 	newPickUpsDisplayed(gameVariables);
-	initiateMissions(missionArray,environmentalPoints,gameArrays.objectArray,survivorImage);
+	initiateMissions(missionArray,environmentalPoints,gameArrays.objectArray,survivorImage,gameVariables,elderweedImage,zombieExcrementImage,butterflyEggsImage);
 	gameVariables.isPressed = 0;
 	gameVariables.timeStamp = new Date();
 	gameVariables.timeStart = new Date();

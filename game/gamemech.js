@@ -14,7 +14,7 @@ var TO_RADIANS = Math.PI/180;
 
 function playgame() {
 	//set interface buttons
-	document.getElementById('restartGameFromStats').onclick=function(){reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage);};
+	document.getElementById('restartGameFromStats').onclick=function(){reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage);};
 	document.getElementById('weaponMachete').onclick=function(){selectWeapon('machete',hero);};
 	document.getElementById('weaponPistol').onclick=function(){selectWeapon('pistol',hero);};
 	document.getElementById('weaponShotgun').onclick=function(){selectWeapon('shotgun',hero);};
@@ -193,7 +193,7 @@ function playgame() {
 			objective = {completionTime:0,func:"primary",type:"find",name:"Forest",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the forest.",message:"Our scientists believe they've worked out a cure - they need you to go to the forest and get the following items!",completion:"Good work, soldier!"},
 			objective = {completionTime:0,func:"primary",type:"get",item:"Elderweed",amount:10,gathered:0,completed:"no",statement:"Gather 10 Elderweed.",message:"Find some elderweed",completion:"This should do."},
 			objective = {completionTime:0,func:"primary",type:"get",item:"Zombie excrement",amount:5,gathered:0,completed:"no",statement:"Gather 5 zombie excrement",message:"Find some zombie excrement *Ewww*",completion:"This should do... fine..."},
-			objective = {completionTime:0,func:"primary",type:"get",item:"Butterfly dust",amount:5,gathered:0,completed:"no",statement:"Gather 5 butterfly dust",message:"Fund some butterfly dust",completion:"Excellent, this is the stuff"}
+			objective = {completionTime:0,func:"primary",type:"get",item:"Butterfly eggs",amount:5,gathered:0,completed:"no",statement:"Gather 5 butterfly dust",message:"Fund some butterfly dust",completion:"Excellent, this is the stuff"}
 		],
 		//10: deliver to base.
 		mission = [
@@ -313,6 +313,30 @@ function playgame() {
 		survivorReady = true;
 	};
 	survivorImage.src = "graphics/star-green.png";
+
+    //questDrop Elderweed
+    var elderweedReady = false;
+	var elderweedImage = new Image();
+	elderweedImage.onload = function () {
+		elderweedReady = true;
+	};
+	elderweedImage.src = "graphics/star-green.png";
+
+    //questDrop ZombieExcrement
+    var zombieExcrementReady = false;
+	var zombieExcrementImage = new Image();
+	zombieExcrementImage.onload = function () {
+		zombieExcrementReady = true;
+	};
+	zombieExcrementImage.src = "graphics/star-green.png";
+
+    //questDrop ButterflyEggs
+    var butterflyEggsReady = false;
+	var butterflyEggsImage = new Image();
+	butterflyEggsImage.onload = function () {
+		butterflyEggsReady = true;
+	};
+	butterflyEggsImage.src = "graphics/star-green.png";
 
 	//drop images
 	var objectImageArray = [];
@@ -874,7 +898,7 @@ function playgame() {
 				gameArrays.monsterArray[b].attackIni = 0;
 			}
 		}
-		mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray);
+		mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray);
         validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay);
 		}
 		else {
@@ -1181,6 +1205,6 @@ var main = function () {
 
 // Let's play this game!
 var then = Date.now();
-reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage);
+reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage);
 main();
 }
