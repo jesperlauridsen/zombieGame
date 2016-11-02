@@ -104,17 +104,17 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
     var itemNames = ["Elderweed","Zombie excrement","Butterfly eggs"];
     var imageSrc = "";
     var questDropName = "";
-    for(y=0;y<=11;y++) {
+    for(y=0;y<=16;y++) {
         console.log(y);
-        if(y > 0 && y < 4) {
+        if(y >= 0 && y < 5) {
             questDropName = itemNames[0];
             imagSrc = elderweedImage;
         }
-        else if(y >= 4 && y < 8) {
+        else if(y >= 5 && y < 11) {
             questDropName = itemNames[1];
             imageSrc = zombieExcrementImage;
         }
-        else if(y >=8 && y < 12) {
+        else if(y >=11 && y < 17) {
             questDropName = itemNames[2];
             imageSrc = ButterflyEggsImage;
         }
@@ -122,8 +122,8 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
             number:0,
             name:questDropName,
             itemType:"questItem",
-            x:0,//Random
-            y:0,//Random
+            x:(Math.round(Math.random() * 2400 - 1) - 800) + (missionArray[9][0].indexX * 800),//Random
+            y:(Math.round(Math.random() * 1800 - 1) - 600) + (missionArray[9][0].indexY * 600),//Random
             imageSource:imageSrc,
             amount:1,
             offset:25,
@@ -131,6 +131,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
             pickUpTime:0,
             solid:0
         };
+        console.log("Drop [" + dropObject.name + "] at: " + dropObject.x + "," + dropObject.y);
         objectArray.push(dropObject);
         }
     console.log(objectArray);
@@ -153,6 +154,30 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 			}
 		}
 		else if(missionArray[hero.currentMission][h].type === "find" && missionArray[hero.currentMission][h].func === "primary") {
+            if(hero.currentMission === 9) {
+                if(missionArray[hero.currentMission][h].indexX === gameDisplay.indexX && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY ||
+                   missionArray[hero.currentMission][h].indexX === gameDisplay.indexX-1 && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY-1 ||
+                   missionArray[hero.currentMission][h].indexX === gameDisplay.indexX-1 && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY ||
+                   missionArray[hero.currentMission][h].indexX === gameDisplay.indexX-1 && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY+1 ||
+                   missionArray[hero.currentMission][h].indexX === gameDisplay.indexX && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY-1 ||
+                   missionArray[hero.currentMission][h].indexX === gameDisplay.indexX && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY+1 ||
+                   missionArray[hero.currentMission][h].indexX === gameDisplay.indexX+1 && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY-1 ||
+                   missionArray[hero.currentMission][h].indexX === gameDisplay.indexX+1 && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY ||
+                   missionArray[hero.currentMission][h].indexX === gameDisplay.indexX+1 && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY+1) {
+                //console.log("completed!");
+				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
+				missionArray[hero.currentMission][h].completed = "yes";
+                hero.missionPresented = 0;
+                if(missionCompleted === undefined || missionCompleted === true) {
+                    missionCompleted = true;
+                }
+			}
+			else {
+				missionCompleted = false;
+			}
+
+            }
+            else {
             //console.log(missionArray[hero.currentMission][h].indexX + "," + missionArray[hero.currentMission][h].indexY + " -- " + gameDisplay.indexX + "," + gameDisplay.indexY);
 			if(missionArray[hero.currentMission][h].indexX === gameDisplay.indexX && missionArray[hero.currentMission][h].indexY === gameDisplay.indexY) {
                 //console.log("completed!");
@@ -166,6 +191,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 			else {
 				missionCompleted = false;
 			}
+          }
 		}
 		else if(missionArray[hero.currentMission][h].type === "kill" && missionArray[hero.currentMission][h].func === "primary") {
 			if(missionArray[hero.currentMission][h].gathered >= missionArray[hero.currentMission][h].amount) {
@@ -268,7 +294,8 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
-                spawnMonster(xPoint,yPoint,40,500,250,250,1,monsterArray,"desperate");
+                // spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,category,monsterArray,state) {
+                spawnMonster(xPoint,yPoint,20,300,120,120,1,monsterArray,"desperate");
             }
             missionArray[8][0].wave = missionArray[8][0].wave + 1;
         }

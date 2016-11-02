@@ -141,8 +141,8 @@ function playgame() {
 		pulseTransmitterCountdown:0,
 		pulseTransmitterCounter:4,
 		reloadDelay:0,
-		missionProgress:7,
-		currentMission:7,
+		missionProgress:9,
+		currentMission:9,
 		missionPresented:0
 	};
 
@@ -191,9 +191,9 @@ function playgame() {
 		//9: Antidote probably fixed - need stuff to test.
 		mission = [
 			objective = {completionTime:0,func:"primary",type:"find",name:"Forest",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the forest.",message:"Our scientists believe they've worked out a cure - they need you to go to the forest and get the following items!",completion:"Good work, soldier!"},
-			objective = {completionTime:0,func:"primary",type:"get",item:"Elderweed",amount:10,gathered:0,completed:"no",statement:"Gather 10 Elderweed.",message:"Find some elderweed",completion:"This should do."},
+			objective = {completionTime:0,func:"primary",type:"get",item:"Elderweed",amount:3,gathered:0,completed:"no",statement:"Gather 3 Elderweed.",message:"Find some elderweed",completion:"This should do."},
 			objective = {completionTime:0,func:"primary",type:"get",item:"Zombie excrement",amount:5,gathered:0,completed:"no",statement:"Gather 5 zombie excrement",message:"Find some zombie excrement *Ewww*",completion:"This should do... fine..."},
-			objective = {completionTime:0,func:"primary",type:"get",item:"Butterfly eggs",amount:5,gathered:0,completed:"no",statement:"Gather 5 butterfly dust",message:"Fund some butterfly dust",completion:"Excellent, this is the stuff"}
+			objective = {completionTime:0,func:"primary",type:"get",item:"Butterfly eggs",amount:5,gathered:0,completed:"no",statement:"Gather 5 butterfly eggs",message:"Find some butterfly eggs",completion:"Excellent, this is the stuff"}
 		],
 		//10: deliver to base.
 		mission = [
@@ -801,8 +801,8 @@ function playgame() {
 					gameArrays.objectArray.splice(v,1);
 				}
                 else if(gameArrays.objectArray[v].itemType === "questItem") {
-                    console.log(hero.currentMission);
-                    console.log(missionArray[4][0].gathered + "/" + missionArray[4][0].amount + " fucks sake?");
+                    //console.log(hero.currentMission);
+                    //console.log(missionArray[4][0].gathered + "/" + missionArray[4][0].amount + " fucks sake?");
                     if(hero.currentMission === 4) {
                         if(missionArray[4][0].gathered < missionArray[4][0].amount) {
                             missionArray[4][0].gathered = missionArray[4][0].gathered + 1;
@@ -812,7 +812,22 @@ function playgame() {
                         }
                     }
                    else if(hero.currentMission === 9) {
+                       if(gameArrays.objectArray[v].name === "Elderweed" && missionArray[9][1].gathered < missionArray[9][1].amount) {
+                           missionArray[9][1].gathered = missionArray[9][1].gathered + 1;
+                       }
+                       else if(gameArrays.objectArray[v].name === "Zombie excrement" && missionArray[9][2].gathered < missionArray[9][2].amount) {
+                           missionArray[9][2].gathered = missionArray[9][2].gathered + 1;
 
+                       }
+                       else if(gameArrays.objectArray[v].name === "Butterfly eggs" && missionArray[9][3].gathered < missionArray[9][3].amount) {
+                           missionArray[9][3].gathered = missionArray[9][3].gathered + 1;
+
+                       }
+                       else {
+                           console.log("Nothing, soz?");
+                       }
+                       hero.missionPresented = 0;
+                       console.log("yea, here!");
                     }
                     gameArrays.objectArray.splice(v,1);
                 }

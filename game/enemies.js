@@ -224,8 +224,8 @@ function monsterState(monster,hero,gameVariables) {
     else if(monster.state == "desperate") {
         monster.angle = ((Math.atan2(hero.y-10 - monster.y, hero.x-10 - monster.x) * 180 / Math.PI) - 90);
 		monster.angle = monster.angle + monster.offAngle;
-		monster.x -= (monster.speed/1.5) * Math.sin(monster.angle * TO_RADIANS);
-		monster.y += (monster.speed/1.5) * Math.cos(monster.angle * TO_RADIANS);
+		monster.x -= (monster.speed/2) * Math.sin(monster.angle * TO_RADIANS);
+		monster.y += (monster.speed/2) * Math.cos(monster.angle * TO_RADIANS);
     }
 }
 
