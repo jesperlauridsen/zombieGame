@@ -141,8 +141,8 @@ function playgame() {
 		pulseTransmitterCountdown:0,
 		pulseTransmitterCounter:4,
 		reloadDelay:0,
-		missionProgress:9,
-		currentMission:9,
+		missionProgress:0,
+		currentMission:0,
 		missionPresented:0
 	};
 
