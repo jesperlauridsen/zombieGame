@@ -85,3 +85,27 @@ function activateHeatGoggles(hero) {
     else {
     }
 }
+
+function launchRocket(distance,angle,r,b,g,type,rocketArray) {
+    console.log("Launching a " + type + " rocket, with colors " + r + "," + b + "," + g + " with distance " + distance + " at angle " + angle);
+    var rocketObject = {
+        type: type,
+        distance: distance,
+        angle: angle,
+        red: r,
+        blue: b,
+        green: g,
+    };
+}
+
+function launchRandomRocket(rocketArray) {
+    var rocketType = ["regular","sphere"];
+    var randomRocket = (Math.round(Math.random() * 1 + 0));
+    var red = (Math.round(Math.random() * 255 + 0));
+    var blue = (Math.round(Math.random() * 255 + 0));
+    var randomAngle = (Math.round(Math.random() * 360 + 0));
+    var distance = (Math.round(Math.random() * 45 + 40));
+    randomAngle = randomAngle * TO_RADIANS;
+    var green = (Math.round(Math.random() * 255 + 0))
+    launchRocket(distance,randomAngle,red,blue,green,rocketType[randomRocket],rocketArray);
+}
