@@ -7,7 +7,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
     var missionPointY = "";
     var missionIndexX = "";
     var missionIndexY = "";
-    for(y=0;y<Object.keys(environmentalPoints).length-1;y++) {
+    for(y=0;y<Object.keys(environmentalPoints).length;y++) {
         var randomNumber = Math.round(Math.random() * (missionQuads.length-1) - 0 ) + 0;
         //console.log(randomNumber);
         //Math.floor(Math.random() * 6) + 1 ///////////// 1 is start number, 6 is number of options.

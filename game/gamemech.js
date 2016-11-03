@@ -25,7 +25,7 @@ function playgame() {
 	document.getElementById('utilitiesMedkit').onclick=function(){useMedkit(hero);};
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
-	document.getElementById('testbutton').onclick=function(){showPulseTransmitterCooldown(hero,gameVariables.timeControler);};
+	document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray);};
     //set specialAbilityButtons
     document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,arrowImage,gameVariables);};
     document.getElementById('gameAbilityTwo').onclick=function(){activateHeatGoggles(hero);};
@@ -49,6 +49,7 @@ function playgame() {
 		archivedMonsterArray:[],
 		archivedGranadeArray:[],
 		objectArray:[],
+        rocketArray:[]
 	};
 
 	var drops = [
