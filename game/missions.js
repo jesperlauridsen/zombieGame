@@ -41,7 +41,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
         environmentalPoints[name].indexY = missionIndexY;
         environmentalPoints[name].x = missionPointX;
         environmentalPoints[name].y = missionPointY;
-        missionDistance = missionDistance + 500;
+        missionDistance = missionDistance + 1000;
          }
 	//Index er Math.round(X/800)
 	//	   Math.round(Y/600)

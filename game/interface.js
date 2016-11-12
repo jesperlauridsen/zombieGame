@@ -212,6 +212,7 @@ function schematicsDisplay(inventory,schematics,hero) {
 	document.getElementById('notObtainedSchematics').innerHTML = "<p>Unobtained schematics:</p>";
 	for(u=0;u<Object.keys(schematics).length;u++) {
 		if(schematics[Object.keys(schematics)[u]].obtained === 0) {
+            console.log("nooooo, not working");
 			var schematicDiv = document.createElement('div');
 			var schematicName = schematics[Object.keys(schematics)[u]].constructor;
 			schematicDiv.id = schematicName;
@@ -220,6 +221,7 @@ function schematicsDisplay(inventory,schematics,hero) {
 			document.getElementById(schematicName).innerHTML = schematics[Object.keys(schematics)[u]].name;
 		}
 		else {
+            console.log("ayyy - fix it");
 			var schematicDiv = document.createElement('div');
 			var schematicName = schematics[Object.keys(schematics)[u]].constructor;
 			schematicDiv.id = schematicName;

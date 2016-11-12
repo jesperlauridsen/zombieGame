@@ -160,7 +160,7 @@ function playgame() {
 		//2: Kill 50 zombies & find survivor.
 		mission = [
             objective = {completionTime:0,func:"primary",type:"interact",interacted:0,name:"Survivor",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find and talk to the survivor.",message:"Also, look for any survivors who might know what the hell happend here, and report back what they have to tell. Move out!",completion:"You're not infected?! You must get out of there. That madman scientist Albert Nokovic released a toxin that turned everyone into zombies. It's horrible!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:50,gathered:49,completed:"no",statement:"Kill 50 zombies.",message:"Looks like the city has been infected allright. Get to sorting it out, soldier!",completion:"Well done, that should make it possible to start rebuilding here"}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:50,gathered:0,completed:"no",statement:"Kill 50 zombies.",message:"Looks like the city has been infected allright. Get to sorting it out, soldier!",completion:"Well done, that should make it possible to start rebuilding here"}
 		],
 		//3: Back go base to tell story.
 		mission = [
@@ -418,8 +418,8 @@ function playgame() {
 	granadeToPlayer(200,75, gameArrays.granadeArray);
 	granadeToPlayer(200,75, gameArrays.granadeArray);
 
-	initiateBackground(gameArrays.backgroundArray, gameArrays.backgroundObjectArray, backgroundImage);
-	initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray);
+	//initiateBackground(gameArrays.backgroundArray, gameArrays.backgroundObjectArray, backgroundImage);
+	//initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray);
 	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true;}, false);
 	addEventListener("keyup", function (e) {delete keysDown[e.keyCode]; if(hero.gun === 'pistol' || hero.gun === 'shotgun' || hero.gun === 'machete') {gameVariables.hasFired = 0;} else {gameVariables.isPressed = 0;}}, false);
 
@@ -430,7 +430,7 @@ function playgame() {
 		if(hero.angle > 360) {
 			hero.angle = 0;
 		}
-		else if(hero.angle <0) {
+		else if(hero.angle < 0) {
 			hero.angle = 360;
 		}
 		if (38 in keysDown) { // Player holding up - moving forward
@@ -914,7 +914,7 @@ function playgame() {
 				gameArrays.monsterArray[b].attackIni = 0;
 			}
 		}
-		mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray);
+		mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray);
         validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay);
 		}
 		else {
