@@ -488,7 +488,7 @@ function recountAntidote(hero) {
 	document.getElementById("utilitiesAntidote").innerHTML = hero.antidote;
 }
 
-function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage) {
+function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded) {
 	for(y=0;y<drops.length;y++) {
 		if(drops[y].itemType === "mat") {
 			inventory[drops[y].imgName] = {"amount":0, "name":drops[y].name,"constructor":drops[y].imgName};
@@ -560,7 +560,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	document.getElementById("gameStatistics").style.display = "none";
     document.getElementById("gameAbilityOverallContainer").style.display = "block";
 	initiateBackground(gameArrays.backgroundArray, gameArrays.backgroundObjectArray, backgroundImage);
-	initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray);
+	initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray,environmentImagesLoaded,gameArrays.environmentArray);
 	weaponAvailability(hero);
 	recountAntidote(hero);
 	recountMedkit(hero);

@@ -33,6 +33,14 @@ function drawRotatedImage(image, x, y, angle) {
     ctx.restore();
 }
 
+function drawRotatedEnvironmentImage(image,x,y,angle,width,height) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle * TO_RADIANS);
+    ctx.drawImage(image,x,y,width,height);
+    ctx.restore();
+}
+
 function drawRotatedFlashlight(image, x, y, angle) {
     ctx.save();
     ctx.translate(x, y);
@@ -49,6 +57,13 @@ function flashlightOff(width,height) {
 function newPositionBackward(target,hero) {
 	target.x -= Math.round((0-(hero.speed)) * Math.sin(hero.angle * TO_RADIANS));
 	target.y += Math.round((0-(hero.speed)) * Math.cos(hero.angle * TO_RADIANS));
+	//target.x -= (0-hero.speed) * Math.sin(hero.angle * TO_RADIANS);
+	//target.y += (0-hero.speed) * Math.cos(hero.angle * TO_RADIANS);
+}
+
+function newPositionBackwardEnvironment(target,hero) {
+	target.targetX -= Math.round((0-(hero.speed)) * Math.sin(hero.angle * TO_RADIANS));
+	target.targetY += Math.round((0-(hero.speed)) * Math.cos(hero.angle * TO_RADIANS));
 	//target.x -= (0-hero.speed) * Math.sin(hero.angle * TO_RADIANS);
 	//target.y += (0-hero.speed) * Math.cos(hero.angle * TO_RADIANS);
 }
@@ -105,6 +120,14 @@ function newPositionForward(target,hero) {
 	//document.getElementById("testdiv").innerHTML = document.getElementById("testdiv").innerHTML + "<br />" + "target: " + target + "| y: " + target.y;
 	target.x -= Math.round((hero.speed) * Math.sin(hero.angle * TO_RADIANS));
 	target.y += Math.round((hero.speed) * Math.cos(hero.angle * TO_RADIANS));
+	//target.x -= hero.speed * Math.sin(hero.angle * TO_RADIANS);
+	//target.y += hero.speed * Math.cos(hero.angle * TO_RADIANS);
+}
+
+function newPositionForwardEnvironment(target,hero) {
+	//document.getElementById("testdiv").innerHTML = document.getElementById("testdiv").innerHTML + "<br />" + "target: " + target + "| y: " + target.y;
+	target.targetX -= Math.round((hero.speed) * Math.sin(hero.angle * TO_RADIANS));
+	target.targetY += Math.round((hero.speed) * Math.cos(hero.angle * TO_RADIANS));
 	//target.x -= hero.speed * Math.sin(hero.angle * TO_RADIANS);
 	//target.y += hero.speed * Math.cos(hero.angle * TO_RADIANS);
 }

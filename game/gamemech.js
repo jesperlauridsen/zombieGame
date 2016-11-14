@@ -14,7 +14,7 @@ var TO_RADIANS = Math.PI/180;
 
 function playgame() {
 	//set interface buttons
-	document.getElementById('restartGameFromStats').onclick=function(){reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage);};
+	document.getElementById('restartGameFromStats').onclick=function(){reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded);};
 	document.getElementById('weaponMachete').onclick=function(){selectWeapon('machete',hero);};
 	document.getElementById('weaponPistol').onclick=function(){selectWeapon('pistol',hero);};
 	document.getElementById('weaponShotgun').onclick=function(){selectWeapon('shotgun',hero);};
@@ -40,6 +40,7 @@ function playgame() {
 		backgroundArray:[],
 		backgroundObjectArray:[],
 		numberOfLampsOnScreen:[],
+        environmentArray:[],
 		monsterArray:[],
 		bulletArray:[],
 		granadeArray:[],
@@ -384,11 +385,14 @@ function playgame() {
 	var monster3HeatAttack = new Image();
 	monster3HeatAttack.src = "graphics/monster3-temp.png"
 
-	var tree1 = new Image();
-	tree1.src = "graphics/firsttree.png";
-	var tree2 = new Image();
-	tree2.src = "graphics/secondtree.png";
-
+    var environmentImages = ["randomTile1"];
+    var environmentImagesLoaded = [];
+    for(y=0;y<environmentImages.length;y++) {
+        objectImageArray[y] = new Image();
+		objectImageArray[y].src = "graphics/environment/" + environmentImages[y] + ".png";
+        environmentImagesLoaded.push(objectImageArray[y]);
+    }
+    console.log(environmentImagesLoaded);
 	monsterImage1.onload = function () {
 		monster1Ready = true;
 	};
@@ -449,6 +453,9 @@ function playgame() {
 			for(o=0;o<gameArrays.objectArray.length;o++) {
 				newPositionForward(gameArrays.objectArray[o],hero);
 			}
+            for(p=0;p<gameArrays.environmentArray.length;p++) {
+				newPositionForwardEnvironment(gameArrays.environmentArray[p],hero);
+			}
 			for(n=0;n<gameArrays.thrownGranadeArray.length;n++) {
 				newPositionForward(gameArrays.thrownGranadeArray[n],hero);
 			}
@@ -496,6 +503,9 @@ function playgame() {
 			}
 			for(o=0;o<gameArrays.objectArray.length;o++) {
 				newPositionBackward(gameArrays.objectArray[o],hero);
+			}
+            for(p=0;p<gameArrays.environmentArray.length;p++) {
+				newPositionBackwardEnvironment(gameArrays.environmentArray[p],hero);
 			}
 			for(n=0;n<gameArrays.thrownGranadeArray.length;n++) {
 				newPositionBackward(gameArrays.thrownGranadeArray[n],hero);
@@ -914,7 +924,7 @@ function playgame() {
 				gameArrays.monsterArray[b].attackIni = 0;
 			}
 		}
-		mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray);
+	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded,gameArrays.environmentArray);
         validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay);
 		}
 		else {
@@ -936,6 +946,17 @@ function playgame() {
 		if (heroReady) {
 			drawRotatedImage(heroImage, hero.x, hero.y, hero.angle);
 		}
+        //Display environment
+        for(h=0;h<gameArrays.environmentArray.length;h++) {
+            if(gameArrays.environmentArray[h].initiated === 0) {
+                drawRotatedEnvironmentImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,gameArrays.environmentArray[h].angle,200,200);
+                gameArrays.environmentArray[h].initiated = 1;
+                }
+            else {
+                drawRotatedEnvironmentImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,gameArrays.environmentArray[h].angle,200,200);
+                //ctx.drawImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,200,200);
+            }
+        }
 		//Display all drops
 		for(i=0;i<gameArrays.objectArray.length;i++) {
 			if(gameArrays.objectArray[i].itemType === 'ammo') {
@@ -1221,6 +1242,6 @@ var main = function () {
 
 // Let's play this game!
 var then = Date.now();
-reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage);
+reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded);
 main();
 }

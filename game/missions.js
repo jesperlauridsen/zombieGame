@@ -24,10 +24,10 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
         missionPointY = Math.floor(missionPointY/600);
         missionIndexX = missionPointX;
         missionIndexY = missionPointY;
-        console.log(missionPointX + "," + missionPointY);
+        //console.log(missionPointX + "," + missionPointY);
         missionPointX = missionPointX * 800 + 400;
         missionPointY = missionPointY * 600 + 300;
-        console.log(missionPointX + "," + missionPointY);
+        //console.log(missionPointX + "," + missionPointY);
         //console.log("Ny X = " + missionPointX + "| Ny Y = " + missionPointY);
         //ctx.beginPath();
         //ctx.moveTo(400, 300);
@@ -105,7 +105,6 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
     var imageSrc = "";
     var questDropName = "";
     for(y=0;y<=16;y++) {
-        console.log(y);
         if(y >= 0 && y < 5) {
             questDropName = itemNames[0];
             imagSrc = elderweedImage;
@@ -131,11 +130,11 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
             pickUpTime:0,
             solid:0
         };
-        console.log("Drop [" + dropObject.name + "] at: " + dropObject.x + "," + dropObject.y);
+        //console.log("Drop [" + dropObject.name + "] at: " + dropObject.x + "," + dropObject.y);
         objectArray.push(dropObject);
         }
-    console.log(objectArray);
-    console.log(missionArray);
+    //console.log(objectArray);
+    //console.log(missionArray);
 }
 
 function validateMission(missionArray,hero,timeControler,gameDisplay) {

@@ -1,59 +1,59 @@
-function initialNineTileGameboard(numberOfLampsOnScreen, monsterArray) {
+function initialNineTileGameboard(numberOfLampsOnScreen, monsterArray,environmentImagesLoaded,environmentArray) {
 	//middle
 	addLampToScreenArrayVersion2(0,0,0,0,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(0, 0);
+    spawnRandomEnvironment(0, 0,environmentImagesLoaded,environmentArray);
 	//top
 	addLampToScreenArrayVersion2(0,-1,0,-canvas.height,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(0,-1);
+    spawnRandomEnvironment(0,-1,environmentImagesLoaded,environmentArray);
 	randomStartNumber = Math.round(Math.random() * 1 + 1);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(0, -canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//bottom
 	addLampToScreenArrayVersion2(0,1,0,canvas.height,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(0,1);
+    spawnRandomEnvironment(0,1,environmentImagesLoaded,environmentArray);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(0,canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//left
 	addLampToScreenArrayVersion2(-1,0,-canvas.width,0,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(-1,0);
+    spawnRandomEnvironment(-1,0,environmentImagesLoaded,environmentArray);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(-canvas.width,0,20,500,100,100,1,monsterArray,"idle");
 	}
 	//right
 	addLampToScreenArrayVersion2(1,0,canvas.width,0,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(1,0);
+    spawnRandomEnvironment(1,0,environmentImagesLoaded,environmentArray);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(canvas.width,0,20,500,100,100,1,monsterArray,"idle");
 	}
 	//top right
 	addLampToScreenArrayVersion2(1,-1,canvas.width,-canvas.height,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(1,-1);
+    spawnRandomEnvironment(1,-1,environmentImagesLoaded,environmentArray);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(canvas.width,-canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//top left
 	addLampToScreenArrayVersion2(-1,-1,-canvas.width,-canvas.height,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(-1,-1);
+    spawnRandomEnvironment(-1,-1,environmentImagesLoaded,environmentArray);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(-canvas.width,-canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//bottom right
 	addLampToScreenArrayVersion2(1,1,canvas.width,canvas.height,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(1,1);
+    spawnRandomEnvironment(1,1,environmentImagesLoaded,environmentArray);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(canvas.width,canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
 	//bottom left
 	addLampToScreenArrayVersion2(-1,1,-canvas.width,canvas.height,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(-1,1);
+    spawnRandomEnvironment(-1,1,environmentImagesLoaded,environmentArray);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(-canvas.width,canvas.height,20,500,100,100,1,monsterArray,"idle");
@@ -128,7 +128,7 @@ function initiateBackground(backgroundArray, backgroundObjectArray, backgroundIm
 	}
 }
 
-function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,gameDisplay,monsterArray,objectArray,missionArray) {
+function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,gameDisplay,monsterArray,objectArray,missionArray,environmentImagesLoaded,environmentArray) {
 	var newTile = 0;
 	if(backgroundObjectArray[8].y > canvas.height/2) {
 		//new tile upwards!
@@ -139,7 +139,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		tileDisplay.y = tileDisplay.y + canvas.height;
 		newTile = 1;
 		gameDisplay.indexY = gameDisplay.indexY - 1;
-		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray);
+		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,environmentArray);
 
 	}
 	if(backgroundObjectArray[8].y < -canvas.height/2) {
@@ -151,7 +151,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		tileDisplay.y = tileDisplay.y - canvas.height;
 		newTile = 1;
 		gameDisplay.indexY = gameDisplay.indexY + 1;
-		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray);
+		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,environmentArray);
 	}
 	if(backgroundObjectArray[8].x > canvas.width/2) {
 		//new tile rightside
@@ -162,7 +162,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		tileDisplay.x = tileDisplay.x + canvas.width;
 		newTile = 1;
 		gameDisplay.indexX = gameDisplay.indexX - 1;
-		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray);
+		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,environmentArray);
 	}
 	if(backgroundObjectArray[8].x < -canvas.width/2) {
 		//new tile leftside
@@ -173,7 +173,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		tileDisplay.x = tileDisplay.x - canvas.width;
 		newTile = 1;
 		gameDisplay.indexX = gameDisplay.indexX + 1;
-		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray);
+		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,environmentArray);
 	}
     tileEnvironmentSpawn(gameDisplay.indexX,gameDisplay.indexY,objectArray);
     //console.log(gameDisplay.indexX + "," + gameDisplay.indexY);
@@ -207,7 +207,7 @@ function addLampToScreenArrayVersion2(indexXX,indexYY,startPointX,startPointY,ra
 	//document.getElementById("testdiv2").innerHTML = document.getElementById("testdiv2").innerHTML + numberOfLampsOnScreen.length + ": lamp pushed: " + indexXX + "," + indexYY + " | " + randomXvalue + "," + randomYvalue + " | " + startPointX + "," + startPointY + "<br />";
 }
 
-function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray) {
+function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,environmentArray) {
 	arrayOfNewAdditions = [];
 	var realityStatus = true;
 	//center coreX, coreY
@@ -282,15 +282,7 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
         }
         else {
             //Throw down random environment!
-            spawnRandomEnvironment(arrayOfNewAdditions[g].x, arrayOfNewAdditions[g].y);
-            var coordinates = [{x:0,y:0},
-                               {x:400,y:0},
-                               {x:0,y:300},
-                               {x:400,y:300},
-            ];
-            for(i=0;coordinates.length;i++) {
-
-            }
+            spawnRandomEnvironment(arrayOfNewAdditions[g].x, arrayOfNewAdditions[g].y,environmentImagesLoaded,environmentArray);
         }
 	}
 	else {
@@ -299,8 +291,27 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
 }
 }
 
-function spawnRandomEnvironment(startPointX, startPointY) {
-    console.log("random environment spawned on " + startPointX + "," + startPointY);
+function spawnRandomEnvironment(startPointX, startPointY,environmentImagesLoaded,environmentArray) {
+    var coordinates = [{x:0,y:0},{x:400,y:0},{x:0,y:300},{x:400,y:300}];
+    for(i=0;i<coordinates.length;i++) {
+            var randomAngle = Math.round(Math.random() * 360 - 0);
+            var randomXdistance = (800 * startPointX) + coordinates[i].x + Math.round(Math.random() * 150 - 0);
+            var randomYdistance = (600 * startPointY) + coordinates[i].y + Math.round(Math.random() * 50 - 0);
+            //console.log(randomXdistance + " " + randomYdistance + " " + randomAngle);
+            var calNumber = environmentImagesLoaded.length - 1;
+        var environmentObject = new Image();
+            environmentObject.src = environmentImagesLoaded[Math.round(Math.random() * calNumber)].src;
+            environmentObject.targetX = randomXdistance;
+            environmentObject.targetY = randomYdistance;
+            environmentObject.angle = randomAngle;
+            environmentObject.indexX = startPointX;
+            environmentObject.indexY = startPointY;
+            environmentObject.initiated = 0;
+        console.log(randomYdistance + " " + environmentObject.targetY);
+            environmentArray.push(environmentObject);
+            }
+    //console.log("random environment spawned on " + startPointX + "," + startPointY);
+    console.log(environmentArray);
 }
 
 function setEnvironmentalPoints(environmentalPoints) {
@@ -313,12 +324,12 @@ function drawTileShadow(tileStartPointX, tileStartPointY, lightX,lightY,radius) 
 	var imageLength = radius;
 	var canvasLength = canvas.width;
 	var canvasHeight = canvas.height;
-	ctx.fillRect(tileStartPointX,tileStartPointY , lightX-tileStartPointX, lightY-tileStartPointY);
-	ctx.fillRect(lightX,tileStartPointY ,imageLength, lightY-tileStartPointY);
+	ctx.fillRect(tileStartPointX,tileStartPointY, lightX-tileStartPointX, lightY-tileStartPointY);
+	ctx.fillRect(lightX,tileStartPointY,imageLength, lightY-tileStartPointY);
 	ctx.fillRect(lightX+imageLength,tileStartPointY, canvasLength-(lightX-tileStartPointX+imageLength), lightY-tileStartPointY);
 	ctx.fillRect(tileStartPointX,lightY, lightX-tileStartPointX, imageLength);
 	ctx.fillRect(lightX+imageLength,lightY, canvasLength-(lightX-tileStartPointX+imageLength), imageLength);
 	ctx.fillRect(tileStartPointX,lightY+imageLength, lightX-tileStartPointX, canvasHeight-(lightY-tileStartPointY+imageLength));
-	ctx.fillRect(lightX,lightY+imageLength , imageLength, canvasHeight-(lightY-tileStartPointY+imageLength));
-	ctx.fillRect(lightX+imageLength,lightY+imageLength , canvasLength-(lightX-tileStartPointX+imageLength), canvasHeight-(lightY-tileStartPointY+imageLength));
+	ctx.fillRect(lightX,lightY+imageLength, imageLength, canvasHeight-(lightY-tileStartPointY+imageLength));
+	ctx.fillRect(lightX+imageLength,lightY+imageLength, canvasLength-(lightX-tileStartPointX+imageLength), canvasHeight-(lightY-tileStartPointY+imageLength));
 }
