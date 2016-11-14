@@ -283,6 +283,14 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
         else {
             //Throw down random environment!
             spawnRandomEnvironment(arrayOfNewAdditions[g].x, arrayOfNewAdditions[g].y);
+            var coordinates = [{x:0,y:0},
+                               {x:400,y:0},
+                               {x:0,y:300},
+                               {x:400,y:300},
+            ];
+            for(i=0;coordinates.length;i++) {
+
+            }
         }
 	}
 	else {
