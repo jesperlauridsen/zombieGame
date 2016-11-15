@@ -385,14 +385,14 @@ function playgame() {
 	var monster3HeatAttack = new Image();
 	monster3HeatAttack.src = "graphics/monster3-temp.png"
 
-    var environmentImages = ["randomTile1"];
+    var environmentImages = ["randomTile"];
     var environmentImagesLoaded = [];
     for(y=0;y<environmentImages.length;y++) {
         objectImageArray[y] = new Image();
 		objectImageArray[y].src = "graphics/environment/" + environmentImages[y] + ".png";
         environmentImagesLoaded.push(objectImageArray[y]);
     }
-    console.log(environmentImagesLoaded);
+    //console.log(environmentImagesLoaded);
 	monsterImage1.onload = function () {
 		monster1Ready = true;
 	};
@@ -948,14 +948,9 @@ function playgame() {
 		}
         //Display environment
         for(h=0;h<gameArrays.environmentArray.length;h++) {
-            if(gameArrays.environmentArray[h].initiated === 0) {
+                ctx.fillStyle = 'white';
+                ctx.fillText("Number " + h,gameArrays.environmentArray[h].targetX-25,gameArrays.environmentArray[h].targetY);
                 drawRotatedEnvironmentImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,gameArrays.environmentArray[h].angle,200,200);
-                gameArrays.environmentArray[h].initiated = 1;
-                }
-            else {
-                drawRotatedEnvironmentImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,gameArrays.environmentArray[h].angle,200,200);
-                //ctx.drawImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,200,200);
-            }
         }
 		//Display all drops
 		for(i=0;i<gameArrays.objectArray.length;i++) {

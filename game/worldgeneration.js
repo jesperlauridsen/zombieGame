@@ -175,12 +175,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		gameDisplay.indexX = gameDisplay.indexX + 1;
 		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,environmentArray);
 	}
-    tileEnvironmentSpawn(gameDisplay.indexX,gameDisplay.indexY,objectArray);
     //console.log(gameDisplay.indexX + "," + gameDisplay.indexY);
-}
-
-function tileEnvironmentSpawn(indexX,indexY,objectArray) {
-
 }
 
 function addLampToScreenArrayVersion2(indexXX,indexYY,startPointX,startPointY,radius,numberOfLampsOnScreen) {
@@ -292,26 +287,26 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
 }
 
 function spawnRandomEnvironment(startPointX, startPointY,environmentImagesLoaded,environmentArray) {
-    var coordinates = [{x:0,y:0},{x:400,y:0},{x:0,y:300},{x:400,y:300}];
+    console.log("random environment spawned on " + startPointX + "," + startPointY);
+    var coordinates = [{x:200,y:150},{x:600,y:150},{x:200,y:450},{x:600,y:450}];
     for(i=0;i<coordinates.length;i++) {
-            var randomAngle = Math.round(Math.random() * 360 - 0);
-            var randomXdistance = (800 * startPointX) + coordinates[i].x + Math.round(Math.random() * 150 - 0);
-            var randomYdistance = (600 * startPointY) + coordinates[i].y + Math.round(Math.random() * 50 - 0);
-            //console.log(randomXdistance + " " + randomYdistance + " " + randomAngle);
-            var calNumber = environmentImagesLoaded.length - 1;
+        var randomAngle = Math.round(Math.random() * 360 - 0);
+        var randomXdistance = (800 * startPointX) + coordinates[i].x; // + Math.round(Math.random() * 150 - 0);
+        var randomYdistance = (600 * startPointY) + coordinates[i].y; // + Math.round(Math.random() * 50 - 0);
+        //console.log(randomXdistance + " " + randomYdistance + " " + randomAngle);
+        var calNumber = environmentImagesLoaded.length - 1;
         var environmentObject = new Image();
-            environmentObject.src = environmentImagesLoaded[Math.round(Math.random() * calNumber)].src;
-            environmentObject.targetX = randomXdistance;
-            environmentObject.targetY = randomYdistance;
-            environmentObject.angle = randomAngle;
-            environmentObject.indexX = startPointX;
-            environmentObject.indexY = startPointY;
-            environmentObject.initiated = 0;
-        console.log(randomYdistance + " " + environmentObject.targetY);
-            environmentArray.push(environmentObject);
-            }
-    //console.log("random environment spawned on " + startPointX + "," + startPointY);
-    console.log(environmentArray);
+        environmentObject.src = environmentImagesLoaded[Math.round(Math.random() * calNumber)].src;
+        environmentObject.targetX = randomXdistance;
+        environmentObject.targetY = randomYdistance;
+        environmentObject.angle = randomAngle;
+        environmentObject.indexX = startPointX;
+        environmentObject.indexY = startPointY;
+        console.log("startpoints: " + startPointX + "," + startPointY + " | " + randomXdistance + "," + randomYdistance);
+        environmentArray.push(environmentObject);
+        }
+    console.log("----------------------------------");
+    //console.log(environmentArray);
 }
 
 function setEnvironmentalPoints(environmentalPoints) {

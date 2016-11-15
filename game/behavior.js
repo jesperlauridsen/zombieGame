@@ -37,7 +37,7 @@ function drawRotatedEnvironmentImage(image,x,y,angle,width,height) {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(angle * TO_RADIANS);
-    ctx.drawImage(image,x,y,width,height);
+    ctx.drawImage(image,-(image.width/2),-(image.height/2),width,height);
     ctx.restore();
 }
 
