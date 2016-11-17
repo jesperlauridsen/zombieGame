@@ -277,7 +277,7 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
         }
         else {
             //Throw down random environment!
-            spawnRandomEnvironment(arrayOfNewAdditions[g].x, arrayOfNewAdditions[g].y,environmentImagesLoaded,environmentArray,gameDisplay);
+            spawnRandomEnvironment(arrayOfNewAdditions[g].x, arrayOfNewAdditions[g].y,environmentImagesLoaded,environmentArray,gameDisplay,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY);
         }
 	}
 	else {
@@ -286,13 +286,72 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
 }
 }
 
-function spawnRandomEnvironment(startPointX, startPointY,environmentImagesLoaded,environmentArray,gameDisplay) {
-    console.log("random environment spawned on " + startPointX + "," + startPointY);
-    var coordinates = [{x:200,y:150},{x:600,y:150},{x:200,y:450},{x:600,y:450}];
+function spawnRandomEnvironment(indexX,indexY,environmentImagesLoaded,environmentArray,gameDisplay,x,y) {
+    if(x === undefined) {
+        x = 800 * indexX;
+    }
+    if(y === undefined) {
+        y = 600 * indexY;
+    }
+        var randomAngle = 0; //Math.round(Math.random() * 360 - 0);
+        var randomXdistance = 0;
+        var randomYdistance = 0;
+        var ffsX = "";
+        var ffsY = "";
+        var coordinates = {x:400,y:300};
+        if(indexX > 0) {
+            ffsX = indexX - gameDisplay.indexX;
+            randomXdistance = x + 400; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+        }
+        else {
+            ffsX = indexX + gameDisplay.indexX;
+            randomXdistance = x + 400; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+        }
+        if(indexY > 0) {
+            ffsY = indexY - gameDisplay.indexY;
+            randomYdistance = y + 300; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+        }
+        else {
+            ffsY = indexY - gameDisplay.indexY;
+            randomYdistance = y + 300; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+        }
+    var calNumber = environmentImagesLoaded.length - 1;
+        var environmentObject = new Image();
+        environmentObject.src = environmentImagesLoaded[Math.round(Math.random() * calNumber)].src;
+        environmentObject.targetX = randomXdistance;
+        environmentObject.targetY = randomYdistance;
+        environmentObject.angle = randomAngle;
+        environmentObject.indexX = indexX;
+        environmentObject.indexY = indexY;
+        //console.log("startpoints: " + indexX + "," + indexY + " | " + "gameDisplay: " + gameDisplay.indexX + "," + gameDisplay.indexY +
+        //            " | spawning in: " + ffsX + "," + ffsY + " | " + randomXdistance + "," + randomYdistance);
+        environmentArray.push(environmentObject);
+    //console.log("random environment spawned on " + startPointX + "," + startPointY);
+   /* var coordinates = [{x:200,y:150},{x:600,y:150},{x:200,y:450},{x:600,y:450}];
     for(i=0;i<coordinates.length;i++) {
-        var randomAngle = Math.round(Math.random() * 360 - 0);
-        var randomXdistance = (800 * (startPointX) - gameDisplay.indexX) + coordinates[i].x; // + Math.round(Math.random() * 150 - 0);
-        var randomYdistance = (600 * (startPointY) - gameDisplay.indexY) + coordinates[i].y; // + Math.round(Math.random() * 50 - 0);
+        var randomAngle = 0; // Math.round(Math.random() * 360 - 0);
+        var randomXdistance = 0;
+        var randomYdistance = 0;
+        var ffsX = "";
+        var ffsY = "";
+        if(startPointX > 0) {
+            ffsX = startPointX - gameDisplay.indexX;
+            randomXdistance = ((800 * ffsX) + coordinates[i].x); // + Math.round(Math.random() * 150 - 0);
+        }
+        else {
+            ffsX = startPointX + gameDisplay.indexX;
+            randomXdistance = ((800 * ffsX) + coordinates[i].x); // + Math.round(Math.random() * 150 - 0);
+        }
+        if(startPointY > 0) {
+            ffsY = startPointY - gameDisplay.indexY;
+            randomYdistance = ((600 * ffsY) + coordinates[i].y) - 600; // + Math.round(Math.random() * 50 - 0);
+        }
+        else {
+            ffsY = startPointY - gameDisplay.indexY;
+            randomYdistance = ((600 * ffsY) + coordinates[i].y) - 600; // + Math.round(Math.random() * 50 - 0);
+        }
+        //randomXdistance = (800 * (startPointX) - gameDisplay.indexX) + coordinates[i].x; // + Math.round(Math.random() * 150 - 0);
+        //randomYdistance = (600 * (startPointY) - gameDisplay.indexY) + coordinates[i].y; // + Math.round(Math.random() * 50 - 0);
         //console.log(randomXdistance + " " + randomYdistance + " " + randomAngle);
         var calNumber = environmentImagesLoaded.length - 1;
         var environmentObject = new Image();
@@ -302,13 +361,10 @@ function spawnRandomEnvironment(startPointX, startPointY,environmentImagesLoaded
         environmentObject.angle = randomAngle;
         environmentObject.indexX = startPointX;
         environmentObject.indexY = startPointY;
-        var ffsX = startPointX - gameDisplay.indexX;
-        var ffsY = startPointY - gameDisplay.indexY;
         console.log("startpoints: " + startPointX + "," + startPointY + " | " + "gameDisplay: " + gameDisplay.indexX + "," + gameDisplay.indexY +
                     " | spawning in: " + ffsX + "," + ffsY + " | " + randomXdistance + "," + randomYdistance);
         environmentArray.push(environmentObject);
-        }
-    console.log("----------------------------------");
+        } */
     //console.log(environmentArray);
 }
 
