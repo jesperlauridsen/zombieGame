@@ -207,7 +207,7 @@ function playgame() {
 		],
 		//12: Kill master monster!
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie boss",amount:1,gathered:0,completed:"no",statement:"Kill the zombie boss.",message:"Kill their leader, fast! Before too many of his zombie-servants get to you!",completion:"You did it! You bloddy did it! Excellent job, soldier!"}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie boss",amount:1,gathered:0,completed:"no",wave:0,statement:"Kill the zombie boss.",message:"Kill their leader, fast! Before too many of his zombie-servants get to you!",completion:"You did it! You bloddy did it! Excellent job, soldier!"}
 		],
 		//13: Yay, you saved the world! Party the night away!
 		mission = [
@@ -234,6 +234,8 @@ function playgame() {
 	var keysDown = {};
 	var keyPressed = {};
 	var gameVariables = {
+        pickUp:0,
+        pickUpSchematics:0,
 		gameStopped:0,
 		missionType:"Flashlight",
 		numberOfDrops:0,
@@ -347,7 +349,7 @@ function playgame() {
 		objectImageArray[h].src = "graphics/" + "star.png";//drops[h].imgName + ".png";
 	}
     questItemImage = new Image();
-    questItemImage.src = "graphics/" + "star.png"; //questItem picture
+    questItemImage.src = "graphics/" + "star-green.png"; //questItem picture
 
 	//Treasure image
 	var treasureReady = false;
@@ -810,6 +812,7 @@ function playgame() {
 				else if(gameArrays.objectArray[v].itemType === "schematic") {
 					schematics[gameArrays.objectArray[v].imageSource].obtained = 1; //parseInt(schematics[gameArrays.objectArray[v].imageSource].amount) + parseInt(gameArrays.objectArray[v].amount);
 					gameArrays.objectArray.splice(v,1);
+                    gameVariables.pickUpSchematics = gameVariables.pickUpSchematics + 1;
 				}
                 else if(gameArrays.objectArray[v].itemType === "questItem") {
                     //console.log(hero.currentMission);
@@ -949,7 +952,7 @@ function playgame() {
         //Display environment
         for(h=0;h<gameArrays.environmentArray.length;h++) {
                 ctx.fillStyle = 'white';
-                ctx.fillText("Number " + h,gameArrays.environmentArray[h].targetX-25,gameArrays.environmentArray[h].targetY);
+                ctx.fillText("Number " + h,gameArrays.environmentArray[h].targetX+275,gameArrays.environmentArray[h].targetY+200);
                 drawRotatedEnvironmentImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,gameArrays.environmentArray[h].angle,800,600);
         }
 		//Display all drops
@@ -972,11 +975,17 @@ function playgame() {
             else if(gameArrays.objectArray[i].itemType === 'questItem') {
                 ctx.fillStyle = 'rgba(255,255,255,1)';
             }
+            else if(gameArrays.objectArray[i].itemType === 'survivor') {
+                ctx.fillStyle = 'rgba(255,255,255,1)';
+            }
 			//ctx.fillRect(gameArrays.objectArray[i].x,gameArrays.objectArray[i].y,15,15);
 			ctx.font = "bold 10px Lato";
 			ctx.fillText(gameArrays.objectArray[i].name,gameArrays.objectArray[i].x-gameArrays.objectArray[i].offset,gameArrays.objectArray[i].y-3);
             if(gameArrays.objectArray[i].itemType === 'questItem') {
                 ctx.drawImage(questItemImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+            }
+            else if(gameArrays.objectArray[i].itemType === 'survivor') {
+                ctx.drawImage(survivorImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,25,25);
             }
             else {
                 ctx.drawImage(objectImageArray[i], gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);

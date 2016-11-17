@@ -227,11 +227,14 @@ function monsterState(monster,hero,gameVariables) {
 		monster.x -= (monster.speed/2) * Math.sin(monster.angle * TO_RADIANS);
 		monster.y += (monster.speed/2) * Math.cos(monster.angle * TO_RADIANS);
     }
+    else if(monster.state == "boss") {
+
+    }
 }
 
 function monsterStateRevision(monster, hero) {
 	//document.getElementById("testdiv2").innerHTML = Math.sqrt((monster.x-400)*(monster.x-400) + (monster.y-300)*(monster.y-300)) + " " + monster.state + " " + monster.angle;
-	if(monster.state == "startled" || monster.state == "insane" || monster.state == 'desperate') {
+	if(monster.state == "startled" || monster.state == "insane" || monster.state == 'desperate' || monster.state == "boss") {
 	}
 	else {
 		if(hero.walking == '1') {

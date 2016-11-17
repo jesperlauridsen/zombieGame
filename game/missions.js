@@ -28,7 +28,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
         missionPointX = missionPointX * 800 + 400;
         missionPointY = missionPointY * 600 + 300;
         //console.log(missionPointX + "," + missionPointY);
-        //console.log("Ny X = " + missionPointX + "| Ny Y = " + missionPointY);
+        console.log("Ny X = " + missionPointX + "| Ny Y = " + missionPointY + " " + environmentalPoints[Object.keys(environmentalPoints)[y]].name);
         //ctx.beginPath();
         //ctx.moveTo(400, 300);
         //ctx.lineTo(missionPointX, missionPointY);
@@ -93,6 +93,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 	missionArray[11][0].y = environmentalPoints.zombiePlayground.y;
     //console.log(missionArray[3][0].x + "," + missionArray[3][0].y);
     var survivor = {
+        itemType:"survivor",
         name:"survivor",
         x:missionArray[2][0].x,
         y:missionArray[2][0].y,
@@ -297,6 +298,28 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
                 spawnMonster(xPoint,yPoint,20,300,120,120,1,monsterArray,"desperate");
             }
             missionArray[8][0].wave = missionArray[8][0].wave + 1;
+        }
+
+    }
+    if(hero.currentMission === 13) {
+        if(missionArray[12][0].completionTime + (missionArray[13][0].wave * 3000) < timeControler.getTime() && missionArray[13][0].wave < 13) {
+            //new wave
+            if(missionArray[13][0].wave === 3) {
+                var randomAngle = (Math.round(Math.random() * 360 + 0));
+                var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
+                var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
+                spawnMonster(xPoint,yPoint,20,300,400,400,4,monsterArray,"boss");
+            }
+            else {
+            for(x=0;x<3;x++) {
+                var randomAngle = (Math.round(Math.random() * 360 + 0));
+                var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
+                var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
+                // spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,category,monsterArray,state) {
+                spawnMonster(xPoint,yPoint,20,300,120,120,1,monsterArray,"desperate");
+            }
+            missionArray[8][0].wave = missionArray[8][0].wave + 1;
+            }
         }
 
     }

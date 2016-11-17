@@ -13,8 +13,9 @@ function inventoryReload(inventory, schematics, hero, gameVariables) {
 		}
 		gameVariables.pickUp = 0;
 		}
-	else if(document.getElementById("inventoryBackpack").className === "openInventory" && document.getElementById("inventoryBackpack").getElementsByTagName("h4")[0].innerHTML === "Schematics") {
+	else if(document.getElementById("inventoryBackpack").className === "openInventory" && gameVariables.pickUpSchematics > 0 && document.getElementById("inventoryBackpack").getElementsByTagName("h4")[0].innerHTML === "Schematics") {
 		schematicsDisplay(inventory,schematics,hero);
+        gameVariables.pickUpSchematics = 0;
 	}
 	else {
 	}
@@ -162,6 +163,7 @@ function weaponAvailability(hero) {
 }
 
 function showInventory(argument,inventory,gameVariables,owner,schematics,hero) {
+    console.log("running all the time?");
 	if(document.getElementById("inventoryBackpack").className === "openInventory") {
 		var ownerString = owner.replace('game','');
 		if(argument === document.getElementById("inventoryBackpack").getElementsByTagName("h4")[0].innerHTML) {
@@ -196,6 +198,7 @@ function closeInventory() {
 }
 
 function schematicsDisplay(inventory,schematics,hero) {
+    console.log("opening schematics");
 	document.getElementById("inventoryBackpack").innerHTML = "<div id='inventoryExit' class='exitInventory' onclick='closeInventory()'>X</div><h4>Schematics</h4><break>";
 	var obtainedSchematicsDiv = document.createElement('div');
 	var obtainedSchematicsName ="obtainedSchematics";
@@ -212,7 +215,6 @@ function schematicsDisplay(inventory,schematics,hero) {
 	document.getElementById('notObtainedSchematics').innerHTML = "<p>Unobtained schematics:</p>";
 	for(u=0;u<Object.keys(schematics).length;u++) {
 		if(schematics[Object.keys(schematics)[u]].obtained === 0) {
-            console.log("nooooo, not working");
 			var schematicDiv = document.createElement('div');
 			var schematicName = schematics[Object.keys(schematics)[u]].constructor;
 			schematicDiv.id = schematicName;
@@ -221,7 +223,6 @@ function schematicsDisplay(inventory,schematics,hero) {
 			document.getElementById(schematicName).innerHTML = schematics[Object.keys(schematics)[u]].name;
 		}
 		else {
-            console.log("ayyy - fix it");
 			var schematicDiv = document.createElement('div');
 			var schematicName = schematics[Object.keys(schematics)[u]].constructor;
 			schematicDiv.id = schematicName;

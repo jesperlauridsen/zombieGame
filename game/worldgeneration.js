@@ -5,7 +5,7 @@ function initialNineTileGameboard(numberOfLampsOnScreen, monsterArray,environmen
 	//top
 	addLampToScreenArrayVersion2(0,-1,0,-canvas.height,300,numberOfLampsOnScreen);
     spawnRandomEnvironment(0,-1,environmentImagesLoaded,environmentArray,gameDisplay);
-	randomStartNumber = Math.round(Math.random() * 1 + 1);
+	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(0, -canvas.height,20,500,100,100,1,monsterArray,"idle");
 	}
@@ -53,7 +53,7 @@ function initialNineTileGameboard(numberOfLampsOnScreen, monsterArray,environmen
 	}
 	//bottom left
 	addLampToScreenArrayVersion2(-1,1,-canvas.width,canvas.height,300,numberOfLampsOnScreen);
-    spawnRandomEnvironment(-1,1,environmentImagesLoaded,environmentArray,gameDisplay);
+   // spawnRandomEnvironment(-1,1,environmentImagesLoaded,environmentArray,gameDisplay);
 	randomStartNumber = Math.round(Math.random() * 1 + 2);
 	for(x=0;x<randomStartNumber;x++) {
 		spawnMonster(-canvas.width,canvas.height,20,500,100,100,1,monsterArray,"idle");
@@ -301,19 +301,19 @@ function spawnRandomEnvironment(indexX,indexY,environmentImagesLoaded,environmen
         var coordinates = {x:400,y:300};
         if(indexX > 0) {
             ffsX = indexX - gameDisplay.indexX;
-            randomXdistance = x + 400; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+            randomXdistance = x + 100; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
         }
         else {
             ffsX = indexX + gameDisplay.indexX;
-            randomXdistance = x + 400; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+            randomXdistance = x + 100; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
         }
         if(indexY > 0) {
             ffsY = indexY - gameDisplay.indexY;
-            randomYdistance = y + 300; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+            randomYdistance = y + 100; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
         }
         else {
             ffsY = indexY - gameDisplay.indexY;
-            randomYdistance = y + 300; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+            randomYdistance = y + 100; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
         }
     var calNumber = environmentImagesLoaded.length - 1;
         var environmentObject = new Image();
