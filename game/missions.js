@@ -244,7 +244,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
     }
 }
 
-function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterArray) {
+function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterArray,granadeArray) {
     if(hero.currentMission === 6) {
         //console.log(missionArray[5][0].completionTime + (missionArray[6][0].wave * 3000) + ">" + timeControler.getTime());
         if(missionArray[5][0].completionTime + (missionArray[6][0].wave * 7000) < timeControler.getTime() && missionArray[6][0].wave < 7) {
@@ -301,24 +301,27 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
         }
 
     }
-    if(hero.currentMission === 13) {
-        if(missionArray[12][0].completionTime + (missionArray[13][0].wave * 3000) < timeControler.getTime() && missionArray[13][0].wave < 13) {
+    if(hero.currentMission === 12) {
+        if(missionArray[11][0].completionTime + ((missionArray[12][0].wave * 5000) - (500 * missionArray[12][0].wave)) < timeControler.getTime()) {
             //new wave
-            if(missionArray[13][0].wave === 3) {
+            if(missionArray[12][0].wave === 3 && missionArray[12][0].bossSpawned === 0) {
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 spawnMonster(xPoint,yPoint,20,300,400,400,4,monsterArray,"boss");
+                console.log("boss spawned!");
+                missionArray[12][0].bossSpawned = 1;
+                missionArray[12][0].actionCounter = timeControler.getTime();
             }
             else {
-            for(x=0;x<3;x++) {
+            for(x=0;x<2;x++) {
+                console.log("2 mobs spawned!");
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
-                // spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,category,monsterArray,state) {
-                spawnMonster(xPoint,yPoint,20,300,120,120,1,monsterArray,"desperate");
+                //spawnMonster(xPoint,yPoint,20,300,120,120,1,monsterArray,"desperate");
             }
-            missionArray[8][0].wave = missionArray[8][0].wave + 1;
+            missionArray[12][0].wave = missionArray[12][0].wave + 1;
             }
         }
 

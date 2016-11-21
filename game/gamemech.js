@@ -25,7 +25,9 @@ function playgame() {
 	document.getElementById('utilitiesMedkit').onclick=function(){useMedkit(hero);};
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
-	document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray);};
+    //document.getElementById('testbutton').onclick=function(){bossThrowGranade(gameArrays.thrownGranadeArray,gameVariables.timeControler);};
+	document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,400,400,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
+    //document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray);};
     //set specialAbilityButtons
     document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,arrowImage,gameVariables);};
     document.getElementById('gameAbilityTwo').onclick=function(){activateHeatGoggles(hero);};
@@ -33,6 +35,7 @@ function playgame() {
     document.getElementById('gameAbilityFour').onclick=function(){activateScavanger(hero);};
     document.getElementById('gameAbilityFive').onclick=function(){activateRocketBoots(hero);};
     document.getElementById('gameAbilitySix').onclick=function(){firePulseTransmitter(hero,gameVariables.timeControler);};
+    document.getElementById('gameAbilitySeven').onclick=function(){activateFlashlight(hero,keysDown,gameVariables);};
 
 
 	// Arrays and variables.
@@ -108,7 +111,7 @@ function playgame() {
 		shotgun:0,
 		shotgunDamage:30,
 		flamethrower:0,
-		flamethrowerDamage:40,
+		flamethrowerDamage:10,
 		gun: "machete",
 		gunshots:40,
 		machinegunshots:0,
@@ -143,8 +146,8 @@ function playgame() {
 		pulseTransmitterCountdown:0,
 		pulseTransmitterCounter:4,
 		reloadDelay:0,
-		missionProgress:0,
-		currentMission:0,
+		missionProgress:11,
+		currentMission:11,
 		missionPresented:0
 	};
 
@@ -207,7 +210,7 @@ function playgame() {
 		],
 		//12: Kill master monster!
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie boss",amount:1,gathered:0,completed:"no",wave:0,statement:"Kill the zombie boss.",message:"Kill their leader, fast! Before too many of his zombie-servants get to you!",completion:"You did it! You bloddy did it! Excellent job, soldier!"}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie boss",amount:1,gathered:0,completed:"no",wave:0,bossSpawned:0,granadeState:0,gunState:0,fleeState:0,actionCounter:0,statement:"Kill the zombie boss.",message:"Kill their leader, fast! Before too many of his zombie-servants get to you!",completion:"You did it! You bloddy did it! Excellent job, soldier!"}
 		],
 		//13: Yay, you saved the world! Party the night away!
 		mission = [
@@ -610,7 +613,41 @@ function playgame() {
 		else {
 			granadeStatus(gameArrays,gameVariables);
 		}
-
+        //Mission tracker - m
+        if(77 in keysDown) {
+            GuidePlayerToObjective(missionArray,hero,arrowImage,gameVariables);
+            delete keysDown[77];
+        }
+        //Thermo goggles - t
+        if(84 in keysDown) {
+            activateHeatGoggles(hero);
+            delete keysDown[84];
+        }
+        //lazer scope - l
+        if(76 in keysDown) {
+            activateLazerScope(hero);
+            delete keysDown[76];
+        }
+        //Scavanger - c
+        if(67 in keysDown) {
+            activateScavanger(hero);
+            delete keysDown[67];
+        }
+        // Rocket boots - b
+        if(66 in keysDown) {
+            activateRocketBoots(hero);
+            delete keysDown[66];
+        }
+        // Pulse Emitter - e
+        if(69 in keysDown) {
+            firePulseTransmitter(hero,gameVariables.timeControler);
+            delete keysDown[69];
+        }
+        // Flash light - f
+		if(70 in keysDown) {
+            activateFlashlight(hero,keysDown,gameVariables);
+		}
+        //Weapon select
 		if(49 in keysDown && hero.machete === 1) {
 			selectWeapon('machete',hero);
 		}
@@ -633,12 +670,12 @@ function playgame() {
 					delete keysDown[32];
 					gameVariables.hasFired = 1;
 					hero.clip = hero.clip - 1;
-					bulletFire(hero.pistolDamage,hero,gameArrays.bulletArray,gameVariables);
+					bulletFire(hero.pistolDamage,hero,gameArrays.bulletArray,gameVariables,hero.angle);
 					}
 				else if(hero.gun === 'machinegun' && hero.machinegunclip > 0) {
 					hero.machinegunclip = hero.machinegunclip - 1;
 					gameVariables.hasFired = 0;
-					bulletFire(hero.machinegunDamage,hero,gameArrays.bulletArray,gameVariables);
+					bulletFire(hero.machinegunDamage,hero,gameArrays.bulletArray,gameVariables,hero.angle);
 				}
 				else if(hero.gun === 'shotgun' && hero.shotgunclip > 0 && gameVariables.timeControler.getTime() > hero.lastFire + 350) {
 					delete keysDown[32];
@@ -646,19 +683,19 @@ function playgame() {
 					gameVariables.hasFired = 1;
 					hero.shotgunclip = hero.shotgunclip - 1;
 					for(p=0;p<8;p++) {
-					bulletFire(hero.shotgunDamage,hero,gameArrays.bulletArray,gameVariables);
+					bulletFire(hero.shotgunDamage,hero,gameArrays.bulletArray,gameVariables,hero.angle);
 					}
 				}
 				else if(hero.gun === 'flamethrower' && hero.flameshells > 0) {
 					hero.flameshells = hero.flameshells - 1;
 					gameVariables.hasFired = 0;
-					bulletFire(hero.flamethrowerDamage,hero,gameArrays.bulletArray,gameVariables);
+					bulletFire(hero.flamethrowerDamage,hero,gameArrays.bulletArray,gameVariables,hero.angle);
 				}
 				else if(hero.gun === 'machete' && gameVariables.timeControler.getTime() > hero.lastFire + 200) {
 					delete keysDown[32];
 					hero.lastFire = gameVariables.timeControler.getTime();
 					gameVariables.hasFired = 1;
-					bulletFire(hero.macheteDamage,hero,gameArrays.bulletArray,gameVariables);
+					bulletFire(hero.macheteDamage,hero,gameArrays.bulletArray,gameVariables,hero.angle);
 				}
 				else {
 				//gameVariables.hasFired = 1;
@@ -672,29 +709,14 @@ function playgame() {
 			firePulseTransmitter(hero,gameVariables.timeControler);
 			}
 		}
-
-		//Pressing F
-		if(70 in keysDown) {
-			if(hero.flashlight === "on") {
-				delete keysDown[70];
-				gameVariables.isPressed = 1;
-				hero.flashlight = "off";
-			}
-			else if(hero.flashlight === "off") {
-				delete keysDown[70];
-				gameVariables.isPressed = 1;
-				hero.flashlight = "on";
-			}
-		}
-
 		//Pressing I
 		if(73 in keysDown) {
 			showInventory('Inventory',inventory,gameVariables,'gameInventory',schematics,hero);
 			delete keysDown[73];
 			gameVariables.isPressed = 1;
 		}
-        //Check for monster spawwn missions
-        ambushMissionSpawn(hero,gameArrays.objectArray,gameVariables.timeControler,missionArray,gameArrays.monsterArray);
+        //Check for monster spawn missions
+        ambushMissionSpawn(hero,gameArrays.objectArray,gameVariables.timeControler,missionArray,gameArrays.monsterArray,gameArrays.granadeArray);
 		//Update all bullets still on screen or fired
 		for(i=0;i<gameArrays.bulletArray.length;i++) {
 			for(l=0;l<gameArrays.monsterArray.length;l++) {
@@ -705,11 +727,14 @@ function playgame() {
 			//if(gameArrays.bulletArray[i].bulletX <= (gameArrays.monsterArray[l].x + 30) && gameArrays.monsterArray[l].x <= (gameArrays.bulletArray[i].bulletX) && gameArrays.bulletArray[i].bulletY <= (gameArrays.monsterArray[l].y + 30) && gameArrays.monsterArray[l].y <= (gameArrays.bulletArray[i].bulletY)) {
 					if(gameArrays.monsterArray[l].health-gameArrays.bulletArray[i].bulletDamage > 0) {
 						gameArrays.monsterArray[l].health = gameArrays.monsterArray[l].health-gameArrays.bulletArray[i].bulletDamage;
-						if(gameArrays.monsterArray[l].state != "attacking" || gameArrays.monsterArray[l].state != "startled" || gameArrays.monsterArray[l].state != "insane") {
+						if(gameArrays.monsterArray[l].state != "attacking" || gameArrays.monsterArray[l].state != "startled" || gameArrays.monsterArray[l].state != "insane" || gameArrays.monsterArray) {
 							if(gameArrays.monsterArray[l].category === 1) {
 								gameArrays.monsterArray[l].startledTime = gameVariables.timeControler.getTime();
 								gameArrays.monsterArray[l].state = "startled";
 							}
+                            else if(gameArrays.monsterArray[l].category === 4) {
+                                gameArrays.monsterArray[l].state = "boss";
+                            }
 							else {
 								gameArrays.monsterArray[l].startledTime = gameVariables.timeControler.getTime();
 								gameArrays.monsterArray[l].state = "insane";
@@ -757,7 +782,7 @@ function playgame() {
 		}
 		//Update all monster states
 		for(g=0;g<gameArrays.monsterArray.length;g++) {
-			monsterState(gameArrays.monsterArray[g],hero,gameVariables);
+			monsterState(gameArrays.monsterArray[g],hero,gameVariables,missionArray,gameArrays.thrownGranadeArray,gameArrays.bulletArray);
 			monsterStateRevision(gameArrays.monsterArray[g],hero);
 		}
 
@@ -1154,7 +1179,7 @@ function playgame() {
 			hero.pulseTransmitterFiredTime = gameVariables.timeControler.getTime();
 			}
 			var  counter = hero.pulseTransmitterCounter = hero.pulseTransmitterCounter + 5;
-			pulseEmitter(gameArrays.monsterArray,hero,gameVariables.timeControler,counter,gameArrays.archivedMonsterArray,missionArray);
+			pulseEmitter(gameArrays.monsterArray,hero,gameVariables.timeControler,counter,gameArrays.archivedMonsterArray,missionArray,gameVariables,gameArrays.objectArray,drops);
 		}
 		//Display user ammo/gun
 		if(hero.gun === "pistol") {
@@ -1200,7 +1225,7 @@ function playgame() {
 
 		//check for thrown granades
 		for(j=0;j<gameArrays.thrownGranadeArray.length;j++) {
-			thrownGranade(gameArrays.thrownGranadeArray[j], gameVariables.timeControler, gameArrays.monsterArray, gameArrays.archivedMonsterArray, hero,gameArrays.thrownGranadeArray,missionArray);
+			thrownGranade(gameArrays.thrownGranadeArray[j], gameVariables.timeControler, gameArrays.monsterArray, gameArrays.archivedMonsterArray, hero,gameArrays.thrownGranadeArray,missionArray,gameArrays.objectArray,gameVariables,drops);
 		}
 
 		//Display monster health, if any

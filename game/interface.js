@@ -436,9 +436,13 @@ function showMissionInPlay(hero,missionArray) {
 }
 
 function showMissionTrackerCooldown(hero,timeControler) {
+    if(hero.trackerActivated === 1) {
+        document.getElementById("gameAbilityOne").innerHTML = "!";
+    }
+    else {
     //console.log(((hero.trackerCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
     if((((hero.trackerCountdown+15000 - timeControler.getTime())/1000).toFixed(1)) <= 0) {
-        document.getElementById("gameAbilityOne").innerHTML = "";
+        document.getElementById("gameAbilityOne").innerHTML = "rdy";
         //console.log("ready");
     }
     else if((((hero.trackerCountdown+15000 - timeControler.getTime())/1000).toFixed(1)) > 0) {
@@ -448,6 +452,7 @@ function showMissionTrackerCooldown(hero,timeControler) {
     else {
         //console.log("not obtained");
     }
+  }
 }
 
 function fireMissionTracker(hero,timeControler) {
@@ -492,10 +497,10 @@ function recountAntidote(hero) {
 function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded) {
 	for(y=0;y<drops.length;y++) {
 		if(drops[y].itemType === "mat") {
-			inventory[drops[y].imgName] = {"amount":0, "name":drops[y].name,"constructor":drops[y].imgName};
+			inventory[drops[y].imgName] = {"amount":100, "name":drops[y].name,"constructor":drops[y].imgName};
 		}
 		if(drops[y].itemType === "schematic") {
-			schematics[drops[y].imgName] = {"obtained":0,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
+			schematics[drops[y].imgName] = {"obtained":1,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
 		}
 	}
     setEnvironmentalPoints(environmentalPoints);
@@ -509,6 +514,8 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	hero.flameshells = 0;
 	hero.medkit = 3;
 	hero.antidote = 1;
+    hero.machete = 1;
+    hero.pistol = 1;
 	hero.shotgun = 1;
 	hero.machinegun = 0;
 	hero.flamethrower = 0;

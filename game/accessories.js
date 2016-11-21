@@ -17,6 +17,21 @@ function lazerScope(hero) {
 	}
 }
 
+function activateFlashlight(hero,keysDown,gameVariables) {
+    if(hero.flashlight === "on") {
+				delete keysDown[70];
+				gameVariables.isPressed = 1;
+				hero.flashlight = "off";
+                document.getElementById('gameAbilitySeven').innerHTML = "off";
+			}
+			else if(hero.flashlight === "off") {
+				delete keysDown[70];
+				gameVariables.isPressed = 1;
+				hero.flashlight = "on";
+                document.getElementById('gameAbilitySeven').innerHTML = "on";
+			}
+}
+
 function activateLazerScope(hero) {
     if(hero.scopeObtained === 1) {
         if(hero.scopeOn === 1) {

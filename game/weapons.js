@@ -45,28 +45,28 @@ function selectWeapon(weapon, hero) {
 	}
 }
 
-function bulletFire(damageDealt,shooter,bulletArray,gameVariables) {
+function bulletFire(damageDealt,shooter,bulletArray,gameVariables,angle) {
 	var bulletAngleFromHero;
 	var startX = shooter.x;
 	var startY = shooter.y;
 	var speed = 10;
 	if(shooter.gun == 'shotgun') {
 		speed = Math.round(Math.random() * 2) + 9;
-		bulletAngleFromHero = shooter.angle + (Math.random() * 31) - 15;
+		bulletAngleFromHero = angle + (Math.random() * 31) - 15;
 	}
 	else if(shooter.gun == 'machinegun') {
-		bulletAngleFromHero = shooter.angle + (Math.random() * 5) - 2;
+		bulletAngleFromHero = angle + (Math.random() * 5) - 2;
 	}
 	else if(shooter.gun == 'flamethrower') {
-		bulletAngleFromHero = shooter.angle + (Math.random() * 21) - 10;
+		bulletAngleFromHero = angle + (Math.random() * 21) - 10;
 	}
 	else if(shooter.gun == 'machete') {
-		bulletAngleFromHero = Math.round(shooter.angle + 10);
+		bulletAngleFromHero = Math.round(angle + 10);
 		startX = Math.round(shooter.x + Math.cos(bulletAngleFromHero * TO_RADIANS) * 20);
 		startY = Math.round(shooter.y + Math.sin(bulletAngleFromHero * TO_RADIANS) * 20);
 	}
 	else {
-		bulletAngleFromHero = shooter.angle;
+		bulletAngleFromHero = angle;
 	}
 	var bullet = {
 	firedFrom:shooter.gun,
@@ -84,14 +84,20 @@ function bulletFire(damageDealt,shooter,bulletArray,gameVariables) {
 	bulletStartAngle: shooter.angle,
 	angleCount:0
 	};
+    if(shooter === 'hero') {
 	gameVariables.bulletCounter = gameVariables.bulletCounter + 1;
+    }
 	bulletArray.push(bullet);
 }
 
 function showPulseTransmitterCooldown(hero,timeControler) {
+    if(hero.pulseTransmitterFired === 1) {
+        document.getElementById("gameAbilitySix").innerHTML = "!";
+    }
+    else {
     //console.log(((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1));
     if((((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1)) <= 0 && hero.pulseTransmitterObtained === 1) {
-        document.getElementById("gameAbilitySix").innerHTML = "";
+        document.getElementById("gameAbilitySix").innerHTML = "rdy";
         //console.log("ready");
     }
     else if((((hero.pulseTransmitterCountdown+30000 - timeControler.getTime())/1000).toFixed(1)) > 0 && hero.pulseTransmitterObtained === 1) {
@@ -101,6 +107,7 @@ function showPulseTransmitterCooldown(hero,timeControler) {
     else {
         //console.log("not obtained");
     }
+ }
 }
 
 function firePulseTransmitter(hero,timeControler) {
@@ -111,7 +118,7 @@ function firePulseTransmitter(hero,timeControler) {
 	}
 }
 
-function pulseEmitter(monsterArray,hero,timeControler,j,archivedMonsterArray,missionArray) {
+function pulseEmitter(monsterArray,hero,timeControler,j,archivedMonsterArray,missionArray,gameVariables,objectArray,drops) {
 	console.log("fired!");
 	if(hero.pulseTransmitterFired === 1) {
 		if(hero.pulseTransmitterFiredTime+300 > timeControler.getTime()) {
@@ -150,6 +157,7 @@ function pulseEmitter(monsterArray,hero,timeControler,j,archivedMonsterArray,mis
 						archivedMonsterArray.push(monsterArray[h]);
 						//Check mission state && check zombie number - if mission is exact - add to the total killed
                         missionKillCounter(missionArray,monsterArray[h],hero);
+                        monsterDrop(monsterArray[h],drops,objectArray,gameVariables);
 						//remove monster from active array;
 						monsterArray.splice(h,1);
 					}
@@ -258,12 +266,20 @@ function bulletTraceFade(bullet) {
 	ctx.fillStyle = 'rgba(255,255,0' + ',' + opacityFiler + ')';
 	ctx.fillRect(bulletX,bulletY,1,1);
 	}
+    else if(bullet.firedFrom === "slime") {
+    ctx.fillStyle = 'rgb(124,252,0' + ',' + opacityFiler + ')';
+	ctx.fillRect(bulletX,bulletY,1,1);
+	ctx.fillRect(bulletX-1,bulletY,1,1);
+	ctx.fillRect(bulletX,bulletY-1,1,1);
+	ctx.fillRect(bulletX+1,bulletY,1,1);
+	ctx.fillRect(bulletX,bulletY+1,1,1);
+    }
 	else {
 	}
 }
 }
 
-function thrownGranade(granade,timeControler,monsterArray, archivedMonsterArray, hero,thrownGranadeArray,missionArray) {
+function thrownGranade(granade,timeControler,monsterArray, archivedMonsterArray, hero,thrownGranadeArray,missionArray,objectArray,gameVariables,drops) {
 	if(granade.thrown = 1 && timeControler.getTime() < granade.activationTime.getTime()) {
 		ctx.beginPath();
 		ctx.strokeStyle = 'rgba(255,255,255,'+ 1 + ')';
@@ -304,6 +320,7 @@ function thrownGranade(granade,timeControler,monsterArray, archivedMonsterArray,
 						monsterArray[i].timeOfDeath = timeControler.getTime();
 						archivedMonsterArray.push(monsterArray[i]);
 						//Check mission state && check zombie number - if mission is exact - add to the total killed
+                        monsterDrop(monsterArray[i],drops,objectArray,gameVariables);
                         missionKillCounter(missionArray,monsterArray[i],hero);
 						//remove monster from active array;
 						monsterArray.splice(i,1);
