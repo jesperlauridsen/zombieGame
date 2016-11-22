@@ -26,7 +26,7 @@ function playgame() {
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
     //document.getElementById('testbutton').onclick=function(){bossThrowGranade(gameArrays.thrownGranadeArray,gameVariables.timeControler);};
-	document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,600,400,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
+	document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,1000,1000,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
     //document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray);};
     //set specialAbilityButtons
     document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,arrowImage,gameVariables);};

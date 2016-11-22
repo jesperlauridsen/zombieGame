@@ -308,18 +308,17 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
-                spawnMonster(xPoint,yPoint,20,300,400,400,4,monsterArray,"boss");
+                spawnMonster(xPoint,yPoint,20,300,1000,1000,4,monsterArray,"boss");
                 console.log("boss spawned!");
                 missionArray[12][0].bossSpawned = 1;
                 missionArray[12][0].actionCounter = timeControler.getTime();
             }
             else {
             for(x=0;x<2;x++) {
-                console.log("2 mobs spawned!");
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
-                //spawnMonster(xPoint,yPoint,20,300,120,120,1,monsterArray,"desperate");
+                spawnMonster(xPoint,yPoint,20,300,120,120,1,monsterArray,"desperate");
             }
             missionArray[12][0].wave = missionArray[12][0].wave + 1;
             }
