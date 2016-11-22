@@ -210,7 +210,7 @@ function playgame() {
 		],
 		//12: Kill master monster!
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie boss",amount:1,gathered:0,completed:"no",wave:0,bossSpawned:0,granadeState:0,gunState:0,fleeState:0,actionCounter:0,statement:"Kill the zombie boss.",message:"Kill their leader, fast! Before too many of his zombie-servants get to you!",completion:"You did it! You bloddy did it! Excellent job, soldier!"}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie boss",amount:1,gathered:0,completed:"no",wave:0,bossSpawned:0,granadeState:0,shotState:0,shotTimer:0,shotWave:0,fleeState:0,fleeTime:0,actionCounter:0,statement:"Kill the zombie boss.",message:"Kill their leader, fast! Before too many of his zombie-servants get to you!",completion:"You did it! You bloddy did it! Excellent job, soldier!"}
 		],
 		//13: Yay, you saved the world! Party the night away!
 		mission = [
@@ -795,7 +795,7 @@ function playgame() {
 				//console.log("---");
                 if(gameArrays.objectArray[v].name === "survivor") {
                     if(hero.currentMission === 2 && missionArray[2][0].completed === "no") {
-                        console.log("And you completed mission 2 first step. Now go kill zombies!");
+                        //console.log("And you completed mission 2 first step. Now go kill zombies!");
                         missionArray[2][0].completed = "yes";
                         missionArray[2][0].interacted = 1;
                         missionArray[2][0].completionTime === gameVariables.timeControler.getTime();

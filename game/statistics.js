@@ -43,7 +43,7 @@ function showStatisticsOnCanvas(gameArrays,gameVariables) {
 		secondsPlayedToCanvas = "0" + secondsPlayedToCanvas;
 	}
 	statCtx.fillStyle = 'rgba(0,0,0,1)';
-	statCtx.fillText(loggedMonsterDeaths.length,5,25);
+	statCtx.fillText(loggedMonsterDeaths.length,15,15);
 	statCtx.fillText(minutesPlayedToCanvas + ":" + secondsPlayedToCanvas,587,235);
 	statCtx.font = "12px Lato";
 	statCtx.fillText("Events over time",250,12);

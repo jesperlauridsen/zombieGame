@@ -241,6 +241,23 @@ function monsterState(monster,hero,gameVariables,missionArray,thrownGranadeArray
     }
     else if (monster.state == "boss") {
     if (Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))) < 150) {
+        if(missionArray[12][0].fleeState === 0) {
+            console.log("setting flee time!");
+            missionArray[12][0].fleeTime = gameVariables.timeControler.getTime() + 2000;
+            missionArray[12][0].fleeState = 1;
+        }
+        if(missionArray[12][0].fleeTime < gameVariables.timeControler.getTime()) {
+            console.log("fleeing!");
+            if(gameVariables.timeControler.getTime() > monster.setOffAngle + 300 || monster.offAngle == "0") {
+				monster.setOffAngle = gameVariables.timeControler.getTime();
+				monster.offAngle = 0; // Math.round(Math.random() * 121 - 60);
+			}
+			monster.angle = ((Math.atan2(hero.y-10 - monster.y, hero.x-10 - monster.x) * 180 / Math.PI) - 270);
+			monster.angle = monster.angle + monster.offAngle;
+			monster.x -= (monster.speed/1.5) * Math.sin(monster.angle * TO_RADIANS);
+			monster.y += (monster.speed/1.5) * Math.cos(monster.angle * TO_RADIANS);
+        }
+        else {
         if (hero.x <= (monster.x + 18) && monster.x <= (hero.x + 18) && hero.y <= (monster.y + 18) && monster.y <= (hero.y + 18)) {
 		}
 		else {
@@ -248,16 +265,20 @@ function monsterState(monster,hero,gameVariables,missionArray,thrownGranadeArray
 				monster.setOffAngle = gameVariables.timeControler.getTime();
 				monster.offAngle = Math.round(Math.random() * 121 - 60);
 			}
+            console.log("going in for attack!");
 			monster.angle = ((Math.atan2(hero.y-10 - monster.y, hero.x-10 - monster.x) * 180 / Math.PI) - 90);
 			monster.angle = monster.angle + monster.offAngle;
 			monster.x -= (monster.speed/1.5) * Math.sin(monster.angle * TO_RADIANS);
 			monster.y += (monster.speed/1.5) * Math.cos(monster.angle * TO_RADIANS);
         }
+        }
     }
     else if (Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))) > 150  &&
              Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))) < 300) {
+       // missionArray[12][0].fleeState = 0;
+        console.log("burst of slime at player-state");
         if(gameVariables.timeControler.getTime() > missionArray[12][0].actionCounter + 3000) {
-            console.log("Shoot shotgun at player!");
+            console.log("burst of slime at player");
              //bulletFire(damageDealt,shooter,bulletArray,gameVariables,angle);
             missionArray[12][0].actionCounter = gameVariables.timeControler.getTime();
 
@@ -273,6 +294,7 @@ function monsterState(monster,hero,gameVariables,missionArray,thrownGranadeArray
     }
     else if (Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))) > 300  &&
              Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))) < 350) {
+        missionArray[12][0].fleeState = 0;
         if(gameVariables.timeControler.getTime() > missionArray[12][0].actionCounter + 4000) {
             console.log("Throw granades at player!");
             bossThrowGranade(thrownGranadeArray,gameVariables.timeControler);
@@ -293,10 +315,28 @@ function monsterState(monster,hero,gameVariables,missionArray,thrownGranadeArray
     else if(Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))) > 350  &&
              Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))) < 500
     ) {
-
+        missionArray[12][0].fleeState = 0;
         console.log("shoot spray at player");
+        if(missionArray[12][0].shotState === 0) {
+            console.log("setting fire time!");
+            missionArray[12][0].shotTimer = gameVariables.timeControler.getTime() + 1400;
+            missionArray[12][0].shotState = 1;
+        }
+        if(missionArray[12][0].shotTimer > gameVariables.timeControler.getTime() && missionArray[12][0].shotState === 1) {
+            if(missionArray[12][0].shotWave < 7) {
+                if(missionArray[12][0].shotTimer - (1400 - (200 * missionArray[12][0].shotWave)) < gameVariables.timeControler.getTime()) {
+                missionArray[12][0].shotWave = missionArray[12][0].shotWave + 1;
+                    console.log("SHOOT!");
+                    }
+            }
+        }
+        if(missionArray[12][0].shotTimer + 5000 < gameVariables.timeControler.getTime() && missionArray[12][0].shotState === 1) {
+            missionArray[12][0].shotState = 0;
+            missionArray[12][0].shotWave = 0;
+        }
     }
     else if (Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))) >= 500) {
+        missionArray[12][0].fleeState = 0;
         if (hero.x <= (monster.x + 18) && monster.x <= (hero.x + 18) && hero.y <= (monster.y + 18) && monster.y <= (hero.y + 18)) {
 		}
 		else {
@@ -311,7 +351,7 @@ function monsterState(monster,hero,gameVariables,missionArray,thrownGranadeArray
         }
         console.log("move towards player!");
         }
-        console.log(Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))));
+        //console.log(Math.sqrt((monster.x - (canvas.width / 2)) * (monster.x - (canvas.width / 2)) + (monster.y - (canvas.height / 2)) * (monster.y - (canvas.height / 2))));
     }
 }
 
