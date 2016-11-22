@@ -247,16 +247,28 @@ function bulletTraceFade(bullet) {
 	ctx.fillRect(bulletX+1,bulletY,1,1);
 	ctx.fillRect(bulletX,bulletY+1,1,1);
 	}
-	else if(bullet.firedFrom === "flamethrower") {
-	//ctx.fillStyle = 'rgba(0,' + blueFiler + ',255,' + opacityFiler + ')';
-	//ctx.fillRect(bulletX+2,bulletY+2,2,2);
-	//ctx.fillRect(bulletX-2,bulletY-2,2,2);
-	//ctx.fillRect(bulletX,bulletY-2,2,2);
-	//ctx.fillRect(bulletX,bulletY+2,2,2);
-	//ctx.fillRect(bulletX,bulletY-2,2,2);
-	//ctx.fillRect(bulletX-2,bulletY,2,2);
-	//ctx.fillRect(bulletX+2,bulletY-2,2,2);
-	//ctx.fillRect(bulletX-2,bulletY+2,2,2);
+	else if(bullet.firedFrom === "bile") {
+	ctx.beginPath();
+	ctx.lineWidth = 3;
+	ctx.strokeStyle = 'rgba(255,230,87,0.7)';
+	ctx.arc(bulletX,bulletY,5,0,2*Math.PI);
+	ctx.stroke();
+	ctx.beginPath();
+	ctx.lineWidth = 6;
+	ctx.strokeStyle = 'rgba(255,100,100,0.6)';
+	ctx.arc(bulletX,bulletY,3,0,2*Math.PI);
+	ctx.stroke();
+	ctx.beginPath();
+	ctx.strokeStyle = 'rgba(186,90,58,0.3)';
+	ctx.arc(bulletX,bulletY,7,0,2*Math.PI);
+	ctx.stroke();
+	ctx.beginPath();
+	ctx.lineWidth = 12;
+	ctx.strokeStyle = 'rgba(100,100,100,0.2)';
+	ctx.arc(bulletX,bulletY,9,0,2*Math.PI);
+	ctx.stroke();
+	ctx.lineWidth = 1;
+	ctx.fillRect(bulletX,bulletY,1,1);
 	}
 	else if(bullet.firedFrom === "machinegun") {
 	ctx.fillStyle = 'rgba(255,0,0' + ',' + opacityFiler + ')';

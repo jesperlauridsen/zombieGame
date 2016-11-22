@@ -26,7 +26,7 @@ function playgame() {
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
     //document.getElementById('testbutton').onclick=function(){bossThrowGranade(gameArrays.thrownGranadeArray,gameVariables.timeControler);};
-	document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,400,400,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
+	document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,600,400,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
     //document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray);};
     //set specialAbilityButtons
     document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,arrowImage,gameVariables);};
@@ -721,6 +721,7 @@ function playgame() {
 		for(i=0;i<gameArrays.bulletArray.length;i++) {
 			for(l=0;l<gameArrays.monsterArray.length;l++) {
 				try {
+                   if(gameArrays.bulletArray[i].firedFrom != "slime" && gameArrays.bulletArray[i].firedFrom != "bile") {
 			//console.log((gameArrays.bulletArray[i].bulletX - gameArrays.monsterArray[l].x) * (gameArrays.bulletArray[i].bulletX - gameArrays.monsterArray[l].x) + (gameArrays.bulletArray[i].bulletY - gameArrays.monsterArray[l].y)*(gameArrays.bulletArray[i].bulletY - gameArrays.monsterArray[l].y) + " < " + 15*15);
 			if((gameArrays.bulletArray[i].bulletX - gameArrays.monsterArray[l].x) * (gameArrays.bulletArray[i].bulletX - gameArrays.monsterArray[l].x) + (gameArrays.bulletArray[i].bulletY - gameArrays.monsterArray[l].y)*(gameArrays.bulletArray[i].bulletY - gameArrays.monsterArray[l].y) < 15*15) {
 				gameArrays.bulletArray[i].bulletHit = 1;
@@ -774,6 +775,25 @@ function playgame() {
 				}
 			else {
 			}
+            }
+            else {
+                if(gameArrays.bulletArray[i].firedFrom === "slime") {
+                    if((gameArrays.bulletArray[i].bulletX - 400) * (gameArrays.bulletArray[i].bulletX - 400) + (gameArrays.bulletArray[i].bulletY - 300)*(gameArrays.bulletArray[i].bulletY - 300) < 15*15) {
+                        hero.health = hero.health - gameArrays.bulletArray[i].bulletDamage;
+                        gameArrays.archivedBulletArray.push(gameArrays.bulletArray[i]);
+						gameArrays.bulletArray.splice(i,1);
+                        gameArrays.monsterArray[l].hit = 1;
+                        }
+                    }
+                else if(gameArrays.bulletArray[i].firedFrom === "bile") {
+                    if((gameArrays.bulletArray[i].bulletX - 400) * (gameArrays.bulletArray[i].bulletX - 400) + (gameArrays.bulletArray[i].bulletY - 300)*(gameArrays.bulletArray[i].bulletY - 300) < 15*15) {
+                        hero.health = hero.health - gameArrays.bulletArray[i].bulletDamage;
+                        gameArrays.archivedBulletArray.push(gameArrays.bulletArray[i]);
+                        gameArrays.bulletArray.splice(i,1);
+                        gameArrays.monsterArray[l].hit = 1;
+                        }
+                }
+                }
 			}
 			catch(err) {
 				//Monster dead or bullet hit something and removed.
