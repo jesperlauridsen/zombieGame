@@ -26,8 +26,8 @@ function playgame() {
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
     //document.getElementById('testbutton').onclick=function(){bossThrowGranade(gameArrays.thrownGranadeArray,gameVariables.timeControler);};
-	document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,1000,1000,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
-    //document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray);};
+	//document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,1000,1000,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
+    document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray,gameVariables.timeControler);};
     //set specialAbilityButtons
     document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,arrowImage,gameVariables);};
     document.getElementById('gameAbilityTwo').onclick=function(){activateHeatGoggles(hero);};
@@ -1268,6 +1268,14 @@ function playgame() {
 				}
 			}
 		}
+        for(u=0;u<gameArrays.rocketArray.length;u++) {
+            if(gameArrays.rocketArray[u].done === "no") {
+                rocketFlightPath(gameArrays.rocketArray[u],gameVariables.timeControler,gameArrays.rocketArray);
+            }
+            else {
+              gameArrays.monsterArray.splice(u,1);
+            }
+        }
         //console.log(hero.currentMission + " = " + hero.missionProgress + " | " + hero.missionPresented);
 		if(hero.currentMission == hero.missionProgress && hero.missionPresented === 0) {
 		showMissionInPlay(hero,missionArray);

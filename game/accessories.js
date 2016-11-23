@@ -101,8 +101,8 @@ function activateHeatGoggles(hero) {
     }
 }
 
-function launchRocket(distance,angle,r,b,g,type,rocketArray) {
-    console.log("Launching a " + type + " rocket, with colors " + r + "," + b + "," + g + " with distance " + distance + " at angle " + angle);
+function launchRocket(distance,angle,r,b,g,type,rocketArray,timeControler) {
+    console.log("Launching a " + type + " rocket, with colors " + r + "," + b + "," + g + " with distance " + distance + " at angle " + angle + ", startime: " + timeControler.getTime());
     var rocketObject = {
         type: type,
         distance: distance,
@@ -110,10 +110,14 @@ function launchRocket(distance,angle,r,b,g,type,rocketArray) {
         red: r,
         blue: b,
         green: g,
+        launchTime:timeControler.getTime(),
+        done:"no",
     };
+    rocketArray.push(rocketObject);
+    console.log(rocketArray);
 }
 
-function launchRandomRocket(rocketArray) {
+function launchRandomRocket(rocketArray,timeControler) {
     var rocketType = ["regular","sphere"];
     var randomRocket = (Math.round(Math.random() * 1 + 0));
     var red = (Math.round(Math.random() * 255 + 0));
@@ -122,5 +126,38 @@ function launchRandomRocket(rocketArray) {
     var distance = (Math.round(Math.random() * 45 + 40));
     randomAngle = randomAngle * TO_RADIANS;
     var green = (Math.round(Math.random() * 255 + 0))
-    launchRocket(distance,randomAngle,red,blue,green,rocketType[randomRocket],rocketArray);
+    launchRocket(distance,randomAngle,red,blue,green,rocketType[randomRocket],rocketArray,timeControler);
+}
+
+function rocketFlightPath(rocket,timeControler,rocketArray) {
+        if(rocket.type === "sphere") {
+            if(rocket.launchTime + 1000 > timeControler.getTime()) {
+                console.log("sphere rising");
+            }
+            else if(rocket.launchTime + 1000 < timeControler.getTime() && rocket.launchTime + 1500 > timeControler.getTime()) {
+                console.log("sphere shooting out and growing!");
+            }
+            else if(rocket.launchTime + 1500 < timeControler.getTime() && rocket.launchTime + 2000 > timeControler.getTime()) {
+                console.log("sphere shooting out and fading!");
+            }
+            else {
+                rocket.done = "yes"
+                console.log("sphere dead");
+            }
+        }
+        else if(rocket.type === "regular") {
+            if(rocket.launchTime + 1000 > timeControler.getTime()) {
+                console.log("regular rising");
+            }
+            else if(rocket.launchTime + 1000 < timeControler.getTime() && rocket.launchTime + 1700 > timeControler.getTime()) {
+                console.log("regular shooting out!");
+            }
+            else if(rocket.launchTime + 1700 < timeControler.getTime() && rocket.launchTime + 2400 > timeControler.getTime()) {
+                console.log("regular shooting fades!");
+            }
+            else {
+                rocket.done = "yes";
+                console.log("regular dead");
+            }
+        }
 }
