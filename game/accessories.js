@@ -101,15 +101,21 @@ function activateHeatGoggles(hero) {
     }
 }
 
-function launchRocket(distance,angle,r,b,g,type,rocketArray,timeControler) {
+function launchRocket(distance,angle,r,b,g,type,rocketArray,timeControler,speed) {
     console.log("Launching a " + type + " rocket, with colors " + r + "," + b + "," + g + " with distance " + distance + " at angle " + angle + ", startime: " + timeControler.getTime());
     var rocketObject = {
         type: type,
         distance: distance,
         angle: angle,
+        x:400,
+        y:300,
+        speed:speed,
         red: r,
         blue: b,
         green: g,
+        upwards:0,
+        waveStarting:0,
+        WaveEnding:0,
         launchTime:timeControler.getTime(),
         done:"no",
     };
@@ -118,21 +124,28 @@ function launchRocket(distance,angle,r,b,g,type,rocketArray,timeControler) {
 }
 
 function launchRandomRocket(rocketArray,timeControler) {
-    var rocketType = ["regular","sphere"];
+    var rocketType = ["sphere","sphere"];
+    var speed = (Math.round(Math.random() * 5 + 2));
     var randomRocket = (Math.round(Math.random() * 1 + 0));
     var red = (Math.round(Math.random() * 255 + 0));
     var blue = (Math.round(Math.random() * 255 + 0));
     var randomAngle = (Math.round(Math.random() * 360 + 0));
     var distance = (Math.round(Math.random() * 45 + 40));
-    randomAngle = randomAngle * TO_RADIANS;
+    //randomAngle = randomAngle * TO_RADIANS;
     var green = (Math.round(Math.random() * 255 + 0))
-    launchRocket(distance,randomAngle,red,blue,green,rocketType[randomRocket],rocketArray,timeControler);
+    launchRocket(distance,randomAngle,red,blue,green,rocketType[randomRocket],rocketArray,timeControler,speed);
 }
 
 function rocketFlightPath(rocket,timeControler,rocketArray) {
         if(rocket.type === "sphere") {
             if(rocket.launchTime + 1000 > timeControler.getTime()) {
+                rocket.x += Math.round((0-(rocket.speed)) * Math.sin(rocket.angle * TO_RADIANS));
+                rocket.y -= Math.round((0-(rocket.speed)) * Math.cos(rocket.angle * TO_RADIANS));
                 console.log("sphere rising");
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(' + rocket.red + ',' + rocket.green + ',' + rocket.blue + ',' + 0.7 +')';
+                ctx.arc(rocket.x,rocket.y,3,0,2*Math.PI);
+	            ctx.stroke();
             }
             else if(rocket.launchTime + 1000 < timeControler.getTime() && rocket.launchTime + 1500 > timeControler.getTime()) {
                 console.log("sphere shooting out and growing!");
