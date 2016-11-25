@@ -1302,14 +1302,11 @@ function playgame() {
 		showMissionInPlay(hero,missionArray);
 		hero.missionPresented = 1;
 		}
-        console.log(gameVariables.missionHighlight);
         if(gameVariables.missionHighlight + 6000 > gameVariables.timeControler.getTime() && gameVariables.highlightSet === 0) {
-                console.log("setting it!");
                 document.getElementById("missionProgressContainer").className = "highlightMission";
                 gameVariables.highlightSet = 1;
         }
         else if(gameVariables.missionHighlight + 6000 < gameVariables.timeControler.getTime() && gameVariables.highlightSet === 1 && document.getElementById("missionProgressContainer").className === "highlightMission") {
-            console.log("removing it!");
             document.getElementById("missionProgressContainer").className = "";
         }
 

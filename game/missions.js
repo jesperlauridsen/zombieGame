@@ -188,9 +188,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay,gameVariabl
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
                 hero.missionPresented = 0;
-                console.log("Ayyy,setting time!" + timeControler.getTime());
                 gameVariables.missionHighlight = timeControler.getTime();
-                console.log(gameVariables.missionHighlight);
                 gameVariables.highlightSet = 0;
                 if(missionCompleted === undefined || missionCompleted === true) {
                     missionCompleted = true;
@@ -255,7 +253,6 @@ function validateMission(missionArray,hero,timeControler,gameDisplay,gameVariabl
         hero.missionProgress = hero.missionProgress + 1;
         hero.missionPresented = 0;
         presentMission(missionArray,hero,timeControler);
-        console.log(hero.currentMission);
     }
 }
 
