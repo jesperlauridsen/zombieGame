@@ -25,6 +25,8 @@ function playgame() {
 	document.getElementById('utilitiesMedkit').onclick=function(){useMedkit(hero);};
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
+    document.getElementById("missionInteractionContainerExit").onclick=function(){closeInteractionContainer();};
+    //document.getElementById('testbutton').onclick=function(){changeStatusOfMissionProgress(missionArray,hero,gameVariables.timeControler)};
     //document.getElementById('testbutton').onclick=function(){bossThrowGranade(gameArrays.thrownGranadeArray,gameVariables.timeControler);};
 	//document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,1000,1000,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
     document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray,gameVariables.timeControler);};
@@ -63,7 +65,7 @@ function playgame() {
 		{name:"Flamethrower shells",imgName:"flamethrowerShells",amount:"50",offset:"28",itemType:"ammo"},
 		{name:"Schematic: Rocketbooster boots",imgName:"schematicBoots",amount:"1",offset:"34",itemType:"schematic",description:"A set of rocket boots that will increase your running speed.",materials:[{name:"Rocket fuel",constructor:"rocketFuel",amount:5},{name:"Leather straps",constructor:"leatherStraps",amount:8},{name:"Metal scrap",constructor:"metalScrap",amount:9},{name:"Electronic components",constructor:"electronicComponents",amount:6},{name:"Wires",constructor:"wires",amount:4}]},
 		{name:"Schematic: Lazerscope",imgName:"schematicScope",amount:"1",offset:"30",itemType:"schematic",description:"A laser scope on your weapons which will make aiming easier.",materials:[{name:"Lenses",constructor:"lenses",amount:4},{name:"Broken scope",constructor:"brokenScope",amount:1},{name:"Screws",constructor:"screws",amount:10},{name:"Steel tube",constructor:"steelTube",amount:1},{name:"Glass shards",constructor:"glassShard",amount:4},{name:"Gaffe tape",constructor:"gaffaTape",amount:1}]},
-		{name:"Schematic: Radio",imgName:"schematicRadio",amount:"1",offset:"15",itemType:"schematic",description:"A small radio which will let you talk to the base without having to run back.",materials:[{name:"Screws",constructor:"screws",amount:10},{name:"Broken antenna",constructor:"brokenAntenna",amount:1},{name:"Speaker unit",constructor:"speakerUnit",amount:1},{name:"Battery",constructor:"battery",amount:1},{name:"Steel case",constructor:"steelCase",amount:1},{name:"Wires",constructor:"wires",amount:10},{name:"Handful of transistors",constructor:"transistors",amount:10}]},
+		//{name:"Schematic: Radio",imgName:"schematicRadio",amount:"1",offset:"15",itemType:"schematic",description:"A small radio which will let you talk to the base without having to run back.",materials:[{name:"Screws",constructor:"screws",amount:10},{name:"Broken antenna",constructor:"brokenAntenna",amount:1},{name:"Speaker unit",constructor:"speakerUnit",amount:1},{name:"Battery",constructor:"battery",amount:1},{name:"Steel case",constructor:"steelCase",amount:1},{name:"Wires",constructor:"wires",amount:10},{name:"Handful of transistors",constructor:"transistors",amount:10}]},
 		{name:"Schematic: Thermo-goggles",imgName:"schematicGoogles",amount:"1",offset:"28",itemType:"schematic",description:"A pair of glasses which will let you see monster more easily.",materials:[{name:"Lenses",constructor:"lenses",amount:2},{name:"Screws",constructor:"screws",amount:10},{name:"Metal scrap",constructor:"metalScrap",amount:12},{name:"Electronic components",constructor:"electronicComponents",amount:6},{name:"Wires",constructor:"wires",amount:12},{name:"Battery",constructor:"battery",amount:2}]},
 		{name:"Schematic: Pulse-Emitter",imgName:"schematicPulse",amount:"1",offset:"27",itemType:"schematic",description:"A device setting off a pulse, damaging all monsters in range.",materials:[{name:"Broken antenna",constructor:"brokenAntenna",amount:1},{name:"Small electronic screen",constructor:"smallElectronicScreen",amount:1},{name:"Wires",constructor:"wires",amount:8},{name:"Metal scrap",constructor:"metalScrap",amount:6},{name:"Electronic components",constructor:"electronicComponents",amount:6},{name:"Gaffa tape",constructor:"gaffaTape",amount:3},{name:"Steel case",constructor:"steelCase",amount:1},{name:"Battery",constructor:"battery",amount:1},{name:"Screws",constructor:"screws",amount:5}]},
 		{name:"Schematic: Scavanger 101",imgName:"schematicTrash",amount:"1",offset:"27",itemType:"schematic",description:"A device that lets you identify monsters which will drop loot.",materials:[{name:"Handful of transistors",constructor:"transistors",amount:5},{name:"Broken antenna",constructor:"brokenAntenna",amount:1},{name:"Battery",constructor:"battery",amount:2},{name:"Small electronic screen",constructor:"smallElectronicScreen",amount:1},{name:"Wires",constructor:"wires",amount:5},{name:"Steel case",constructor:"steelCase",amount:1}]},
@@ -87,7 +89,7 @@ function playgame() {
 		{name:"Steel tube",imgName:"steelTube",amount:"1",offset:"7",itemType:"mat"},
 		{name:"Glass shards",imgName:"glassShard",amount:"2",offset:"8",itemType:"mat"},
 		{name:"Rocket fuel",imgName:"rocketFuel",amount:"1",offset:"6",itemType:"mat"},
-		{name:"Speaker unit",imgName:"speakerUnit",amount:"1",offset:"8",itemType:"mat"},
+		//{name:"Speaker unit",imgName:"speakerUnit",amount:"1",offset:"8",itemType:"mat"},
 		{name:"Leather straps",imgName:"leatherStraps",amount:"2",offset:"15",itemType:"mat"},
 		{name:"Gaffa tape",imgName:"gaffaTape",amount:"1",offset:"7",itemType:"mat"},
 		{name:"Handful of transistors",imgName:"transistors",amount:"10",offset:"28",itemType:"mat"},
@@ -146,9 +148,11 @@ function playgame() {
 		pulseTransmitterCountdown:0,
 		pulseTransmitterCounter:4,
 		reloadDelay:0,
-		missionProgress:11,
-		currentMission:11,
-		missionPresented:0
+		missionProgress:0,
+		currentMission:0,
+		missionPresented:0,
+        missionShown:0,
+        missionShownTimer:0,
 	};
 
 	var missionArray = [
@@ -158,7 +162,7 @@ function playgame() {
 		],
 		//1: Get Radio schematic & find the city.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"City of Valisburg",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the city.",message:"Your first objective is to get to the city of Valisburg, and see if you can find any survivors who can tell us what the hell happend!",completion:"So, you found the city, soldier!"},
+			objective = {completionTime:0,func:"primary",type:"find",name:"Tiny farm",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find  the farm.",message:"Your first objective is to get to farm not far from here, and see if you can find any survivors who can tell us what the hell happened!",completion:"So, you found the city, soldier!"},
 			//objective = {completionTime:0,func:"secondary",type:"get",item:"Schematic: Radio",amount:1,gathered:0,completed:"no",statement:"Build a radio.",message:"Our engineers fixed together a schematic for a low-end radio - See if you can find the materials required, so you can communicate with the base on radio - otherwise you have to run back here to report back!",completion:"*Rrrrrrr* Come in, soldier. Well done, now we can communicate over radio. Now get back to work on your primary objectives. Over."}
 		],
 		//2: Kill 50 zombies & find survivor.
@@ -182,8 +186,8 @@ function playgame() {
 		//6: Ambushed - kill the attackers.
 		mission = [
 			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:25,gathered:0,completed:"no",wave:1,statement:"Kill 25 zombies",message:"Survive the attacks!",completion:"Well done!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Super zombie",amount:6,gathered:0,completed:"no",wave:1,statement:"Kill 6 super zombies",message:"Survive the attacks!",completion:"nice!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Master zombie",amount:3,gathered:0,completed:"no",wave:1,statement:"Kill 3 master zombies",message:"Survive the attack",completion:"Excellent!"}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Super zombie",amount:6,gathered:0,completed:"no",wave:1,statement:"Kill 6 super zombies",message:"",completion:"nice!"},
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Master zombie",amount:3,gathered:0,completed:"no",wave:1,statement:"Kill 3 master zombies",message:"",completion:"Excellent!"}
 		],
 		//7: Back to base, its under attack.
 		mission = [
@@ -195,10 +199,10 @@ function playgame() {
 		],
 		//9: Antidote probably fixed - need stuff to test.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Forest",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the forest.",message:"Our scientists believe they've worked out a cure - they need you to go to the forest and get the following items!",completion:"Good work, soldier!"},
-			objective = {completionTime:0,func:"primary",type:"get",item:"Elderweed",amount:3,gathered:0,completed:"no",statement:"Gather 3 Elderweed.",message:"Find some elderweed",completion:"This should do."},
-			objective = {completionTime:0,func:"primary",type:"get",item:"Zombie excrement",amount:5,gathered:0,completed:"no",statement:"Gather 5 zombie excrement",message:"Find some zombie excrement *Ewww*",completion:"This should do... fine..."},
-			objective = {completionTime:0,func:"primary",type:"get",item:"Butterfly eggs",amount:5,gathered:0,completed:"no",statement:"Gather 5 butterfly eggs",message:"Find some butterfly eggs",completion:"Excellent, this is the stuff"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Forest",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the forest.",message:"Our scientists believe they've worked out a cure - they need you to go to the forest and get the following items: Some elderweed, some zombie excrements... and some butterfly eggs!",completion:"Good work, soldier!"},
+			objective = {completionTime:0,func:"primary",type:"get",item:"Elderweed",amount:3,gathered:0,completed:"no",statement:"Gather 3 Elderweed.",message:"Find some elderweed, ",completion:"This should do."},
+			objective = {completionTime:0,func:"primary",type:"get",item:"Zombie excrement",amount:5,gathered:0,completed:"no",statement:"Gather 5 zombie excrement",message:"",completion:"This should do... fine..."},
+			objective = {completionTime:0,func:"primary",type:"get",item:"Butterfly eggs",amount:5,gathered:0,completed:"no",statement:"Gather 5 butterfly eggs",message:"",completion:"Excellent, this is the stuff"}
 		],
 		//10: deliver to base.
 		mission = [
@@ -214,7 +218,7 @@ function playgame() {
 		],
 		//13: Yay, you saved the world! Party the night away!
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"win",name:"Win",completed:"yes",statement:"Party your socks off!",message:"You really did it! You saved the world! Well done, soldier!",completion:"Game completed"}
+			objective = {completionTime:0,func:"primary",type:"win",name:"Win",completed:"no",statement:"Party your socks off!",message:"You really did it! You saved the world! Well done, soldier!",completion:"Game completed"}
 		]
 	];
 
@@ -249,6 +253,9 @@ function playgame() {
 		timeStamp:new Date(),
 		timeStart:new Date(),
 		timeEnd:"",
+        rocketInterval:0,
+        missionHighlight:0,
+        highlightSet:0,
 		timeControler:new Date(),
 		setTimeState:0,
 		heroImageUsed:"graphics/hero-new/hero-standing-sword.png"
@@ -973,7 +980,7 @@ function playgame() {
 			}
 		}
 	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded,gameArrays.environmentArray);
-        validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay);
+        validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay,gameVariables);
 		}
 		else {
 		}
@@ -1277,10 +1284,36 @@ function playgame() {
             }
         }
         //console.log(hero.currentMission + " = " + hero.missionProgress + " | " + hero.missionPresented);
+        if(hero.missionShown === 1) {
+            if(hero.missionShownTimer + 10000 > gameVariables.timeControler.getTime()) {
+                if(document.getElementById("missionInteractionContainer").className === "progressNotActive") {
+                    document.getElementById("missionInteractionContainer").className = "progressActive";
+                }
+                else {
+                  //document.getElementById().className = "progressActive";
+                }
+            }
+            else {
+                document.getElementById("missionInteractionContainer").className = "progressNotActive";
+                hero.missionShown = 0;
+            }
+        }
 		if(hero.currentMission == hero.missionProgress && hero.missionPresented === 0) {
 		showMissionInPlay(hero,missionArray);
 		hero.missionPresented = 1;
 		}
+        console.log(gameVariables.missionHighlight);
+        if(gameVariables.missionHighlight + 6000 > gameVariables.timeControler.getTime() && gameVariables.highlightSet === 0) {
+                console.log("setting it!");
+                document.getElementById("missionProgressContainer").className = "highlightMission";
+                gameVariables.highlightSet = 1;
+        }
+        else if(gameVariables.missionHighlight + 6000 < gameVariables.timeControler.getTime() && gameVariables.highlightSet === 1 && document.getElementById("missionProgressContainer").className === "highlightMission") {
+            console.log("removing it!");
+            document.getElementById("missionProgressContainer").className = "";
+        }
+
+
         document.getElementById("testbutton").innerHTML = "X: " + gameDisplay.x + ",Y:" + gameDisplay.y + "<br /> index X:" + gameDisplay.indexX + ",Y:" + gameDisplay.indexY;
 };
 // The main game loop

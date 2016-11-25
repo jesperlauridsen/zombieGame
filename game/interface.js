@@ -235,6 +235,10 @@ function schematicsDisplay(inventory,schematics,hero) {
 
 }
 
+function closeInteractionContainer() {
+    document.getElementById("missionInteractionContainer").className = "progressNotActive";
+}
+
 function inventoryDisplay(inventory) {
 	document.getElementById("inventoryBackpack").innerHTML = "<div id='inventryExit' class='exitInventory' onclick='closeInventory()'>X</div><h4>Inventory</h4><break>";
 		for(i=0;i<Object.keys(inventory).length;i++) {
@@ -551,6 +555,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	gameVariables.timeControler = new Date();
 	gameVariables.setTimeState = gameVariables.timeControler.getSeconds() + 3;
 	gameVariables.bulletCounter = 0;
+    gameVariables.missionHighlight = gameVariables.timeControler.getTime();
 	//Initiate ground-values
 	hero.angle = 0;
 	hero.x = canvas.width / 2;
@@ -581,11 +586,14 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	tileDisplay.x = canvas.width/2;
 	tileDisplay.y = canvas.height/2;
 	selectWeapon("machete", hero);
+    presentMission(missionArray,hero,gameVariables.timeControler);
 }
 
 /* TEST FUNCTION */
-function changeStatusOfMissionProgress(hero) {
+function changeStatusOfMissionProgress(missionArray,hero,timeControler) {
 	hero.missionProgress = hero.missionProgress + 1 ;
 	hero.currentMission = hero.currentMission + 1;
 	hero.missionPresented = 0;
+    hero.missionShown = 0;
+    presentMission(missionArray,hero,timeControler);
 }

@@ -74,10 +74,16 @@ function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,cat
 	else {
 		randomY = Math.round((Math.random() * (canvas.height) + yStart));
 	}
+    if(category === 4) {
+        var monsterSpeed = 2;
+    }
+    else {
+        var monsterSpeed = (Math.random() * 3 + 5);
+    }
 	var monster = {
 		x: randomX,
 		y: randomY,
-		speed: (Math.random() * 3 + 5),
+		speed: monsterSpeed,
 		angle:(Math.random() * 360 - 0),
 		state:state,
 		category: category,

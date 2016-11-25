@@ -28,7 +28,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
         missionPointX = missionPointX * 800 + 400;
         missionPointY = missionPointY * 600 + 300;
         //console.log(missionPointX + "," + missionPointY);
-        console.log("Ny X = " + missionPointX + "| Ny Y = " + missionPointY + " " + environmentalPoints[Object.keys(environmentalPoints)[y]].name);
+        //console.log("Ny X = " + missionPointX + "| Ny Y = " + missionPointY + " " + environmentalPoints[Object.keys(environmentalPoints)[y]].name);
         //ctx.beginPath();
         //ctx.moveTo(400, 300);
         //ctx.lineTo(missionPointX, missionPointY);
@@ -138,13 +138,15 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
     //console.log(missionArray);
 }
 
-function validateMission(missionArray,hero,timeControler,gameDisplay) {
+function validateMission(missionArray,hero,timeControler,gameDisplay,gameVariables) {
 	var missionCompleted = undefined;
 	for(h=0;h<missionArray[hero.currentMission].length;h++) {
 		if(missionArray[hero.currentMission][h].type === "get" && missionArray[hero.currentMission][h].func === "primary") {
 			if(missionArray[hero.currentMission][h].gathered >= missionArray[hero.currentMission][h].amount) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
+                gameVariables.missionHighlight = timeControler.getTime();
+                gameVariables.highlightSet = 0;
                 if(missionCompleted === undefined || missionCompleted === true) {
                     missionCompleted = true;
                 }
@@ -168,6 +170,8 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
                 hero.missionPresented = 0;
+                gameVariables.missionHighlight = timeControler.getTime();
+                gameVariables.highlightSet = 0;
                 if(missionCompleted === undefined || missionCompleted === true) {
                     missionCompleted = true;
                 }
@@ -184,6 +188,10 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
                 hero.missionPresented = 0;
+                console.log("Ayyy,setting time!" + timeControler.getTime());
+                gameVariables.missionHighlight = timeControler.getTime();
+                console.log(gameVariables.missionHighlight);
+                gameVariables.highlightSet = 0;
                 if(missionCompleted === undefined || missionCompleted === true) {
                     missionCompleted = true;
                 }
@@ -198,6 +206,8 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
                 hero.missionPresented = 0;
+                gameVariables.missionHighlight = timeControler.getTime();
+                gameVariables.highlightSet = 0;
                 if(missionCompleted === undefined || missionCompleted === true) {
                     missionCompleted = true;
                 }
@@ -211,6 +221,8 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
                 hero.missionPresented = 0;
+                gameVariables.missionHighlight = timeControler.getTime();
+                gameVariables.highlightSet = 0;
                 if(missionCompleted === undefined || missionCompleted === true) {
                     missionCompleted = true;
                 }
@@ -224,6 +236,8 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
 				missionArray[hero.currentMission][h].completionTime = timeControler.getTime();
 				missionArray[hero.currentMission][h].completed = "yes";
                 hero.missionPresented = 0;
+                gameVariables.missionHighlight = timeControler.getTime();
+                gameVariables.highlightSet = 0;
                 if(missionCompleted === undefined || missionCompleted === true) {
                     missionCompleted = true;
                 }
@@ -240,8 +254,16 @@ function validateMission(missionArray,hero,timeControler,gameDisplay) {
         hero.currentMission = hero.currentMission + 1;
         hero.missionProgress = hero.missionProgress + 1;
         hero.missionPresented = 0;
+        presentMission(missionArray,hero,timeControler);
         console.log(hero.currentMission);
     }
+}
+
+function presentMission(missionArray,hero,timeControler) {
+    document.getElementById("missionInteractionContainer").getElementsByTagName("p")[0].innerHTML = missionArray[hero.currentMission][0].message;
+    document.getElementById("missionInteractionContainer").className = "progressActive";
+    hero.missionShown = 1;
+    hero.missionShownTimer = timeControler.getTime();
 }
 
 function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterArray,granadeArray) {
@@ -308,7 +330,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
-                spawnMonster(xPoint,yPoint,20,300,1000,1000,4,monsterArray,"boss");
+                spawnMonster(xPoint,yPoint,10,300,1000,1000,4,monsterArray,"boss");
                 console.log("boss spawned!");
                 missionArray[12][0].bossSpawned = 1;
                 missionArray[12][0].actionCounter = timeControler.getTime();
@@ -318,7 +340,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
-                spawnMonster(xPoint,yPoint,20,300,120,120,1,monsterArray,"desperate");
+                spawnMonster(xPoint,yPoint,15,300,120,120,1,monsterArray,"desperate");
             }
             missionArray[12][0].wave = missionArray[12][0].wave + 1;
             }
