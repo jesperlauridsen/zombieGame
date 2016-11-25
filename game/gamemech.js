@@ -465,6 +465,9 @@ function playgame() {
 			for(o=0;o<gameArrays.objectArray.length;o++) {
 				newPositionForward(gameArrays.objectArray[o],hero);
 			}
+            for(b=0;b<gameArrays.rocketArray.length;b++) {
+                newPositionForward(gameArrays.rocketArray[b],hero);
+            }
             for(p=0;p<gameArrays.environmentArray.length;p++) {
 				newPositionForwardEnvironment(gameArrays.environmentArray[p],hero);
 			}
@@ -516,6 +519,9 @@ function playgame() {
 			for(o=0;o<gameArrays.objectArray.length;o++) {
 				newPositionBackward(gameArrays.objectArray[o],hero);
 			}
+            for(b=0;b<gameArrays.rocketArray.length;b++) {
+                newPositionBackward(gameArrays.rocketArray[b],hero);
+            }
             for(p=0;p<gameArrays.environmentArray.length;p++) {
 				newPositionBackwardEnvironment(gameArrays.environmentArray[p],hero);
 			}
