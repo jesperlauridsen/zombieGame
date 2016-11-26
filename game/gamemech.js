@@ -111,7 +111,7 @@ function playgame() {
 		machinegun:0,
 		machinegunDamage:20,
 		shotgun:0,
-		shotgunDamage:30,
+		shotgunDamage:20,
 		flamethrower:0,
 		flamethrowerDamage:10,
 		gun: "machete",
