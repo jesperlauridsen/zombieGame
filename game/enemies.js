@@ -75,7 +75,7 @@ function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,cat
 		randomY = Math.round((Math.random() * (canvas.height) + yStart));
 	}
     if(category === 4) {
-        var monsterSpeed = 2;
+        var monsterSpeed = 4;
     }
     else {
         var monsterSpeed = (Math.random() * 3 + 5);
@@ -271,7 +271,6 @@ function monsterState(monster,hero,gameVariables,missionArray,thrownGranadeArray
 				monster.setOffAngle = gameVariables.timeControler.getTime();
 				monster.offAngle = Math.round(Math.random() * 121 - 60);
 			}
-            console.log("here?");
             //console.log("going in for attack!");
 			monster.angle = ((Math.atan2(hero.y-10 - monster.y, hero.x-10 - monster.x) * 180 / Math.PI) - 90);
 			monster.angle = monster.angle + monster.offAngle;

@@ -498,6 +498,33 @@ function recountAntidote(hero) {
 	document.getElementById("utilitiesAntidote").innerHTML = hero.antidote;
 }
 
+function gameWonShowStats(archivedBulletArray,archivedMonsterArray,numberOfDrops,gameVariables,gameArrays) {
+    var div = document.createElement('div');
+    div.id = "gameWonButton";
+    document.getElementById("gameContainer").appendChild(div);
+    document.getElementById("gameWonButton").innerHTML = "You've won the game! <br> See stats";
+    document.getElementById('gameWonButton').onclick=function(){showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops),cleanScreenForStatistics();setEndtime(gameVariables);showStatisticsOnCanvas(gameArrays,gameVariables);};
+}
+
+function setEndtime(gameVariables) {
+    var end = new Date();
+    end.setTime(gameVariables.timeControler.getTime());
+    gameVariables.timeEnd = end;
+}
+
+function cleanScreenForStatistics() {
+    document.getElementById("gameClip").innerHTML = "";
+	document.getElementById("gameHealth").innerHTML = "";
+	document.getElementById("gameInventory").style.display = "none";
+	document.getElementById("gameSchematics").style.display = "none";
+	document.getElementById("missionProgressContainer").style.display = "none";
+	document.getElementById("gameVision").style.display = "none";
+	document.getElementById("inventoryBackpack").className = "closedInventory";
+    document.getElementById("gameAbilityOverallContainer").style.display = "none";
+    document.getElementById("gameWonButton").style.display = "none";
+    document.getElementById("missionInteractionContainer").style.display = "none";
+}
+
 function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded) {
 	for(y=0;y<drops.length;y++) {
 		if(drops[y].itemType === "mat") {
@@ -564,6 +591,8 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	hero.antidote = 0;
 	hero.medkit = 3;
 	hero.health = 100;
+    hero.currentMission = 0;
+    hero.missionProgress = 0;
 	//Set time-values
 	//Hide buttons
 	document.getElementById("gameInventory").style.display = "block";
@@ -573,6 +602,10 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	document.getElementById("gameStatistics").style.display = "none";
     document.getElementById("gameAbilityOverallContainer").style.display = "block";
 	initiateBackground(gameArrays.backgroundArray, gameArrays.backgroundObjectArray, backgroundImage);
+    if(document.getElementById("gameWonButton") != null) {
+        document.getElementById("gameWonButton").style.display = "block";
+    }
+    document.getElementById("missionInteractionContainer").style.display = "block";
 	initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray,environmentImagesLoaded,gameArrays.environmentArray,gameDisplay);
 	weaponAvailability(hero);
 	recountAntidote(hero);

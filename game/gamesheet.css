@@ -462,6 +462,21 @@ body {
 	color:black;
 }
 
+#gameWonButton {
+    position: absolute;
+    background-color: rgba(255,255,255,0.2);
+    opacity: 0.4;
+    color: white;
+    border: 1px solid black;
+    height: 50px;
+    width: 300px;
+    padding: 5px;
+    text-align: center;
+    top: 388px;
+    cursor: pointer;
+    left: 463px;
+}
+
 #gameHealth.lowHealth {
 	color:red;
 }

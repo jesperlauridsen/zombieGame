@@ -41,7 +41,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
         environmentalPoints[name].indexY = missionIndexY;
         environmentalPoints[name].x = missionPointX;
         environmentalPoints[name].y = missionPointY;
-        missionDistance = missionDistance + 1000;
+        missionDistance = missionDistance + 1500;
          }
 	//Index er Math.round(X/800)
 	//	   Math.round(Y/600)
@@ -50,11 +50,13 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 	missionArray[0][0].indexY = environmentalPoints.basecampPosition.indexY;
     missionArray[0][0].x = environmentalPoints.basecampPosition.x;
 	missionArray[0][0].y = environmentalPoints.basecampPosition.y;
+    console.log("basecamp: " + missionArray[0][0].indexX + "," + missionArray[0][0].indexY);
 
 	missionArray[1][0].indexX = environmentalPoints.cityPosition.indexX;
 	missionArray[1][0].indexY = environmentalPoints.cityPosition.indexY;
     missionArray[1][0].x = environmentalPoints.cityPosition.x;
 	missionArray[1][0].y = environmentalPoints.cityPosition.y;
+    console.log("farm: " + missionArray[1][0].indexX + "," + missionArray[1][0].indexY);
 
     missionArray[2][0].indexX = environmentalPoints.cityPosition.indexX;
 	missionArray[2][0].indexY = environmentalPoints.cityPosition.indexY;
@@ -70,6 +72,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 	missionArray[5][0].indexY = environmentalPoints.groundZeroPosition.indexY;
     missionArray[5][0].x = environmentalPoints.groundZeroPosition.x;
 	missionArray[5][0].y = environmentalPoints.groundZeroPosition.y;
+    console.log("ground zero: " + missionArray[5][0].indexX + "," + missionArray[5][0].indexY);
 
 	missionArray[7][0].indexX = environmentalPoints.basecampPosition.indexX;
 	missionArray[7][0].indexY = environmentalPoints.basecampPosition.indexY;
@@ -80,6 +83,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 	missionArray[9][0].indexY = environmentalPoints.forestPosition.indexY;
     missionArray[9][0].x = environmentalPoints.forestPosition.x;
 	missionArray[9][0].y = environmentalPoints.forestPosition.y;
+    console.log("forest: " + missionArray[9][0].indexX + "," + missionArray[9][0].indexY);
     //console.log(environmentalPoints.forestPosition.indexX + " " + environmentalPoints.forestPosition.indexY);
 
 	missionArray[10][0].indexX = environmentalPoints.basecampPosition.indexX;
@@ -91,6 +95,8 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 	missionArray[11][0].indexY = environmentalPoints.zombiePlayground.indexY;
     missionArray[11][0].x = environmentalPoints.zombiePlayground.x;
 	missionArray[11][0].y = environmentalPoints.zombiePlayground.y;
+    console.log("zombie playground: " + missionArray[11][0].indexX + "," + missionArray[11][0].indexY);
+
     //console.log(missionArray[3][0].x + "," + missionArray[3][0].y);
     var survivor = {
         itemType:"survivor",
@@ -138,7 +144,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
     //console.log(missionArray);
 }
 
-function validateMission(missionArray,hero,timeControler,gameDisplay,gameVariables) {
+function validateMission(missionArray,hero,timeControler,gameDisplay,gameVariables,archivedBulletArray,archivedMonsterArray,numberOfDrops,gameArrays) {
 	var missionCompleted = undefined;
 	for(h=0;h<missionArray[hero.currentMission].length;h++) {
 		if(missionArray[hero.currentMission][h].type === "get" && missionArray[hero.currentMission][h].func === "primary") {
@@ -254,6 +260,11 @@ function validateMission(missionArray,hero,timeControler,gameDisplay,gameVariabl
         hero.missionPresented = 0;
         presentMission(missionArray,hero,timeControler);
     }
+    if(missionCompleted === false && hero.currentMission === 13) {
+        if(document.getElementById("gameWonButton") === null) {
+         gameWonShowStats(archivedBulletArray,archivedMonsterArray,numberOfDrops,gameVariables,gameArrays);
+        }
+    }
 }
 
 function presentMission(missionArray,hero,timeControler) {
@@ -263,7 +274,7 @@ function presentMission(missionArray,hero,timeControler) {
     hero.missionShownTimer = timeControler.getTime();
 }
 
-function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterArray,granadeArray) {
+function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterArray,granadeArray,rocketArray) {
     if(hero.currentMission === 6) {
         //console.log(missionArray[5][0].completionTime + (missionArray[6][0].wave * 3000) + ">" + timeControler.getTime());
         if(missionArray[5][0].completionTime + (missionArray[6][0].wave * 7000) < timeControler.getTime() && missionArray[6][0].wave < 7) {
@@ -343,6 +354,21 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
             }
         }
 
+    }
+    if(hero.currentMission === 13) {
+        if(missionArray[13][0].rocketLaunch === 0) {
+            missionArray[13][0].rocketLaunch = timeControler.getTime();
+        }
+        else {
+            if(missionArray[13][0].rocketLaunch + 100 > timeControler.getTime() && missionArray[13][0].rocketFired === 0)  {
+                launchRandomRocket(rocketArray,timeControler);
+                missionArray[13][0].rocketFired = 1;
+            }
+            else if(missionArray[13][0].rocketLaunch + 100 < timeControler.getTime()) {
+                missionArray[13][0].rocketLaunch = timeControler.getTime();
+                missionArray[13][0].rocketFired = 0;
+            }
+        }
     }
 }
 

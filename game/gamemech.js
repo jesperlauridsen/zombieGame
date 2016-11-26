@@ -148,8 +148,8 @@ function playgame() {
 		pulseTransmitterCountdown:0,
 		pulseTransmitterCounter:4,
 		reloadDelay:0,
-		missionProgress:0,
-		currentMission:0,
+		missionProgress:13,
+		currentMission:13,
 		missionPresented:0,
         missionShown:0,
         missionShownTimer:0,
@@ -218,7 +218,7 @@ function playgame() {
 		],
 		//13: Yay, you saved the world! Party the night away!
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"win",name:"Win",completed:"no",statement:"Party your socks off!",message:"You really did it! You saved the world! Well done, soldier!",completion:"Game completed"}
+			objective = {completionTime:0,func:"primary",type:"win",name:"Win",completed:"no",rocketLaunch:0,rocketFired:0,statement:"Party your socks off!",message:"You really did it! You saved the world! Well done, soldier!",completion:"Game completed"}
 		]
 	];
 
@@ -397,12 +397,52 @@ function playgame() {
 	var monster3HeatAttack = new Image();
 	monster3HeatAttack.src = "graphics/monster3-temp.png"
 
+    var basecampImages = ["randomBasecamp"];
+    var basecampImagesLoaded = [];
+    for(y=0;y<basecampImages.length;y++) {
+        var objectImage = new Image();
+		objectImage.src = "graphics/environment/" + basecampImages[y] + ".png";
+        basecampImagesLoaded.push(objectImage);
+    }
+
+    var pgImages = ["randomPlayground"];
+    var pgImagesLoaded = [];
+    for(y=0;y<pgImages.length;y++) {
+        var objectImage = new Image();
+		objectImage.src = "graphics/environment/" + pgImages[y] + ".png";
+        pgImagesLoaded.push(objectImage);
+    }
+
+    var gzImages = ["randomGroundZero"];
+    var gzImagesLoaded = [];
+    for(y=0;y<gzImages.length;y++) {
+        var objectImage = new Image();
+		objectImage.src = "graphics/environment/" + gzImages[y] + ".png";
+        gzImagesLoaded.push(objectImage);
+    }
+
+    var farmImages = ["randomFarm"];
+    var farmImagesLoaded = [];
+    for(y=0;y<farmImages.length;y++) {
+        var objectImage = new Image();
+		objectImage.src = "graphics/environment/" + farmImages[y] + ".png";
+        farmImagesLoaded.push(objectImage);
+    }
+
+    var forestImages = ["randomForest"];
+    var forestImagesLoaded = [];
+    for(y=0;y<forestImages.length;y++) {
+       var objectImage = new Image();
+		objectImage.src = "graphics/environment/" + forestImages[y] + ".png";
+        forestImagesLoaded.push(objectImage);
+    }
+
     var environmentImages = ["randomTile"];
     var environmentImagesLoaded = [];
     for(y=0;y<environmentImages.length;y++) {
-        objectImageArray[y] = new Image();
-		objectImageArray[y].src = "graphics/environment/" + environmentImages[y] + ".png";
-        environmentImagesLoaded.push(objectImageArray[y]);
+        var objectImage = new Image();
+		objectImage.src = "graphics/environment/" + environmentImages[y] + ".png";
+        environmentImagesLoaded.push(objectImage);
     }
     //console.log(environmentImagesLoaded);
 	monsterImage1.onload = function () {
@@ -441,7 +481,7 @@ function playgame() {
 
 	// Update game objects
 	var update = function () {
-		if(hero.death === 0) {
+		if(hero.death === 0 && missionArray[13][0].completed === "no") {
 		gameVariables.timeControler = new Date();
 		if(hero.angle > 360) {
 			hero.angle = 0;
@@ -729,7 +769,7 @@ function playgame() {
 			gameVariables.isPressed = 1;
 		}
         //Check for monster spawn missions
-        ambushMissionSpawn(hero,gameArrays.objectArray,gameVariables.timeControler,missionArray,gameArrays.monsterArray,gameArrays.granadeArray);
+        ambushMissionSpawn(hero,gameArrays.objectArray,gameVariables.timeControler,missionArray,gameArrays.monsterArray,gameArrays.granadeArray,gameArrays.rocketArray);
 		//Update all bullets still on screen or fired
 		for(i=0;i<gameArrays.bulletArray.length;i++) {
 			for(l=0;l<gameArrays.monsterArray.length;l++) {
@@ -985,8 +1025,8 @@ function playgame() {
 				gameArrays.monsterArray[b].attackIni = 0;
 			}
 		}
-	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded,gameArrays.environmentArray);
-        validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay,gameVariables);
+	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded, pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,gameArrays.environmentArray);
+        validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay,gameVariables,gameArrays.archivedBulletArray,gameArrays.archivedMonsterArray,gameVariables.numberOfDrops,gameArrays);
 		}
 		else {
 		}
