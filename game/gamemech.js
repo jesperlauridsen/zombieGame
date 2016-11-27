@@ -981,6 +981,11 @@ function playgame() {
 						gameArrays.objectArray.splice(v,1);
 					}
 				}
+                if(gameArrays.objectArray[v].itemType === "box") {
+                    console.log("case opened - spawn some shit around it!");
+                    gameArrays.archivedObjectArray.push(gameArrays.objectArray[v]);
+				    gameArrays.objectArray.splice(v,1);
+                }
 				else {
 				//console.log(inventory[gameArrays.objectArray[v].imageSource].constructor + " | amount: " + inventory[gameArrays.objectArray[v].imageSource].amount);
 				inventory[gameArrays.objectArray[v].imageSource].amount = parseInt(inventory[gameArrays.objectArray[v].imageSource].amount) + parseInt(gameArrays.objectArray[v].amount);

@@ -606,7 +606,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
         document.getElementById("gameWonButton").style.display = "block";
     }
     document.getElementById("missionInteractionContainer").style.display = "block";
-	initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray,environmentImagesLoaded,gameArrays.environmentArray,gameDisplay);
+	initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray,environmentImagesLoaded,gameArrays.environmentArray,gameDisplay,gameArrays.objectArray);
 	weaponAvailability(hero);
 	recountAntidote(hero);
 	recountMedkit(hero);
