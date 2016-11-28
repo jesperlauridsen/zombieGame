@@ -328,6 +328,14 @@ function playgame() {
 	};
 	survivorImage.src = "graphics/star-green.png";
 
+    //survivorImage
+    var materialReady = false;
+	var materialImage = new Image();
+	materialImage.onload = function () {
+		materialReady = true;
+	};
+	materialImage.src = "graphics/star-green.png";
+
     //questDrop Elderweed
     var elderweedReady = false;
 	var elderweedImage = new Image();
@@ -981,8 +989,8 @@ function playgame() {
 						gameArrays.objectArray.splice(v,1);
 					}
 				}
-                if(gameArrays.objectArray[v].itemType === "box") {
-                    console.log("case opened - spawn some shit around it!");
+                else if(gameArrays.objectArray[v].itemType === "box") {
+                    monsterDrop(gameArrays.objectArray[v], drops, gameArrays.objectArray, gameVariables);
                     gameArrays.archivedObjectArray.push(gameArrays.objectArray[v]);
 				    gameArrays.objectArray.splice(v,1);
                 }
@@ -1030,7 +1038,7 @@ function playgame() {
 				gameArrays.monsterArray[b].attackIni = 0;
 			}
 		}
-	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded, pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,gameArrays.environmentArray);
+	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded, pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,gameArrays.environmentArray,gameArrays.objectArray);
         validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay,gameVariables,gameArrays.archivedBulletArray,gameArrays.archivedMonsterArray,gameVariables.numberOfDrops,gameArrays);
 		}
 		else {
@@ -1081,6 +1089,9 @@ function playgame() {
             else if(gameArrays.objectArray[i].itemType === 'survivor') {
                 ctx.fillStyle = 'rgba(255,255,255,1)';
             }
+            else if(gameArrays.objectArray[i].itemType === 'box') {
+                ctx.fillStyle = 'rgba(255,255,255,1)';
+            }
 			//ctx.fillRect(gameArrays.objectArray[i].x,gameArrays.objectArray[i].y,15,15);
 			ctx.font = "bold 10px Lato";
 			ctx.fillText(gameArrays.objectArray[i].name,gameArrays.objectArray[i].x-gameArrays.objectArray[i].offset,gameArrays.objectArray[i].y-3);
@@ -1090,8 +1101,11 @@ function playgame() {
             else if(gameArrays.objectArray[i].itemType === 'survivor') {
                 ctx.drawImage(survivorImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,25,25);
             }
+            else if(gameArrays.objectArray[i].itemType === 'box') {
+                ctx.drawImage(survivorImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,25,25);
+            }
             else {
-                ctx.drawImage(objectImageArray[i], gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+                ctx.drawImage(materialImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
             }
 			//ctx.beginPath();
 			//ctx.arc(gameArrays.objectArray[i].x+14,gameArrays.objectArray[j].y+15,15,0,2*Math.PI); //Show the affected area (touchwise).

@@ -101,6 +101,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
     var survivor = {
         itemType:"survivor",
         name:"survivor",
+        offset:7,
         x:missionArray[2][0].x,
         y:missionArray[2][0].y,
         image: survivorImage,
