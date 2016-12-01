@@ -990,7 +990,7 @@ function playgame() {
 					}
 				}
                 else if(gameArrays.objectArray[v].itemType === "box") {
-                    monsterDrop(gameArrays.objectArray[v], drops, gameArrays.objectArray, gameVariables);
+                    monsterDrop(gameArrays.objectArray[v],drops,gameArrays.objectArray,gameVariables);
                     gameArrays.archivedObjectArray.push(gameArrays.objectArray[v]);
 				    gameArrays.objectArray.splice(v,1);
                 }

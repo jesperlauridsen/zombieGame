@@ -49,11 +49,14 @@ function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,cat
 	var randomX;
 	var randomY;
     var monsterGun = "";
+    var mName = "";
     if(category === 4) {
+        mName = "boss";
         monsterGun = "slime";
     }
     else {
-        monsterGun = "none;"
+        mName = "monster";
+        monsterGun = "none";
     }
 	if(xStart < 0) {
 		randomX = Math.round((Math.random() * (xStart - (xStart+canvas.width))));
@@ -81,6 +84,7 @@ function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,cat
         var monsterSpeed = (Math.random() * 3 + 5);
     }
 	var monster = {
+        name:mName,
 		x: randomX,
 		y: randomY,
 		speed: monsterSpeed,
@@ -117,7 +121,7 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
 		}
 		randomAngle = randomAngle * TO_RADIANS;
         console.log(monster.name);
-        var randomDrop = (Math.round(Math.random() * drops.length + 0));
+        var randomDrop = (Math.round(Math.random() * (drops.length-1) + 0));
         if(monster.name === "Box of stuff") {
             var newX = Math.round(monster.x + Math.cos(randomAngle) * 40);
             var newY = Math.round(monster.y + Math.sin(randomAngle) * 40);
@@ -126,6 +130,7 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
 		    var newX = Math.round(monster.x + Math.cos(randomAngle) * 10);
             var newY = Math.round(monster.y + Math.sin(randomAngle) * 10);
         }
+        console.log(randomDrop + " / " + drops.length);
 		//console.log(randomDrop + " | " + drops[randomDrop].name + " " + Math.round(monster.x + Math.cos(randomAngle) * 10) + " " + Math.round(monster.y + Math.sin(randomAngle) * 10) + " " + drops[randomDrop].imgName + " " + drops[randomDrop].amount);
 		var dropObject = {
 			number:randomDrop,

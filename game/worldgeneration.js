@@ -311,16 +311,16 @@ function spawnBoxInTile(objectArray,indexX,indexY,x,y) {
         var randomXdistance = 0;
         var randomYdistance = 0;
         if(indexX > 0) {
-            randomXdistance = x + Math.round(Math.random() * 700 + 50);
+            randomXdistance = x + 400; // + Math.round(Math.random() * 700 + 50);
         }
         else {
-            randomXdistance = x + Math.round(Math.random() * 700 + 50);
+            randomXdistance = x + 400; // + Math.round(Math.random() * 700 + 50);
         }
         if(indexY > 0) {
-            randomYdistance = y + Math.round(Math.random() * 500 + 10);
+            randomYdistance = y + 300; // + Math.round(Math.random() * 500 + 10);
         }
         else {
-            randomYdistance = y + Math.round(Math.random() * 500 + 50);
+            randomYdistance = y + 300; // + Math.round(Math.random() * 500 + 50);
         }
     //console.log(randomXdistance + "," + randomYdistance);
     var boxObject = {
@@ -332,7 +332,7 @@ function spawnBoxInTile(objectArray,indexX,indexY,x,y) {
         y:randomYdistance,
     }
     objectArray.push(boxObject);
-    console.log(boxObject + " box spawned.");
+    console.log(" box spawned at " + x + "," + y);
 }
 
 function spawnRandomEnvironment(indexX,indexY,environmentImagesLoaded,environmentArray,gameDisplay,x,y) {
