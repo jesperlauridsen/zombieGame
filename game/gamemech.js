@@ -26,10 +26,10 @@ function playgame() {
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
     document.getElementById("missionInteractionContainerExit").onclick=function(){closeInteractionContainer();};
-    document.getElementById('testbutton').onclick=function(){changeStatusOfMissionProgress(missionArray,hero,gameVariables.timeControler)};
+    //document.getElementById('testbutton').onclick=function(){changeStatusOfMissionProgress(missionArray,hero,gameVariables.timeControler)};
     //document.getElementById('testbutton').onclick=function(){bossThrowGranade(gameArrays.thrownGranadeArray,gameVariables.timeControler);};
 	//document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,1000,1000,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
-    //document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray,gameVariables.timeControler);};
+    document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray,gameVariables.timeControler);};
     //set specialAbilityButtons
     document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,arrowImage,gameVariables);};
     document.getElementById('gameAbilityTwo').onclick=function(){activateHeatGoggles(hero);};
@@ -123,7 +123,7 @@ function playgame() {
 		machinegunclip:30,
 		shotgunclip:8,
 		medkit:0,
-		isPoisoned:1,
+		isPoisoned:0,
 		antidote:0,
 		flashlight:"on",
 		armor:0,
@@ -1027,6 +1027,9 @@ function playgame() {
 						//console.log("hit!");
                         //Hero losing health!
 						//hero.health = hero.health - gameArrays.monsterArray[b].damage;
+                        if(Math.round(Math.random() * 100 + 0) > 80) {
+                            hero.isPoisoned = 1;
+                        }
 					}
 					gameArrays.monsterArray[b].attackIni = 0;
 				}
@@ -1053,8 +1056,11 @@ function playgame() {
 		if (bgReady) {
 			for(y=0;y<gameArrays.backgroundArray.length;y++) {
 				if(hero.isPoisoned === 1) {
-				//ctx.globalAlpha = 0.1; // - spændende effekt, kan måske bruges ved poisoned?
+				    ctx.globalAlpha = 0.1; // - spændende effekt, kan måske bruges ved poisoned?
 				}
+                else {
+                    ctx.globalAlpha = 1;
+                }
 				ctx.drawImage(gameArrays.backgroundArray[y], gameArrays.backgroundObjectArray[y].x, gameArrays.backgroundObjectArray[y].y,canvas.width,canvas.height);
 			}
 		}

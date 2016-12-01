@@ -528,10 +528,10 @@ function cleanScreenForStatistics() {
 function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded) {
 	for(y=0;y<drops.length;y++) {
 		if(drops[y].itemType === "mat") {
-			inventory[drops[y].imgName] = {"amount":100, "name":drops[y].name,"constructor":drops[y].imgName};
+			inventory[drops[y].imgName] = {"amount":0, "name":drops[y].name,"constructor":drops[y].imgName};
 		}
 		if(drops[y].itemType === "schematic") {
-			schematics[drops[y].imgName] = {"obtained":1,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
+			schematics[drops[y].imgName] = {"obtained":0,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
 		}
 	}
     setEnvironmentalPoints(environmentalPoints);
@@ -540,14 +540,14 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	hero.shotgunclip = 8;
 	hero.machinegunclip = 30;
 	hero.gunshots = 40;
-	hero.shotgunshots = 500;
+	hero.shotgunshots = 0;
 	hero.machinegunshots = 0;
 	hero.flameshells = 0;
 	hero.medkit = 3;
-	hero.antidote = 1;
+	hero.antidote = 3;
     hero.machete = 1;
     hero.pistol = 1;
-	hero.shotgun = 1;
+	hero.shotgun = 0;
 	hero.machinegun = 0;
 	hero.flamethrower = 0;
 	gameArrays.backgroundArray = [];
@@ -588,7 +588,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	hero.x = canvas.width / 2;
 	hero.y = canvas.height / 2;
 	hero.death = 0;
-	hero.antidote = 0;
+	hero.antidote = 3;
 	hero.medkit = 3;
 	hero.health = 100;
     hero.currentMission = 0;

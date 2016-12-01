@@ -460,6 +460,7 @@ body {
 	float:left;
 	text-align:center;
 	color:black;
+    font-weight: bolder;
 }
 
 #gameWonButton {
