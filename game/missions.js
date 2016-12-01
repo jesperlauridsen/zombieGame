@@ -268,8 +268,21 @@ function validateMission(missionArray,hero,timeControler,gameDisplay,gameVariabl
     }
 }
 
+function tellSurvivorStory(hero,timeControler) {
+    document.getElementById("missionInteractionContainer").getElementsByTagName("p")[0].innerHTML = "They came out of no where and attacked the surrounding lands! I hear they were created by a devil scientist down by the scientist lab, but thats all i know, i swear!";
+    document.getElementById("missionInteractionContainer").className = "progressActive";
+    hero.missionShown = 1;
+    hero.missionShownTimer = timeControler.getTime();
+}
+
 function presentMission(missionArray,hero,timeControler) {
-    document.getElementById("missionInteractionContainer").getElementsByTagName("p")[0].innerHTML = missionArray[hero.currentMission][0].message;
+    if(hero.currentMission === 0) {
+        document.getElementById("missionInteractionContainer").getElementsByTagName("p")[0].innerHTML = missionArray[hero.currentMission][0].message;
+    }
+    else {
+        console.log(missionArray[hero.currentMission-1][0].completion);
+        document.getElementById("missionInteractionContainer").getElementsByTagName("p")[0].innerHTML = missionArray[hero.currentMission-1][0].completion + "<br /><br />" + missionArray[hero.currentMission][0].message;
+    }
     document.getElementById("missionInteractionContainer").className = "progressActive";
     hero.missionShown = 1;
     hero.missionShownTimer = timeControler.getTime();

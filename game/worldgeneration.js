@@ -249,7 +249,7 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
 	if(realityStatus === true) {
 		//Tilføj lampe
 		addLampToScreenArrayVersion2(arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y, arrayOfNewAdditions[g].startPointX, arrayOfNewAdditions[g].startPointY,300,numberOfLampsOnScreen);
-        spawnBoxInTile(objectArray,gameDisplay.x,gameDisplay.y,arrayOfNewAdditions[g].startpointX,arrayOfNewAdditions[g].startPointY);
+        spawnBoxInTile(objectArray,gameDisplay.x,gameDisplay.y,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY);
 		//newEnvironment(arrayOfNewAdditions[g].startPointX, arrayOfNewAdditions[g].startPointY);
 		//Tilføj monstre indenfor det givne område!
 		var randomNumber = Math.round(Math.random() * 3 + 1);
@@ -301,38 +301,44 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
 }
 
 function spawnBoxInTile(objectArray,indexX,indexY,x,y) {
-    var name = "Box of stuff";
-    if(x === undefined) {
-        x = 800 * indexX;
+    var decider = Math.round(Math.random() * 100 + 0);
+    if(decider >= 30) {
+        var name = "Box of stuff";
+        if(x === undefined) {
+            x = 800 * indexX;
+        }
+        if(y === undefined) {
+            y = 600 * indexY;
+        }
+            var randomXdistance = 0;
+            var randomYdistance = 0;
+            if(indexX > 0) {
+                randomXdistance = x + Math.round(Math.random() * 700 + 50);
+            }
+            else {
+                randomXdistance = x + Math.round(Math.random() * 700 + 50);
+            }
+            if(indexY > 0) {
+                randomYdistance = y + Math.round(Math.random() * 500 + 10);
+            }
+            else {
+                randomYdistance = y + Math.round(Math.random() * 500 + 50);
+            }
+        //console.log(randomXdistance + "," + randomYdistance);
+        var boxObject = {
+            itemType:"box",
+            name:name,
+            offset:18,
+            drop:Math.round(Math.random() * 3 + 2),
+            x:randomXdistance,
+            y:randomYdistance,
+        }
+        objectArray.push(boxObject);
+        console.log(" box spawned at " + x + "," + y);
+        }
+    else {
+        console.log("no box!")
     }
-    if(y === undefined) {
-        y = 600 * indexY;
-    }
-        var randomXdistance = 0;
-        var randomYdistance = 0;
-        if(indexX > 0) {
-            randomXdistance = x + 400; // + Math.round(Math.random() * 700 + 50);
-        }
-        else {
-            randomXdistance = x + 400; // + Math.round(Math.random() * 700 + 50);
-        }
-        if(indexY > 0) {
-            randomYdistance = y + 300; // + Math.round(Math.random() * 500 + 10);
-        }
-        else {
-            randomYdistance = y + 300; // + Math.round(Math.random() * 500 + 50);
-        }
-    //console.log(randomXdistance + "," + randomYdistance);
-    var boxObject = {
-        itemType:"box",
-        name:name,
-        offset:18,
-        drop:Math.round(Math.random() * 3 + 2),
-        x:randomXdistance,
-        y:randomYdistance,
-    }
-    objectArray.push(boxObject);
-    console.log(" box spawned at " + x + "," + y);
 }
 
 function spawnRandomEnvironment(indexX,indexY,environmentImagesLoaded,environmentArray,gameDisplay,x,y) {

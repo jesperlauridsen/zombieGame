@@ -26,10 +26,10 @@ function playgame() {
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
     document.getElementById("missionInteractionContainerExit").onclick=function(){closeInteractionContainer();};
-    //document.getElementById('testbutton').onclick=function(){changeStatusOfMissionProgress(missionArray,hero,gameVariables.timeControler)};
+    document.getElementById('testbutton').onclick=function(){changeStatusOfMissionProgress(missionArray,hero,gameVariables.timeControler)};
     //document.getElementById('testbutton').onclick=function(){bossThrowGranade(gameArrays.thrownGranadeArray,gameVariables.timeControler);};
 	//document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,1000,1000,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
-    document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray,gameVariables.timeControler);};
+    //document.getElementById('testbutton').onclick=function(){launchRandomRocket(gameArrays.rocketArray,gameVariables.timeControler);};
     //set specialAbilityButtons
     document.getElementById('gameAbilityOne').onclick=function(){GuidePlayerToObjective(missionArray,hero,arrowImage,gameVariables);};
     document.getElementById('gameAbilityTwo').onclick=function(){activateHeatGoggles(hero);};
@@ -165,14 +165,14 @@ function playgame() {
 			objective = {completionTime:0,func:"primary",type:"find",name:"Tiny farm",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find  the farm.",message:"Your first objective is to get to farm not far from here, and see if you can find any survivors who can tell us what the hell happened!",completion:"So, you found the city, soldier!"},
 			//objective = {completionTime:0,func:"secondary",type:"get",item:"Schematic: Radio",amount:1,gathered:0,completed:"no",statement:"Build a radio.",message:"Our engineers fixed together a schematic for a low-end radio - See if you can find the materials required, so you can communicate with the base on radio - otherwise you have to run back here to report back!",completion:"*Rrrrrrr* Come in, soldier. Well done, now we can communicate over radio. Now get back to work on your primary objectives. Over."}
 		],
-		//2: Kill 50 zombies & find survivor.
+		//2: Kill 25 zombies & find survivor.
 		mission = [
-            objective = {completionTime:0,func:"primary",type:"interact",interacted:0,name:"Survivor",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find and talk to the survivor.",message:"Also, look for any survivors who might know what the hell happend here, and report back what they have to tell. Move out!",completion:"You're not infected?! You must get out of there. That madman scientist Albert Nokovic released a toxin that turned everyone into zombies. It's horrible!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:50,gathered:0,completed:"no",statement:"Kill 50 zombies.",message:"Looks like the city has been infected allright. Get to sorting it out, soldier!",completion:"Well done, that should make it possible to start rebuilding here"}
+            objective = {completionTime:0,func:"primary",type:"interact",interacted:0,name:"Survivor",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find and talk to the survivor.",message:"Now clear out the surrounding area, and for any survivors who might know what the hell happend here!",completion:"Excellent job with the killing and finding the survivor!"},
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:25,gathered:0,completed:"no",statement:"Kill 50 zombies.",message:"",completion:""}
 		],
 		//3: Back go base to tell story.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the basecamp.",message:"You must go back to tell your commander what happened!",completion:"Well, soldier, what did you discover?"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the basecamp.",message:"You must go back to tell your commander what happened!",completion:"Good to see you back, soldier!"}
 		],
 		//4: Collect 10 specimens from monsters.
 		mission = [
@@ -181,17 +181,17 @@ function playgame() {
 		//5: Find ground zero.
 		//IMPORTANT! Given a radio if they don't have one!
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Ground zero",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Locate ground zero.",message:"In the meantime, i got a new job for you! We located ground zero of the disaster, and we need someone to go check it out! That's right - you, soldier! Get moving!",completion:"*Rrrrrrr* So, you found it. Any clues about what caused this? What's that sound in the back? Are you being attacked? Soldier? SOLDIER, REPORT ABACK!"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Ground zero",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Locate ground zero.",message:"In the meantime, i got a new job for you! We located ground zero of the disaster, and we need someone to go check it out! That's right - you, soldier! Get moving!",completion:"So, you found it. Any clues about what caused this? What's that sound in the back? Are you being attacked? Soldier? SOLDIER, REPORT ABACK!"}
 		],
 		//6: Ambushed - kill the attackers.
 		mission = [
 			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:25,gathered:0,completed:"no",wave:1,statement:"Kill 25 zombies",message:"Survive the attacks!",completion:"Well done!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Super zombie",amount:6,gathered:0,completed:"no",wave:1,statement:"Kill 6 super zombies",message:"",completion:"nice!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Master zombie",amount:3,gathered:0,completed:"no",wave:1,statement:"Kill 3 master zombies",message:"",completion:"Excellent!"}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Super zombie",amount:6,gathered:0,completed:"no",wave:1,statement:"Kill 6 super zombies",message:"",completion:""},
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Master zombie",amount:3,gathered:0,completed:"no",wave:1,statement:"Kill 3 master zombies",message:"",completion:""}
 		],
 		//7: Back to base, its under attack.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Get back to the basecamp.",message:"*Rrrrrrr* Soldier! Get back to the base immedieately - we're under attack!",completion:"Help us!"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Get back to the basecamp.",message:"Soldier! Get back to the base immedieately - we're under attack!",completion:"They're coming soon, help us defend the basecamp!"}
 		],
 		//8: Repel attack
 		mission = [
@@ -199,14 +199,14 @@ function playgame() {
 		],
 		//9: Antidote probably fixed - need stuff to test.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Forest",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the forest.",message:"Our scientists believe they've worked out a cure - they need you to go to the forest and get the following items: Some elderweed, some zombie excrements... and some butterfly eggs!",completion:"Good work, soldier!"},
-			objective = {completionTime:0,func:"primary",type:"get",item:"Elderweed",amount:3,gathered:0,completed:"no",statement:"Gather 3 Elderweed.",message:"Find some elderweed, ",completion:"This should do."},
-			objective = {completionTime:0,func:"primary",type:"get",item:"Zombie excrement",amount:5,gathered:0,completed:"no",statement:"Gather 5 zombie excrement",message:"",completion:"This should do... fine..."},
-			objective = {completionTime:0,func:"primary",type:"get",item:"Butterfly eggs",amount:5,gathered:0,completed:"no",statement:"Gather 5 butterfly eggs",message:"",completion:"Excellent, this is the stuff"}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Forest",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find the forest.",message:"Our scientists believe they've worked out a cure - they need you to go to the forest and get the following items: Some elderweed, some zombie excrements... and some butterfly eggs!",completion:"Good work, soldier."},
+			objective = {completionTime:0,func:"primary",type:"get",item:"Elderweed",amount:3,gathered:0,completed:"no",statement:"Gather 3 Elderweed.",message:"Find some elderweed, ",completion:""},
+			objective = {completionTime:0,func:"primary",type:"get",item:"Zombie excrement",amount:5,gathered:0,completed:"no",statement:"Gather 5 zombie excrement",message:"",completion:""},
+			objective = {completionTime:0,func:"primary",type:"get",item:"Butterfly eggs",amount:5,gathered:0,completed:"no",statement:"Gather 5 butterfly eggs",message:"",completion:""}
 		],
 		//10: deliver to base.
 		mission = [
-			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Get back to the basecamp with the stuff.",message:"*Rrrrrrr* Have you found the items? Then get back here, damnit!",completion:"That took you long enough - hand it over! We should be able to cure the zombies now."}
+			objective = {completionTime:0,func:"primary",type:"find",name:"Basecamp",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Get back to the basecamp with the stuff.",message:"Now bring it back to the base asap. That's an order!",completion:"That took you long enough - hand it over! We should be able to cure the zombies now."}
 		],
 		//11: Base discovered master moster hide out. Get there!
 		mission = [
@@ -226,7 +226,7 @@ function playgame() {
 
 	var environmentalPoints = {
 		basecampPosition:{indexX:0,indexY:0,x:0,y:0,name:"Basecamp"},
-		cityPosition:{indexX:0, indexY:0,x:0,y:0,name:"City of Valisburg"},
+		cityPosition:{indexX:0, indexY:0,x:0,y:0,name:"Lonely farm"},
 		survivorPosition:{indexX:0,indexY:0,x:0,y:0,name:"Lone survivor"},
 		forestPosition:{indexX:0,indexY:0,x:0,y:0,name:"Forest"},
 		groundZeroPosition:{indexX:0,indexY:0,x:0,y:0,name:"Ground zero"},
@@ -882,6 +882,7 @@ function playgame() {
                         missionArray[2][0].completionTime === gameVariables.timeControler.getTime();
                         hero.missionPresented = 0;
                         console.log(hero.currentMission + " " + hero.missionProgress);
+                        tellSurvivorStory(hero,gameVariables.timeControler);
                     }
                 }
 				else if(gameArrays.objectArray[v].name === "Handgun rounds") {

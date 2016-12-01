@@ -120,7 +120,7 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
 			randomAngle = randomAngle - 360;
 		}
 		randomAngle = randomAngle * TO_RADIANS;
-        console.log(monster.name);
+        //console.log(monster.name);
         var randomDrop = (Math.round(Math.random() * (drops.length-1) + 0));
         if(monster.name === "Box of stuff") {
             var newX = Math.round(monster.x + Math.cos(randomAngle) * 40);
@@ -130,7 +130,7 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
 		    var newX = Math.round(monster.x + Math.cos(randomAngle) * 10);
             var newY = Math.round(monster.y + Math.sin(randomAngle) * 10);
         }
-        console.log(randomDrop + " / " + drops.length);
+        //console.log(randomDrop + " / " + drops.length);
 		//console.log(randomDrop + " | " + drops[randomDrop].name + " " + Math.round(monster.x + Math.cos(randomAngle) * 10) + " " + Math.round(monster.y + Math.sin(randomAngle) * 10) + " " + drops[randomDrop].imgName + " " + drops[randomDrop].amount);
 		var dropObject = {
 			number:randomDrop,
