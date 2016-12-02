@@ -55,7 +55,8 @@ function playgame() {
 		archivedMonsterArray:[],
 		archivedGranadeArray:[],
 		objectArray:[],
-        rocketArray:[]
+        rocketArray:[],
+        treeAndHouseArray:[],
 	};
 
 	var drops = [
@@ -411,6 +412,14 @@ function playgame() {
         var objectImage = new Image();
 		objectImage.src = "graphics/environment/" + basecampImages[y] + ".png";
         basecampImagesLoaded.push(objectImage);
+    }
+
+    var treeImages = ["tree1","tree2"];
+    var treeImagesLoaded = [];
+    for(y=0;y<treeImages.length;y++) {
+        var objectImage = new Image();
+		objectImage.src = "graphics/environment/" + treeImages[y] + ".png";
+        treeImagesLoaded.push(objectImage);
     }
 
     var pgImages = ["randomPlayground"];

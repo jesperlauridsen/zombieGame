@@ -300,6 +300,50 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
 }
 }
 
+function spawnOverlayEnvironment(argument,treeAndHouseArray,treeImagesLoaded,indexX,indexY,x,y) {
+    if(x === undefined) {
+            x = 800 * indexX;
+    }
+    if(y === undefined) {
+            y = 600 * indexY;
+    }
+    if(argument === "tree") {
+        var randomXdistance = 0;
+        var randomYdistance = 0;
+        if(indexX > 0) {
+            randomXdistance = x + Math.round(Math.random() * 700 + 50);
+        }
+        else {
+            randomXdistance = x + Math.round(Math.random() * 700 + 50);
+        }
+        if(indexY > 0) {
+            randomYdistance = y + Math.round(Math.random() * 500 + 10);
+        }
+        else {
+            randomYdistance = y + Math.round(Math.random() * 500 + 50);
+        }
+        var calNumber = treeImagesLoaded.length - 1;
+        var treeObject = new Image();
+        treeObject.src = treeImagesLoaded[Math.round(Math.random() * calNumber)].src;
+        treeObject.targetX = randomXdistance;
+        treeObject.targetY = randomYdistance;
+        treeObject.width = 200;
+        treeObject.height = 200;
+        treeObject.angle = Math.round(Math.random() * 360 + 0);
+        treeObject.indexX = indexX;
+        treeObject.indexY = indexY;
+        treeAndHouseArray.push(environmentObject);
+    }
+    else if(argument === "trees") {
+
+    }
+    else if(argument === "houses") {
+
+    }
+    else {
+    }
+}
+
 function spawnBoxInTile(objectArray,indexX,indexY,x,y) {
     var decider = Math.round(Math.random() * 100 + 0);
     if(decider >= 30) {
@@ -363,7 +407,7 @@ function spawnRandomEnvironment(indexX,indexY,environmentImagesLoaded,environmen
         else {
             randomYdistance = y + 100; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
         }
-    var calNumber = environmentImagesLoaded.length - 1;
+        var calNumber = environmentImagesLoaded.length - 1;
         var environmentObject = new Image();
         environmentObject.src = environmentImagesLoaded[Math.round(Math.random() * calNumber)].src;
         environmentObject.targetX = randomXdistance;
