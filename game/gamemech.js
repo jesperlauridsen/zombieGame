@@ -1079,15 +1079,16 @@ function playgame() {
 				ctx.drawImage(gameArrays.backgroundArray[y], gameArrays.backgroundObjectArray[y].x, gameArrays.backgroundObjectArray[y].y,canvas.width,canvas.height);
 			}
 		}
-		if (heroReady) {
-			drawRotatedImage(heroImage, hero.x, hero.y, hero.angle);
-		}
         //Display environment
         for(h=0;h<gameArrays.environmentArray.length;h++) {
                 ctx.fillStyle = 'white';
                 ctx.fillText("Number " + h,gameArrays.environmentArray[h].targetX+275,gameArrays.environmentArray[h].targetY+200);
                 drawRotatedEnvironmentImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,gameArrays.environmentArray[h].angle,800,600);
         }
+        //Draw hero
+		if (heroReady) {
+			drawRotatedImage(heroImage, hero.x, hero.y, hero.angle);
+		}
 		//Display all drops
 		for(i=0;i<gameArrays.objectArray.length;i++) {
 			if(gameArrays.objectArray[i].itemType === 'ammo') {
