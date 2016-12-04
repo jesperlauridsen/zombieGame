@@ -235,8 +235,9 @@ function schematicsDisplay(inventory,schematics,hero) {
 
 }
 
-function closeInteractionContainer() {
+function closeInteractionContainer(hero) {
     document.getElementById("missionInteractionContainer").className = "progressNotActive";
+    hero.missionShown = 0;
 }
 
 function inventoryDisplay(inventory) {
@@ -525,7 +526,7 @@ function cleanScreenForStatistics() {
     document.getElementById("missionInteractionContainer").style.display = "none";
 }
 
-function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded) {
+function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded,treeAndHouseArray,treeImagesLoaded) {
 	for(y=0;y<drops.length;y++) {
 		if(drops[y].itemType === "mat") {
 			inventory[drops[y].imgName] = {"amount":0, "name":drops[y].name,"constructor":drops[y].imgName};
@@ -606,7 +607,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
         document.getElementById("gameWonButton").style.display = "block";
     }
     document.getElementById("missionInteractionContainer").style.display = "block";
-	initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray,environmentImagesLoaded,gameArrays.environmentArray,gameDisplay,gameArrays.objectArray);
+	initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray,environmentImagesLoaded,gameArrays.environmentArray,gameDisplay,gameArrays.objectArray,gameArrays.treeAndHouseArray,treeImagesLoaded);
 	weaponAvailability(hero);
 	recountAntidote(hero);
 	recountMedkit(hero);

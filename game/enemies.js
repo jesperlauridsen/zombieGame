@@ -121,7 +121,6 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
 		}
 		randomAngle = randomAngle * TO_RADIANS;
         //console.log(monster.name);
-        var randomDrop = (Math.round(Math.random() * (drops.length-1) + 0));
         if(monster.name === "Box of stuff") {
             var newX = Math.round(monster.x + Math.cos(randomAngle) * 40);
             var newY = Math.round(monster.y + Math.sin(randomAngle) * 40);
@@ -129,6 +128,12 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
         else {
 		    var newX = Math.round(monster.x + Math.cos(randomAngle) * 10);
             var newY = Math.round(monster.y + Math.sin(randomAngle) * 10);
+        }
+        if(y===0) {
+            var randomDrop = (Math.round(Math.random() * 3) + 0);
+        }
+        else {
+           var randomDrop = (Math.round(Math.random() * (drops.length-1) + 0));
         }
         //console.log(randomDrop + " / " + drops.length);
 		//console.log(randomDrop + " | " + drops[randomDrop].name + " " + Math.round(monster.x + Math.cos(randomAngle) * 10) + " " + Math.round(monster.y + Math.sin(randomAngle) * 10) + " " + drops[randomDrop].imgName + " " + drops[randomDrop].amount);

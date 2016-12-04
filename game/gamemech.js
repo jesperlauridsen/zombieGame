@@ -14,7 +14,7 @@ var TO_RADIANS = Math.PI/180;
 
 function playgame() {
 	//set interface buttons
-	document.getElementById('restartGameFromStats').onclick=function(){reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded);};
+	document.getElementById('restartGameFromStats').onclick=function(){reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded,gameArrays.treeAndHouseArray,treeImagesLoaded);};
 	document.getElementById('weaponMachete').onclick=function(){selectWeapon('machete',hero);};
 	document.getElementById('weaponPistol').onclick=function(){selectWeapon('pistol',hero);};
 	document.getElementById('weaponShotgun').onclick=function(){selectWeapon('shotgun',hero);};
@@ -25,7 +25,7 @@ function playgame() {
 	document.getElementById('utilitiesMedkit').onclick=function(){useMedkit(hero);};
 	document.getElementById('gameInventory').onclick=function(){showInventory('Inventory',inventory, gameVariables,this.id,schematics,hero);};
 	document.getElementById('gameSchematics').onclick=function(){showInventory('Schematics',inventory, gameVariables,this.id,schematics,hero);};
-    document.getElementById("missionInteractionContainerExit").onclick=function(){closeInteractionContainer();};
+    document.getElementById("missionInteractionContainerExit").onclick=function(){closeInteractionContainer(hero);};
     //document.getElementById('testbutton').onclick=function(){changeStatusOfMissionProgress(missionArray,hero,gameVariables.timeControler)};
     //document.getElementById('testbutton').onclick=function(){bossThrowGranade(gameArrays.thrownGranadeArray,gameVariables.timeControler);};
 	//document.getElementById('testbutton').onclick=function(){spawnMonster(800,600,20,300,1000,1000,4,gameArrays.monsterArray,"boss");console.log(gameArrays.monsterArray);};
@@ -519,6 +519,9 @@ function playgame() {
 			for(u=0;u<gameArrays.monsterArray.length;u++) {
 				newPositionForwardMonster(gameArrays.monsterArray[u],hero);
 			}
+            for(p=0;p<gameArrays.treeAndHouseArray.length;p++) {
+                newPositionForwardEnvironment(gameArrays.treeAndHouseArray[p],hero);
+            }
 			for(o=0;o<gameArrays.objectArray.length;o++) {
 				newPositionForward(gameArrays.objectArray[o],hero);
 			}
@@ -573,6 +576,9 @@ function playgame() {
 			for(u=0;u<gameArrays.monsterArray.length;u++) {
 				newPositionBackwardMonster(gameArrays.monsterArray[u],hero);
 			}
+            for(p=0;p<gameArrays.treeAndHouseArray.length;p++) {
+                newPositionBackwardEnvironment(gameArrays.treeAndHouseArray[p],hero);
+            }
 			for(o=0;o<gameArrays.objectArray.length;o++) {
 				newPositionBackward(gameArrays.objectArray[o],hero);
 			}
@@ -1051,7 +1057,7 @@ function playgame() {
 				gameArrays.monsterArray[b].attackIni = 0;
 			}
 		}
-	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded, pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,gameArrays.environmentArray,gameArrays.objectArray);
+	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded, pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,gameArrays.environmentArray,gameArrays.objectArray,gameArrays.treeAndHouseArray,treeImagesLoaded);
         validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay,gameVariables,gameArrays.archivedBulletArray,gameArrays.archivedMonsterArray,gameVariables.numberOfDrops,gameArrays);
 		}
 		else {
@@ -1206,6 +1212,10 @@ function playgame() {
 				}
 			}
 		}
+        for(u=0;u<gameArrays.treeAndHouseArray.length;u++) {
+            //ctx.drawImage(gameArrays.treeAndHouseArray[u],gameArrays.treeAndHouseArray[u].targetX,gameArrays.treeAndHouseArray[u].targetY,200,200);
+            drawRotatedTree(gameArrays.treeAndHouseArray[u],gameArrays.treeAndHouseArray[u].targetX,gameArrays.treeAndHouseArray[u].targetY,gameArrays.treeAndHouseArray[u].angle,gameArrays.treeAndHouseArray[u].width,gameArrays.treeAndHouseArray[u].height);
+        }
 		//Display game-mode / Lamps / flashlight
 		if (lampReady && gameVariables.missionType === "Poles") {
 			for(y=0;y<gameArrays.numberOfLampsOnScreen.length;y++) {
@@ -1410,6 +1420,6 @@ var main = function () {
 
 // Let's play this game!
 var then = Date.now();
-reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded);
+reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgroundImage,gameDisplay,tileDisplay,keysDown,tileArray,schematics,missionArray,environmentalPoints,survivorImage,elderweedImage,zombieExcrementImage,butterflyEggsImage,environmentImagesLoaded,gameArrays.treeAndHouseArray,treeImagesLoaded);
 main();
 }

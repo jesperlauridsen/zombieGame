@@ -33,6 +33,14 @@ function drawRotatedImage(image, x, y, angle) {
     ctx.restore();
 }
 
+function drawRotatedTree(image,x,y,angle,width,height) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle * TO_RADIANS);
+    ctx.drawImage(image,-(image.width/1), -(image.height/1),width,height);
+    ctx.restore();
+}
+
 function drawRotatedEnvironmentImage(image,x,y,angle,width,height) {
     ctx.save();
     ctx.translate(x, y);
