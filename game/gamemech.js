@@ -461,7 +461,7 @@ function playgame() {
         forestImagesLoaded.push(objectImage);
     }
 
-    var environmentImages = ["randomTile"];
+    var environmentImages = ["randomTile1","randomTile2","randomTile3","randomTile4"];
     var environmentImagesLoaded = [];
     for(y=0;y<environmentImages.length;y++) {
         var objectImage = new Image();
@@ -1289,7 +1289,6 @@ function playgame() {
 			}
 		}
         if(hero.isPoisoned === 1) {
-            console.log("ayyy");
             heroIsPoisoned(hero,poisonImage,gameVariables.timeControler)
         }
         //Status on Pulse Emitter

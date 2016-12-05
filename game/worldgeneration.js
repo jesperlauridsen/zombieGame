@@ -268,17 +268,17 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
         if(arrayOfNewAdditions[g].x == missionArray[0][0].indexX && arrayOfNewAdditions[g].y == missionArray[0][0].indexY) {
             //Throw down basecamp!
             console.log("Basecamp spawned on " + arrayOfNewAdditions[g].x + "," + arrayOfNewAdditions[g].y);
-            setSpecificEnvironment(basecampImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY);
+            setSpecificEnvironment("basecamp",basecampImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY,treeAndHouseArray);
         }
         else if(arrayOfNewAdditions[g].x == missionArray[1][0].indexX && arrayOfNewAdditions[g].y == missionArray[1][0].indexY) {
             //Throw down farm!
             console.log("Farm spawned on " + arrayOfNewAdditions[g].x + "," + arrayOfNewAdditions[g].y);
-            setSpecificEnvironment(farmImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY);
+            setSpecificEnvironment("farm",farmImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY,treeAndHouseArray);
         }
         else if(arrayOfNewAdditions[g].x == missionArray[5][0].indexX && arrayOfNewAdditions[g].y == missionArray[5][0].indexY) {
             //Throw down ground zero!
             console.log("Ground zero spawned on " + arrayOfNewAdditions[g].x + "," + arrayOfNewAdditions[g].y);
-            setSpecificEnvironment(gzImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY);
+            setSpecificEnvironment("groundZero",gzImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY,treeAndHouseArray);
         }
         else if(arrayOfNewAdditions[g].x == missionArray[9][0].indexX && arrayOfNewAdditions[g].y == missionArray[9][0].indexY ||
            arrayOfNewAdditions[g].x == missionArray[9][0].indexX-1 && arrayOfNewAdditions[g].y == missionArray[9][0].indexY-1 ||
@@ -291,12 +291,12 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
            arrayOfNewAdditions[g].x == missionArray[9][0].indexX+1 && arrayOfNewAdditions[g].y == missionArray[9][0].indexY+1) {
             //Throw down forest!
             console.log("Forest spawned " + arrayOfNewAdditions[g].x + "," + arrayOfNewAdditions[g].y);
-            setSpecificEnvironment(forestImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY);
+            setSpecificEnvironment("forest",treeImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY,treeAndHouseArray);
         }
         else if(arrayOfNewAdditions[g].x == missionArray[11][0].indexX && arrayOfNewAdditions[g].y == missionArray[11][0].indexY) {
             //Throw down zombie playground!
             console.log("Zombie playground spawned " + arrayOfNewAdditions[g].x + "," + arrayOfNewAdditions[g].y);
-            setSpecificEnvironment(pgImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY);
+            setSpecificEnvironment("zombiePlayground",pgImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY,treeAndHouseArray);
         }
         else {
             //Throw down random environment!
@@ -341,14 +341,11 @@ function spawnOverlayEnvironment(argument,treeAndHouseArray,treeImagesLoaded,ind
             treeObject.angle = Math.round(Math.random() * 360 + 0);
             treeObject.indexX = indexX;
             treeObject.indexY = indexY;
-            console.log("start: " + treeObject.targetX + "," + treeObject.targetY);
+            //console.log("start: " + treeObject.targetX + "," + treeObject.targetY);
             treeAndHouseArray.push(treeObject);
         }
         else {
         }
-    }
-    else if(argument === "trees") {
-
     }
     else if(argument === "houses") {
 
@@ -386,7 +383,7 @@ function spawnBoxInTile(objectArray,indexX,indexY,x,y) {
             itemType:"box",
             name:name,
             offset:18,
-            drop:Math.round(Math.random() * 3 + 2),
+            drop:Math.round(Math.random() * 3 + 3),
             x:randomXdistance,
             y:randomYdistance,
         }
@@ -431,7 +428,26 @@ function spawnRandomEnvironment(indexX,indexY,environmentImagesLoaded,environmen
         environmentArray.push(environmentObject);
 }
 
-function setSpecificEnvironment(imageArray,indexX,indexY,gameDisplay,environmentArray,x,y) {
+function setSpecificEnvironment(name,imageArray,indexX,indexY,gameDisplay,environmentArray,x,y,treeAndHouseArray) {
+    console.log(name);
+        if(name === "forest") {
+            var coordinates = [{x:"0",y:"0"},{x:"400",y:"0"},{x:"0",y:"300"},{x:"400",y:"300"}];
+            for(y=0;y<4;y++) {
+                var calNumber = imageArray.length - 1;
+                var treeObject = new Image();
+                treeObject.src = imageArray[Math.round(Math.random() * calNumber)].src;
+                treeObject.targetX = x + coordinates[y][0] + Math.round(Math.random() * 50 + 0);
+                treeObject.targetY = y + coordinates[y][1] + Math.round(Math.random() * 50 + 0);
+                console.log(treeObject.targetX + "," + treeObject.targetY);
+                treeObject.width = Math.round(Math.random() * 50 + 150);
+                treeObject.height = Math.round(Math.random() * 50 + 150);
+                treeObject.angle = Math.round(Math.random() * 360 + 0);
+                treeObject.indexX = indexX;
+                treeObject.indexY = indexY;
+                //console.log("start: " + treeObject.targetX + "," + treeObject.targetY);
+                treeAndHouseArray.push(treeObject);
+            }
+        }
         var randomAngle = 0;
         var randomXdistance = 0;
         var randomYdistance = 0;

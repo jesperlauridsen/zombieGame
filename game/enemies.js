@@ -129,8 +129,11 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
 		    var newX = Math.round(monster.x + Math.cos(randomAngle) * 10);
             var newY = Math.round(monster.y + Math.sin(randomAngle) * 10);
         }
-        if(y===0) {
+        if(y===0 && monster.name === "Box of stuff") {
             var randomDrop = (Math.round(Math.random() * 3) + 0);
+        }
+        else if(y===1 && monster.name === "Box of stuff") {
+            var randomDrop = (Math.round(Math.random() * 3) + 9);
         }
         else {
            var randomDrop = (Math.round(Math.random() * (drops.length-1) + 0));

@@ -216,7 +216,6 @@ function damageHitOnHero(afflictor,monsterHitImage,timeControler) {
 }
 
 function heroIsPoisoned(hero,poisonImage,timeControler) {
-    console.log(hero.poisonOpacity);
 	if(timeControler.getTime() < hero.hitByPoison + 4000) {
 		if(hero.poisonOpacity < 0.9 && hero.poisonPeaked === 0) {
 		hero.poisonOpacity = hero.poisonOpacity + 0.01;
