@@ -154,6 +154,9 @@ function playgame() {
 		missionPresented:0,
         missionShown:0,
         missionShownTimer:0,
+        hitByPoison:0,
+	    poisonPeaked:0,
+	    poisonOpacity:0,
 	};
 
 	var missionArray = [
@@ -281,10 +284,14 @@ function playgame() {
 
 	//Background image
 	var backgroundImage = "graphics/grasstry2.png";
+    //var backgroundImage = "graphics/environment/measurement.png";
 	bgReady = true;
 
 	var monsterHitImage = new Image();
 	monsterHitImage.src = "graphics/monsterhit.png";
+
+    var poisonImage = new Image();
+	poisonImage.src = "graphics/poisonhit.png";
 
 	//Lamp image
 	var lampReady = false;
@@ -335,7 +342,7 @@ function playgame() {
 	materialImage.onload = function () {
 		materialReady = true;
 	};
-	materialImage.src = "graphics/star-green.png";
+	materialImage.src = "graphics/environment/cratedone.png";
 
     //questDrop Elderweed
     var elderweedReady = false;
@@ -365,7 +372,7 @@ function playgame() {
 	var objectImageArray = [];
 	for(h=0;h<drops.length;h++) {
 		objectImageArray[h] = new Image();
-		objectImageArray[h].src = "graphics/" + "star.png";//drops[h].imgName + ".png";
+		objectImageArray[h].src = "graphics/environment/" + "cratedone.png";//drops[h].imgName + ".png";
 	}
     questItemImage = new Image();
     questItemImage.src = "graphics/" + "star-green.png"; //questItem picture
@@ -1044,6 +1051,7 @@ function playgame() {
 						//hero.health = hero.health - gameArrays.monsterArray[b].damage;
                         if(Math.round(Math.random() * 100 + 0) > 80) {
                             hero.isPoisoned = 1;
+                            hero.hitByPoison = gameVariables.timeControler.getTime();
                         }
 					}
 					gameArrays.monsterArray[b].attackIni = 0;
@@ -1069,21 +1077,23 @@ function playgame() {
 		ctx.fillStyle = 'rgba(0,0,0,0.5)';
 		//document.getElementById("testdiv2").innerHTML = gameArrays.monsterArray;
 		if (bgReady) {
-			for(y=0;y<gameArrays.backgroundArray.length;y++) {
-				if(hero.isPoisoned === 1) {
+            if(hero.isPoisoned === 1) {
 				    ctx.globalAlpha = 0.1; // - spændende effekt, kan måske bruges ved poisoned?
 				}
                 else {
                     ctx.globalAlpha = 1;
                 }
+			for(y=0;y<gameArrays.backgroundArray.length;y++) {
 				ctx.drawImage(gameArrays.backgroundArray[y], gameArrays.backgroundObjectArray[y].x, gameArrays.backgroundObjectArray[y].y,canvas.width,canvas.height);
 			}
 		}
         //Display environment
         for(h=0;h<gameArrays.environmentArray.length;h++) {
-                ctx.fillStyle = 'white';
-                ctx.fillText("Number " + h,gameArrays.environmentArray[h].targetX+275,gameArrays.environmentArray[h].targetY+200);
-                drawRotatedEnvironmentImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,gameArrays.environmentArray[h].angle,800,600);
+                ctx.fillStyle = 'black';
+                //ctx.fillStyle = 'white';
+                ctx.fillText("Number " + h,gameArrays.environmentArray[h].targetX+380,gameArrays.environmentArray[h].targetY+300);
+                ctx.drawImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,800,600);
+                //drawRotatedEnvironmentImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,gameArrays.environmentArray[h].angle,800,600);
         }
         //Draw hero
 		if (heroReady) {
@@ -1122,10 +1132,10 @@ function playgame() {
                 ctx.drawImage(questItemImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
             }
             else if(gameArrays.objectArray[i].itemType === 'survivor') {
-                ctx.drawImage(survivorImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,25,25);
+                ctx.drawImage(survivorImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,20,20);
             }
             else if(gameArrays.objectArray[i].itemType === 'box') {
-                ctx.drawImage(survivorImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,25,25);
+                ctx.drawImage(materialImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,20,20);
             }
             else {
                 ctx.drawImage(materialImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
@@ -1231,9 +1241,11 @@ function playgame() {
 			}
 		}
 		if(flashReady && gameVariables.missionType === "Flashlight" && hero.flashlight === "on") {
+            ctx.globalAlpha = 1;
 			drawRotatedFlashlight(flashImage, hero.x, hero.y, hero.angle);
 		}
 		else if(flashReady && gameVariables.missionType === "Flashlight" && hero.flashlight === "off") {
+            ctx.globalAlpha = 1;
 			flashlightOff(canvas.width,canvas.height);
 		}
 
@@ -1276,6 +1288,10 @@ function playgame() {
 				damageHitOnHero(gameArrays.monsterArray[n],monsterHitImage,gameVariables.timeControler);
 			}
 		}
+        if(hero.isPoisoned === 1) {
+            console.log("ayyy");
+            heroIsPoisoned(hero,poisonImage,gameVariables.timeControler)
+        }
         //Status on Pulse Emitter
         showPulseTransmitterCooldown(hero,gameVariables.timeControler);
         //Status on mission tracker

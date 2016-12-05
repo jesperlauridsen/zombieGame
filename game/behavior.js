@@ -196,7 +196,7 @@ function damageHitOnHero(afflictor,monsterHitImage,timeControler) {
 		if(afflictor.hitOpacity < 0.9 && afflictor.hitPeaked === 0) {
 		afflictor.hitOpacity = afflictor.hitOpacity + 0.2;
 		ctx.globalAlpha = afflictor.hitOpacity;
-		ctx.drawImage(monsterHitImage,0,0,canvas.width,canvas.width);
+		ctx.drawImage(monsterHitImage,0,0,canvas.width,canvas.height);
 		ctx.globalAlpha = 1;
 		}
 		else {
@@ -212,5 +212,31 @@ function damageHitOnHero(afflictor,monsterHitImage,timeControler) {
 	afflictor.hit = 0;
 	afflictor.hitPeaked = 0;
 	afflictor.hitOpacity = 0;
+	}
+}
+
+function heroIsPoisoned(hero,poisonImage,timeControler) {
+    console.log(hero.poisonOpacity);
+	if(timeControler.getTime() < hero.hitByPoison + 4000) {
+		if(hero.poisonOpacity < 0.9 && hero.poisonPeaked === 0) {
+		hero.poisonOpacity = hero.poisonOpacity + 0.01;
+		ctx.globalAlpha = hero.poisonOpacity;
+		ctx.drawImage(poisonImage,0,0,canvas.width,canvas.height);
+		ctx.globalAlpha = 1;
+		}
+		else {
+            if(hero.poisonOpacity-0.01 > 0) {
+		      hero.poisonPeaked = 1;
+		      hero.poisonOpacity = hero.poisonOpacity - 0.01;
+		      ctx.globalAlpha = hero.poisonOpacity;
+		      ctx.drawImage(poisonImage,0,0,canvas.width,canvas.height);
+		      ctx.globalAlpha = 1;
+            }
+		}
+	}
+	else {
+	ctx.globalAlpha = 1;
+	hero.hitByPoison = timeControler.getTime();
+	hero.poisonPeaked = 0;
 	}
 }

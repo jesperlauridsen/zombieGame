@@ -409,16 +409,16 @@ function spawnRandomEnvironment(indexX,indexY,environmentImagesLoaded,environmen
         var randomXdistance = 0;
         var randomYdistance = 0;
         if(indexX > 0) {
-            randomXdistance = x + 100; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
         }
         else {
-            randomXdistance = x + 100; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
         }
         if(indexY > 0) {
-            randomYdistance = y + 100; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
         }
         else {
-            randomYdistance = y + 100; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
         }
         var calNumber = environmentImagesLoaded.length - 1;
         var environmentObject = new Image();
@@ -440,19 +440,19 @@ function setSpecificEnvironment(imageArray,indexX,indexY,gameDisplay,environment
         var coordinates = {x:400,y:300};
         if(indexX > 0) {
             ffsX = indexX - gameDisplay.indexX;
-            randomXdistance = x + 100; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
         }
         else {
             ffsX = indexX + gameDisplay.indexX;
-            randomXdistance = x + 100; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
         }
         if(indexY > 0) {
             ffsY = indexY - gameDisplay.indexY;
-            randomYdistance = y + 100; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
         }
         else {
             ffsY = indexY - gameDisplay.indexY;
-            randomYdistance = y + 100; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
         }
     var calNumber = imageArray.length - 1;
         var environmentObject = new Image();
