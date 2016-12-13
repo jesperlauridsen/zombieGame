@@ -4,6 +4,7 @@ function initialNineTileGameboard(numberOfLampsOnScreen, monsterArray,environmen
     spawnRandomEnvironment(0, 0,environmentImagesLoaded,environmentArray,gameDisplay);
     spawnBoxInTile(objectArray,0,0);
     spawnOverlayEnvironment("tree",treeAndHouseArray,treeImagesLoaded,0,0);
+    //setSpecificEnvironment("forest",treeImagesLoaded,0,0,gameDisplay,environmentArray,0,0,treeAndHouseArray);
 	//top
 	addLampToScreenArrayVersion2(0,-1,0,-canvas.height,300,numberOfLampsOnScreen);
     spawnRandomEnvironment(0,-1,environmentImagesLoaded,environmentArray,gameDisplay);
@@ -429,18 +430,19 @@ function spawnRandomEnvironment(indexX,indexY,environmentImagesLoaded,environmen
 }
 
 function setSpecificEnvironment(name,imageArray,indexX,indexY,gameDisplay,environmentArray,x,y,treeAndHouseArray) {
-    console.log(name);
         if(name === "forest") {
-            var coordinates = [{x:"0",y:"0"},{x:"400",y:"0"},{x:"0",y:"300"},{x:"400",y:"300"}];
+            console.log("Dropping on: " + gameDisplay.indexX + "," + gameDisplay.indexY + " | " + indexX + "," + indexY + " | " + x + "," + y);
+            var coordinates = [{x:0,y:0},{x:400,y:0},{x:0,y:300},{x:400,y:300}];
             for(y=0;y<4;y++) {
                 var calNumber = imageArray.length - 1;
                 var treeObject = new Image();
                 treeObject.src = imageArray[Math.round(Math.random() * calNumber)].src;
-                treeObject.targetX = x + coordinates[y][0] + Math.round(Math.random() * 50 + 0);
-                treeObject.targetY = y + coordinates[y][1] + Math.round(Math.random() * 50 + 0);
-                console.log(treeObject.targetX + "," + treeObject.targetY);
-                treeObject.width = Math.round(Math.random() * 50 + 150);
-                treeObject.height = Math.round(Math.random() * 50 + 150);
+                treeObject.targetX = x + (800 * (indexX - gameDisplay.indexX)) + coordinates[y].x;// + Math.round(Math.random() * 50 + 0);
+                treeObject.targetY = y + (600 * (indexY - gameDisplay.indexY)) + coordinates[y].y;// + Math.round(Math.random() * 50 + 0);
+                var treeSize = 200;//Math.round(Math.random() * 50 + 225);
+                treeObject.width = treeSize;
+                treeObject.height = treeSize;
+                console.log(treeObject.targetX + "," + treeObject.targetY + " --- " + (indexX - gameDisplay.indexX) + "," + (indexY - gameDisplay.indexY));
                 treeObject.angle = Math.round(Math.random() * 360 + 0);
                 treeObject.indexX = indexX;
                 treeObject.indexY = indexY;
@@ -448,39 +450,6 @@ function setSpecificEnvironment(name,imageArray,indexX,indexY,gameDisplay,enviro
                 treeAndHouseArray.push(treeObject);
             }
         }
-        var randomAngle = 0;
-        var randomXdistance = 0;
-        var randomYdistance = 0;
-        var ffsX = "";
-        var ffsY = "";
-        var coordinates = {x:400,y:300};
-        if(indexX > 0) {
-            ffsX = indexX - gameDisplay.indexX;
-            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
-        }
-        else {
-            ffsX = indexX + gameDisplay.indexX;
-            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
-        }
-        if(indexY > 0) {
-            ffsY = indexY - gameDisplay.indexY;
-            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
-        }
-        else {
-            ffsY = indexY - gameDisplay.indexY;
-            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
-        }
-    var calNumber = imageArray.length - 1;
-        var environmentObject = new Image();
-        environmentObject.src = imageArray[Math.round(Math.random() * calNumber)].src;
-        environmentObject.targetX = randomXdistance;
-        environmentObject.targetY = randomYdistance;
-        environmentObject.angle = randomAngle;
-        environmentObject.indexX = indexX;
-        environmentObject.indexY = indexY;
-        //console.log("startpoints: " + indexX + "," + indexY + " | " + "gameDisplay: " + gameDisplay.indexX + "," + gameDisplay.indexY +
-        //            " | spawning in: " + ffsX + "," + ffsY + " | " + randomXdistance + "," + randomYdistance);
-        environmentArray.push(environmentObject);
 }
 
 function setEnvironmentalPoints(environmentalPoints) {

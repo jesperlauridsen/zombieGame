@@ -35,9 +35,10 @@ function drawRotatedImage(image, x, y, angle) {
 
 function drawRotatedTree(image,x,y,angle,width,height) {
     ctx.save();
-    ctx.translate(x, y);
+    ctx.translate(x+150, y+100);
     ctx.rotate(angle * TO_RADIANS);
-    ctx.drawImage(image,-(image.width/1), -(image.height/1),width,height);
+    ctx.drawImage(image,-(width/2), -(height/2),width,height);
+    //ctx.drawImage(image,x,y,width,height);
     ctx.restore();
 }
 

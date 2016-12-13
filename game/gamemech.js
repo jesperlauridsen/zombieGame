@@ -172,7 +172,7 @@ function playgame() {
 		//2: Kill 25 zombies & find survivor.
 		mission = [
             objective = {completionTime:0,func:"primary",type:"interact",interacted:0,name:"Survivor",indexX:0,indexY:0,x:0,y:0,completed:"no",statement:"Find and talk to the survivor.",message:"Now clear out the surrounding area, and for any survivors who might know what the hell happend here!",completion:"Excellent job with the killing and finding the survivor!"},
-			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:25,gathered:0,completed:"no",statement:"Kill 50 zombies.",message:"",completion:""}
+			objective = {completionTime:0,func:"primary",type:"kill",name:"Zombie",amount:25,gathered:0,completed:"no",statement:"Kill 25 zombies.",message:"",completion:""}
 		],
 		//3: Back go base to tell story.
 		mission = [
@@ -336,7 +336,7 @@ function playgame() {
 	};
 	survivorImage.src = "graphics/star-green.png";
 
-    //survivorImage
+    //crateImage
     var materialReady = false;
 	var materialImage = new Image();
 	materialImage.onload = function () {
@@ -421,7 +421,7 @@ function playgame() {
         basecampImagesLoaded.push(objectImage);
     }
 
-    var treeImages = ["tree1","tree2"];
+    var treeImages = ["tree1"];
     var treeImagesLoaded = [];
     for(y=0;y<treeImages.length;y++) {
         var objectImage = new Image();
@@ -1049,9 +1049,9 @@ function playgame() {
 						//console.log("hit!");
                         //Hero losing health!
 						//hero.health = hero.health - gameArrays.monsterArray[b].damage;
-                        if(Math.round(Math.random() * 100 + 0) > 80) {
-                            hero.isPoisoned = 1;
-                            hero.hitByPoison = gameVariables.timeControler.getTime();
+                        if(Math.round(Math.random() * 100 + 0) > 85) {
+                            //hero.isPoisoned = 1;
+                            //hero.hitByPoison = gameVariables.timeControler.getTime();
                         }
 					}
 					gameArrays.monsterArray[b].attackIni = 0;
