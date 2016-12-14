@@ -1,4 +1,4 @@
-function heroDeath(hero,monsterArray,granadeArray,timeEnd,archivedBulletArray, archivedMonsterArray, numberOfDrops,gameArrays,gameVariables) {
+function heroDeath(hero,monsterArray,granadeArray,timeEnd,archivedBulletArray, archivedMonsterArray, numberOfDrops,gameArrays,gameVariables,missionArray) {
 	hero.death = 1;
 	hero.health = 0;
 	monsterArray = [];
@@ -10,7 +10,7 @@ function heroDeath(hero,monsterArray,granadeArray,timeEnd,archivedBulletArray, a
 	ctx.font = "50px Lato";
 	ctx.fillText("Game over!",(canvas.width/2)-(canvas.width/100*15),(canvas.height/2)-(canvas.height/100*20));
 	showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops);
-	showStatisticsOnCanvas(gameArrays,gameVariables);
+	showStatisticsOnCanvas(gameArrays,gameVariables,missionArray);
 	document.getElementById("gameClip").innerHTML = "";
 	document.getElementById("gameHealth").innerHTML = "";
 	document.getElementById("gameInventory").style.display = "none";

@@ -1347,7 +1347,7 @@ function playgame() {
 		if(hero.health <= 0) {
 			if(gameVariables.gameStopped === 0) {
 			gameVariables.timeEnd = new Date();
-			heroDeath(hero,gameArrays.monsterArray,gameArrays.granadeArray,gameVariables.timeEnd,gameArrays.archivedBulletArray, gameArrays.archivedMonsterArray, gameVariables.numberOfDrops,gameArrays,gameVariables);
+			heroDeath(hero,gameArrays.monsterArray,gameArrays.granadeArray,gameVariables.timeEnd,gameArrays.archivedBulletArray, gameArrays.archivedMonsterArray, gameVariables.numberOfDrops,gameArrays,gameVariables,missionArray);
 			gameVariables.gameStopped = 1;
 			}
 		}

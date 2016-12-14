@@ -499,12 +499,12 @@ function recountAntidote(hero) {
 	document.getElementById("utilitiesAntidote").innerHTML = hero.antidote + "<br />" + "<span class='smallTextForUtilities'>Antidote</span>";
 }
 
-function gameWonShowStats(archivedBulletArray,archivedMonsterArray,numberOfDrops,gameVariables,gameArrays) {
+function gameWonShowStats(archivedBulletArray,archivedMonsterArray,numberOfDrops,gameVariables,gameArrays,missionArray) {
     var div = document.createElement('div');
     div.id = "gameWonButton";
     document.getElementById("gameContainer").appendChild(div);
     document.getElementById("gameWonButton").innerHTML = "You've won the game! <br> See stats";
-    document.getElementById('gameWonButton').onclick=function(){showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops),cleanScreenForStatistics();setEndtime(gameVariables);showStatisticsOnCanvas(gameArrays,gameVariables);};
+    document.getElementById('gameWonButton').onclick=function(){showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops),cleanScreenForStatistics();setEndtime(gameVariables);showStatisticsOnCanvas(gameArrays,gameVariables,missionArray);};
 }
 
 function setEndtime(gameVariables) {
@@ -535,6 +535,12 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 			schematics[drops[y].imgName] = {"obtained":0,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
 		}
 	}
+    for(i=0;i<missionArray.length;i++) {
+        for(h=0;h<missionArray[i].length;h++) {
+            console.log(missionArray[i][h].statement);
+            //missionArray[i][h].completed = "no";
+        }
+    }
 	hero.gun = "machete";
 	hero.clip = 7;
 	hero.shotgunclip = 8;

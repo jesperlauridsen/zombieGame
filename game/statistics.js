@@ -1,4 +1,4 @@
-function showStatisticsOnCanvas(gameArrays,gameVariables) {
+function showStatisticsOnCanvas(gameArrays,gameVariables,missionArray) {
 	var statCanvas = document.getElementById("statCanvas");
 	var statCtx = document.getElementById("statCanvas").getContext("2d");
 	statCanvas.width = 620;

@@ -263,7 +263,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay,gameVariabl
     }
     if(missionCompleted === false && hero.currentMission === 13) {
         if(document.getElementById("gameWonButton") === null) {
-         gameWonShowStats(archivedBulletArray,archivedMonsterArray,numberOfDrops,gameVariables,gameArrays);
+         gameWonShowStats(archivedBulletArray,archivedMonsterArray,numberOfDrops,gameVariables,gameArrays,missionArray);
         }
     }
 }
