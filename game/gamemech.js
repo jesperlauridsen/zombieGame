@@ -421,7 +421,7 @@ function playgame() {
         basecampImagesLoaded.push(objectImage);
     }
 
-    var treeImages = ["tree1"];
+    var treeImages = ["randomForest"];
     var treeImagesLoaded = [];
     for(y=0;y<treeImages.length;y++) {
         var objectImage = new Image();

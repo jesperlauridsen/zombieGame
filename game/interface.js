@@ -535,7 +535,6 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 			schematics[drops[y].imgName] = {"obtained":0,"name":drops[y].name,"constructor":drops[y].imgName,"materials":drops[y].materials,"description":drops[y].description};
 		}
 	}
-    setEnvironmentalPoints(environmentalPoints);
 	hero.gun = "machete";
 	hero.clip = 7;
 	hero.shotgunclip = 8;
