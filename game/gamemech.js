@@ -421,7 +421,7 @@ function playgame() {
         basecampImagesLoaded.push(objectImage);
     }
 
-    var treeImages = ["randomForest"];
+    var treeImages = ["tree1"];
     var treeImagesLoaded = [];
     for(y=0;y<treeImages.length;y++) {
         var objectImage = new Image();
@@ -1224,7 +1224,7 @@ function playgame() {
 			}
 		}
         for(u=0;u<gameArrays.treeAndHouseArray.length;u++) {
-            //ctx.drawImage(gameArrays.treeAndHouseArray[u],gameArrays.treeAndHouseArray[u].targetX,gameArrays.treeAndHouseArray[u].targetY,200,200);
+            //ctx.drawImage(gameArrays.treeAndHouseArray[u],gameArrays.treeAndHouseArray[u].targetX,gameArrays.treeAndHouseArray[u].targetY,gameArrays.treeAndHouseArray[u].width,gameArrays.treeAndHouseArray[u].height);
             drawRotatedTree(gameArrays.treeAndHouseArray[u],gameArrays.treeAndHouseArray[u].targetX,gameArrays.treeAndHouseArray[u].targetY,gameArrays.treeAndHouseArray[u].angle,gameArrays.treeAndHouseArray[u].width,gameArrays.treeAndHouseArray[u].height);
         }
 		//Display game-mode / Lamps / flashlight
