@@ -9,7 +9,7 @@ function heroDeath(hero,monsterArray,granadeArray,timeEnd,archivedBulletArray, a
 	ctx.fillStyle = 'rgba(0,0,0,1)';
 	ctx.font = "50px Lato";
 	ctx.fillText("Game over!",(canvas.width/2)-(canvas.width/100*15),(canvas.height/2)-(canvas.height/100*20));
-	showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops);
+	showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops,gameArrays.archivedObjectArray);
 	showStatisticsOnCanvas(gameArrays,gameVariables,missionArray);
 	document.getElementById("gameClip").innerHTML = "";
 	document.getElementById("gameHealth").innerHTML = "";

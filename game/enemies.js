@@ -141,6 +141,7 @@ function monsterDrop(monster, drops, objectArray, gameVariables) {
         //console.log(randomDrop + " / " + drops.length);
 		//console.log(randomDrop + " | " + drops[randomDrop].name + " " + Math.round(monster.x + Math.cos(randomAngle) * 10) + " " + Math.round(monster.y + Math.sin(randomAngle) * 10) + " " + drops[randomDrop].imgName + " " + drops[randomDrop].amount);
 		var dropObject = {
+            from:monster.name,
 			number:randomDrop,
 			name:drops[randomDrop].name,
 			itemType:drops[randomDrop].itemType,

@@ -79,7 +79,7 @@ function showStatisticsOnCanvas(gameArrays,gameVariables,missionArray) {
 	//statCtx.clearRect(0, 0, statCanvas.width, statCanvas.height);
 }
 
-function showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops) {
+function showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops,archivedObjectArray) {
 	document.getElementById("gameStatistics").style.display = "block";
 	var allHits = 0;
 	var macheteSwings = 0;
@@ -176,6 +176,13 @@ function showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops
 		else {
 		}
 	}
+    var dropFromMonster = 0;
+    for(n=0;n<archivedObjectArray.length;n++) {
+        console.log("dropped from " + archivedObjectArray[n].from);
+        if(archivedObjectArray[n].from === "monster") {
+            dropFromMonster = dropFromMonster + 1;
+        }
+    }
 	var dropchance =  Math.round((numberOfDrops/archivedMonsterArray.length * 100) * 10) / 10 || 0;
 	document.getElementById("overallStatistics").innerHTML = "<strong>Overall</strong><br />" +
 								"Monsters killed: " + archivedMonsterArray.length +
