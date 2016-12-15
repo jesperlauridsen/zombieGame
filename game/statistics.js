@@ -31,6 +31,34 @@ function showStatisticsOnCanvas(gameArrays,gameVariables,missionArray) {
 		statCtx.stroke();
 		//statCtx.fill();
 	}
+
+    for(i=0;i<missionArray.length;i++) {
+        for(h=0;h<missionArray[i].length;h++) {
+            var missionCompleted = 0;
+            if(missionArray[i][h].completed === "yes") {
+                missionCompleted = 1;
+            }
+            else {
+               missionCompleted = 0;
+            }
+        }
+        if(missionCompleted === 1) {
+            console.log("mission completed!");
+            var missionCompleyedArray = [];
+            for(x=0;x<missionArray[i].length;x++) {
+                missionCompleyedArray.push(missionArray[i][x].completionTime);
+            }
+            var questCompletionTime = Math.max.apply(Math, missionCompleyedArray);
+            statCtx.strokeStyle = 'red';
+            statCtx.beginPath();
+            statCtx.moveTo(20 + (580/100)*((questCompletionTime-gameStart)/maxPoint*100),20);
+            statCtx.lineTo(20 + (580/100)*((questCompletionTime-gameStart)/maxPoint*100),220);
+            statCtx.stroke();
+            statCtx.font = "12px Lato";
+	        statCtx.fillText("M" + i,20 + (580/100)*((questCompletionTime-gameStart)/maxPoint*100)-8,15);
+        }
+    }
+
 	var timePlayed = new Date(maxPoint);
 	var minutesPlayed = timePlayed.getMinutes();
 	var secondsPlayed = timePlayed.getSeconds();
@@ -46,7 +74,7 @@ function showStatisticsOnCanvas(gameArrays,gameVariables,missionArray) {
 	statCtx.fillText(loggedMonsterDeaths.length,15,15);
 	statCtx.fillText(minutesPlayedToCanvas + ":" + secondsPlayedToCanvas,587,235);
 	statCtx.font = "12px Lato";
-	statCtx.fillText("Events over time",250,12);
+	//statCtx.fillText("Events over time",250,12);
 	document.getElementById("explanation").innerHTML = "gametime: " + minutesPlayed + " minutes and " + secondsPlayed + " seconds.";
 	//statCtx.clearRect(0, 0, statCanvas.width, statCanvas.height);
 }

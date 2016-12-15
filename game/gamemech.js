@@ -1048,7 +1048,7 @@ function playgame() {
 					else {
 						//console.log("hit!");
                         //Hero losing health!
-						//hero.health = hero.health - gameArrays.monsterArray[b].damage;
+						hero.health = hero.health - gameArrays.monsterArray[b].damage;
                         if(Math.round(Math.random() * 100 + 0) > 85) {
                             //hero.isPoisoned = 1;
                             //hero.hitByPoison = gameVariables.timeControler.getTime();

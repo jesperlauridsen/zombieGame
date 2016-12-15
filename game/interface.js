@@ -537,8 +537,31 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	}
     for(i=0;i<missionArray.length;i++) {
         for(h=0;h<missionArray[i].length;h++) {
-            console.log(missionArray[i][h].statement);
-            //missionArray[i][h].completed = "no";
+            //console.log(missionArray[i][h].statement);
+            missionArray[i][h].completed = "no";
+            missionArray[i][h].completionTime = 0;
+            missionArray[i][h].x = 0;
+            missionArray[i][h].y = 0;
+            missionArray[i][h].indexX = 0;
+            missionArray[i][h].indexY = 0;
+            try {
+                missionArray[i][h].interacted = 0;
+                missionArray[i][h].gathered = 0;
+                missionArray[i][h].wave = 0;
+                missionArray[i][h].bossSpawned = 0;
+                missionArray[i][h].granadeState = 0;
+                missionArray[i][h].shotState = 0;
+                missionArray[i][h].shotTimer = 0;
+                missionArray[i][h].shotWave = 0;
+                missionArray[i][h].fleeState = 0;
+                missionArray[i][h].fleeTime = 0;
+                missionArray[i][h].actionCounter = 0;
+                missionArray[i][h].rocketFired = 0;
+                missionArray[i][h].rocketLaunch = 0;
+            }
+            catch(err) {
+
+            }
         }
     }
 	hero.gun = "machete";
