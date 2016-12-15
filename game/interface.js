@@ -172,6 +172,8 @@ function showInventory(argument,inventory,gameVariables,owner,schematics,hero) {
 		else {
 			if(owner === 'gameSchematics') {
 				schematicsDisplay(inventory,schematics,hero);
+                gameVariables.pickUpSchematics = 0;
+                newSchematicPickUpsDisplayed(gameVariables);
 			}
 			else {
 				inventoryDisplay(inventory);
@@ -189,6 +191,8 @@ function showInventory(argument,inventory,gameVariables,owner,schematics,hero) {
 		}
 		else if(argument === 'Schematics') {
 			schematicsDisplay(inventory,schematics,hero);
+            gameVariables.pickUpSchematics = 0;
+            newSchematicPickUpsDisplayed(gameVariables);
 		}
 	}
 }
@@ -261,6 +265,17 @@ function newPickUpsDisplayed(newPickUps) {
 	else {
 	document.getElementById("pickUp").className = "";
 	document.getElementById("pickUp").innerHTML = "";
+	}
+}
+
+function newSchematicPickUpsDisplayed(newPickUps) {
+	if(newPickUps.pickUpSchematics > 0) {
+	document.getElementById("pickUpS").className = "pickedUp";
+	document.getElementById("pickUpS").innerHTML = newPickUps.pickUpSchematics + "!";
+	}
+	else {
+	document.getElementById("pickUpS").className = "";
+	document.getElementById("pickUpS").innerHTML = "";
 	}
 }
 

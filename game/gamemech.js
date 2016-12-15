@@ -942,6 +942,7 @@ function playgame() {
 					schematics[gameArrays.objectArray[v].imageSource].obtained = 1; //parseInt(schematics[gameArrays.objectArray[v].imageSource].amount) + parseInt(gameArrays.objectArray[v].amount);
 					gameArrays.objectArray.splice(v,1);
                     gameVariables.pickUpSchematics = gameVariables.pickUpSchematics + 1;
+                    newSchematicPickUpsDisplayed(gameVariables);
 				}
                 else if(gameArrays.objectArray[v].itemType === "questItem") {
                     //console.log(hero.currentMission);
