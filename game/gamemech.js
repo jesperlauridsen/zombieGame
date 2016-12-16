@@ -334,7 +334,7 @@ function playgame() {
 	survivorImage.onload = function () {
 		survivorReady = true;
 	};
-	survivorImage.src = "graphics/star-green.png";
+	survivorImage.src = "graphics/hero/hero-standing-machete.png";
 
     //crateImage
     var materialReady = false;
@@ -350,7 +350,7 @@ function playgame() {
 	elderweedImage.onload = function () {
 		elderweedReady = true;
 	};
-	elderweedImage.src = "graphics/star-green.png";
+	elderweedImage.src = "graphics/environment/flower.png";
 
     //questDrop ZombieExcrement
     var zombieExcrementReady = false;
@@ -358,7 +358,7 @@ function playgame() {
 	zombieExcrementImage.onload = function () {
 		zombieExcrementReady = true;
 	};
-	zombieExcrementImage.src = "graphics/star-green.png";
+	zombieExcrementImage.src = "graphics/environment/poo.png";
 
     //questDrop ButterflyEggs
     var butterflyEggsReady = false;
@@ -366,7 +366,7 @@ function playgame() {
 	butterflyEggsImage.onload = function () {
 		butterflyEggsReady = true;
 	};
-	butterflyEggsImage.src = "graphics/star-green.png";
+	butterflyEggsImage.src = "graphics/environment/eggs.png";
 
 	//drop images
 	var objectImageArray = [];
@@ -375,15 +375,7 @@ function playgame() {
 		objectImageArray[h].src = "graphics/environment/" + "cratedone.png";//drops[h].imgName + ".png";
 	}
     questItemImage = new Image();
-    questItemImage.src = "graphics/" + "star-green.png"; //questItem picture
-
-	//Treasure image
-	var treasureReady = false;
-	var treasureImage = new Image();
-	treasureImage.onload = function () {
-		treasureReady = true;
-	};
-	treasureImage.src = "graphics/star-green.png";
+    questItemImage.src = "graphics/environment/" + "brain.png"; //questItem picture
 
 	//Monster images
 	var monster1Ready = false;
@@ -1130,7 +1122,19 @@ function playgame() {
 			ctx.font = "bold 10px Lato";
 			ctx.fillText(gameArrays.objectArray[i].name,gameArrays.objectArray[i].x-gameArrays.objectArray[i].offset,gameArrays.objectArray[i].y-3);
             if(gameArrays.objectArray[i].itemType === 'questItem') {
-                ctx.drawImage(questItemImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+                if(gameArrays.objectArray[i].name === "Zombie excrement") {
+                    ctx.drawImage(zombieExcrementImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+                }
+                else if(gameArrays.objectArray[i].name === "Elderweed") {
+                    ctx.drawImage(elderweedImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+                }
+                else if(gameArrays.objectArray[i].name === "Butterfly eggs") {
+                    ctx.drawImage(butterflyEggsImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+                }
+                else {
+                    ctx.drawImage(questItemImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
+                }
+                //ctx.drawImage(questItemImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
             }
             else if(gameArrays.objectArray[i].itemType === 'survivor') {
                 ctx.drawImage(survivorImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,20,20);
