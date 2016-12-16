@@ -273,6 +273,7 @@ function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,mons
         }
         else if(arrayOfNewAdditions[g].x == missionArray[1][0].indexX && arrayOfNewAdditions[g].y == missionArray[1][0].indexY) {
             //Throw down farm!
+            spawnRandomEnvironment(arrayOfNewAdditions[g].x, arrayOfNewAdditions[g].y,environmentImagesLoaded,environmentArray,gameDisplay,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY);
             console.log("Farm spawned on " + arrayOfNewAdditions[g].x + "," + arrayOfNewAdditions[g].y);
             setSpecificEnvironment("farm",farmImagesLoaded,arrayOfNewAdditions[g].x,arrayOfNewAdditions[g].y,gameDisplay,environmentArray,arrayOfNewAdditions[g].startPointX,arrayOfNewAdditions[g].startPointY,treeAndHouseArray);
         }
@@ -431,6 +432,29 @@ function spawnRandomEnvironment(indexX,indexY,environmentImagesLoaded,environmen
 }
 
 function setSpecificEnvironment(name,imageArray,indexX,indexY,gameDisplay,environmentArray,x,y,treeAndHouseArray) {
+        if(name === "farm") {
+            coordinates = [{x:0,y:0},{x:0,y:300},{x:400,y:0}];
+            for(j=0;j<3;j++) {
+            var treeObject = new Image();
+            treeObject.src = imageArray[j].src;
+            if(j === 2) {
+                treeObject.targetX = x + coordinates[j].x + 30;
+                treeObject.targetY = y + coordinates[j].y + 130;
+                treeObject.width = 250;
+                treeObject.height = 250;
+            }
+            else {
+                treeObject.targetX = x + coordinates[j].x + 30;
+                treeObject.targetY = y + coordinates[j].y + 30;
+                treeObject.width = 150;
+                treeObject.height = 150;
+            }
+            treeObject.angle = Math.round(Math.random() * 360 + 0);
+            treeObject.indexX = indexX;
+            treeObject.indexY = indexY;
+            treeAndHouseArray.push(treeObject);
+            }
+        }
         if(name === "forest") {
             if(x === undefined) {
                 x = 800 * indexX;
