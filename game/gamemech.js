@@ -490,8 +490,6 @@ function playgame() {
 	granadeToPlayer(200,75, gameArrays.granadeArray);
 	granadeToPlayer(200,75, gameArrays.granadeArray);
 
-	//initiateBackground(gameArrays.backgroundArray, gameArrays.backgroundObjectArray, backgroundImage);
-	//initialNineTileGameboard(gameArrays.numberOfLampsOnScreen, gameArrays.monsterArray);
 	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true;}, false);
 	addEventListener("keyup", function (e) {delete keysDown[e.keyCode]; if(hero.gun === 'pistol' || hero.gun === 'shotgun' || hero.gun === 'machete') {gameVariables.hasFired = 0;} else {gameVariables.isPressed = 0;}}, false);
 
