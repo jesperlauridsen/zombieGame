@@ -1,5 +1,5 @@
 function initiateMissions(missionArray,environmentalPoints,objectArray,survivorImage,gameVariables,elderweedImage,zombieExcrementImage,ButterflyEggsImage) {
-    var missionDistance = 1500; // +500 each loop variable
+    var missionDistance = 2000; // +500 each loop variable
 	var missionQuads = [0,120,240,270,120,240]; //120 variable
     var randomAngle = "";
     var randomMissionDistance = "";
@@ -41,7 +41,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
         environmentalPoints[name].indexY = missionIndexY;
         environmentalPoints[name].x = missionPointX;
         environmentalPoints[name].y = missionPointY;
-        missionDistance = missionDistance + 1500;
+        missionDistance = missionDistance + 1000;
          }
 	//Index er Math.round(X/800)
 	//	   Math.round(Y/600)

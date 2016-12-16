@@ -413,7 +413,7 @@ function playgame() {
 	var monster3HeatAttack = new Image();
 	monster3HeatAttack.src = "graphics/monster3-temp.png"
 
-    var basecampImages = ["randomBasecamp"];
+    var basecampImages = ["basecampDone"];
     var basecampImagesLoaded = [];
     for(y=0;y<basecampImages.length;y++) {
         var objectImage = new Image();
@@ -429,7 +429,7 @@ function playgame() {
         treeImagesLoaded.push(objectImage);
     }
 
-    var pgImages = ["randomPlayground"];
+    var pgImages = ["zombiePlaygroundDone1"];
     var pgImagesLoaded = [];
     for(y=0;y<pgImages.length;y++) {
         var objectImage = new Image();
@@ -437,7 +437,7 @@ function playgame() {
         pgImagesLoaded.push(objectImage);
     }
 
-    var gzImages = ["randomGroundZero"];
+    var gzImages = ["groundZeroDone"];
     var gzImagesLoaded = [];
     for(y=0;y<gzImages.length;y++) {
         var objectImage = new Image();
@@ -445,7 +445,7 @@ function playgame() {
         gzImagesLoaded.push(objectImage);
     }
 
-    var farmImages = ["randomFarm"];
+    var farmImages = ["farm1","farm2","cornfield"];
     var farmImagesLoaded = [];
     for(y=0;y<farmImages.length;y++) {
         var objectImage = new Image();

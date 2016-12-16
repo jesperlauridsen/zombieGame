@@ -497,6 +497,70 @@ function setSpecificEnvironment(name,imageArray,indexX,indexY,gameDisplay,enviro
         environmentObject.indexY = indexY;
         environmentArray.push(environmentObject);
     }
+    if(name === "groundZero") {
+        if(x === undefined) {
+        x = 800 * indexX;
+        }
+        if(y === undefined) {
+        y = 600 * indexY;
+        }
+        var randomAngle = 0; //Math.round(Math.random() * 360 - 0);
+        var randomXdistance = 0;
+        var randomYdistance = 0;
+        if(indexX > 0) {
+            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+        }
+        else {
+            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+        }
+        if(indexY > 0) {
+            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+        }
+        else {
+            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+        }
+        var calNumber = imageArray.length - 1;
+        var environmentObject = new Image();
+        environmentObject.src = imageArray[Math.round(Math.random() * calNumber)].src;
+        environmentObject.targetX = randomXdistance;
+        environmentObject.targetY = randomYdistance;
+        environmentObject.angle = randomAngle;
+        environmentObject.indexX = indexX;
+        environmentObject.indexY = indexY;
+        environmentArray.push(environmentObject);
+    }
+    if(name === "zombiePlayground") {
+        if(x === undefined) {
+        x = 800 * indexX;
+        }
+        if(y === undefined) {
+        y = 600 * indexY;
+        }
+        var randomAngle = 0; //Math.round(Math.random() * 360 - 0);
+        var randomXdistance = 0;
+        var randomYdistance = 0;
+        if(indexX > 0) {
+            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+        }
+        else {
+            randomXdistance = x; //((800 * ffsX) + coordinates.x); // + Math.round(Math.random() * 150 - 0);
+        }
+        if(indexY > 0) {
+            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+        }
+        else {
+            randomYdistance = y; //((600 * ffsY) + coordinates.y) - 600; // + Math.round(Math.random() * 50 - 0);
+        }
+        var calNumber = imageArray.length - 1;
+        var environmentObject = new Image();
+        environmentObject.src = imageArray[Math.round(Math.random() * calNumber)].src;
+        environmentObject.targetX = randomXdistance;
+        environmentObject.targetY = randomYdistance;
+        environmentObject.angle = randomAngle;
+        environmentObject.indexX = indexX;
+        environmentObject.indexY = indexY;
+        environmentArray.push(environmentObject);
+    }
 }
 
 function drawTileShadow(tileStartPointX, tileStartPointY, lightX,lightY,radius) {
