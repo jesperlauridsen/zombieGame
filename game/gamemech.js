@@ -334,7 +334,7 @@ function playgame() {
 	survivorImage.onload = function () {
 		survivorReady = true;
 	};
-	survivorImage.src = "graphics/hero/hero-standing-machete.png";
+	survivorImage.src = "graphics/hero-new/hero-standing-machete.png";
 
     //crateImage
     var materialReady = false;
@@ -443,14 +443,6 @@ function playgame() {
         var objectImage = new Image();
 		objectImage.src = "graphics/environment/" + farmImages[y] + ".png";
         farmImagesLoaded.push(objectImage);
-    }
-
-    var forestImages = ["randomForest"];
-    var forestImagesLoaded = [];
-    for(y=0;y<forestImages.length;y++) {
-       var objectImage = new Image();
-		objectImage.src = "graphics/environment/" + forestImages[y] + ".png";
-        forestImagesLoaded.push(objectImage);
     }
 
     var environmentImages = ["randomTile1","randomTile2","randomTile3","randomTile4"];
@@ -1065,7 +1057,7 @@ function playgame() {
 				gameArrays.monsterArray[b].attackIni = 0;
 			}
 		}
-	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded, pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,gameArrays.environmentArray,gameArrays.objectArray,gameArrays.treeAndHouseArray,treeImagesLoaded);
+	mapControl(gameArrays.numberOfLampsOnScreen,gameArrays.backgroundObjectArray,tileDisplay,gameDisplay,gameArrays.monsterArray,gameArrays.objectArray,missionArray,environmentImagesLoaded, pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,basecampImagesLoaded,gameArrays.environmentArray,gameArrays.objectArray,gameArrays.treeAndHouseArray,treeImagesLoaded);
         validateMission(missionArray,hero,gameVariables.timeControler,gameDisplay,gameVariables,gameArrays.archivedBulletArray,gameArrays.archivedMonsterArray,gameVariables.numberOfDrops,gameArrays);
 		}
 		else {

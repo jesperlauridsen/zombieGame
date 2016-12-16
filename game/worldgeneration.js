@@ -147,7 +147,7 @@ function initiateBackground(backgroundArray, backgroundObjectArray, backgroundIm
 	}
 }
 
-function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,gameDisplay,monsterArray,objectArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,environmentArray,objectArray,treeAndHouseArray,treeImagesLoaded) {
+function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,gameDisplay,monsterArray,objectArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,basecampImagesLoaded,environmentArray,objectArray,treeAndHouseArray,treeImagesLoaded) {
 	var newTile = 0;
 	if(backgroundObjectArray[8].y > canvas.height/2) {
 		//new tile upwards!
@@ -158,7 +158,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		tileDisplay.y = tileDisplay.y + canvas.height;
 		newTile = 1;
 		gameDisplay.indexY = gameDisplay.indexY - 1;
-		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded);
+		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded);
 	}
 	if(backgroundObjectArray[8].y < -canvas.height/2) {
 		//new tile downwards
@@ -169,7 +169,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		tileDisplay.y = tileDisplay.y - canvas.height;
 		newTile = 1;
 		gameDisplay.indexY = gameDisplay.indexY + 1;
-		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded);
+		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded);
 	}
 	if(backgroundObjectArray[8].x > canvas.width/2) {
 		//new tile rightside
@@ -180,7 +180,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		tileDisplay.x = tileDisplay.x + canvas.width;
 		newTile = 1;
 		gameDisplay.indexX = gameDisplay.indexX - 1;
-		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded);
+		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded);
 	}
 	if(backgroundObjectArray[8].x < -canvas.width/2) {
 		//new tile leftside
@@ -191,7 +191,7 @@ function mapControl(numberOfLampsOnScreen,backgroundObjectArray,tileDisplay,game
 		tileDisplay.x = tileDisplay.x - canvas.width;
 		newTile = 1;
 		gameDisplay.indexX = gameDisplay.indexX + 1;
-		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded);
+		generateEnvironment(gameDisplay.indexX,gameDisplay.indexY, numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded);
 	}
     //console.log(gameDisplay.indexX + "," + gameDisplay.indexY);
 }
@@ -220,7 +220,7 @@ function addLampToScreenArrayVersion2(indexXX,indexYY,startPointX,startPointY,ra
 	//document.getElementById("testdiv2").innerHTML = document.getElementById("testdiv2").innerHTML + numberOfLampsOnScreen.length + ": lamp pushed: " + indexXX + "," + indexYY + " | " + randomXvalue + "," + randomYvalue + " | " + startPointX + "," + startPointY + "<br />";
 }
 
-function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,forestImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded) {
+function generateEnvironment(coreX, coreY,numberOfLampsOnScreen,tileDisplay,monsterArray,missionArray,environmentImagesLoaded,pgImagesLoaded,gzImagesLoaded,farmImagesLoaded,basecampImagesLoaded,environmentArray,gameDisplay,objectArray,treeAndHouseArray,treeImagesLoaded) {
 	arrayOfNewAdditions = [];
 	var realityStatus = true;
 	//center coreX, coreY
