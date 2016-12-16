@@ -50,13 +50,13 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 	missionArray[0][0].indexY = environmentalPoints.basecampPosition.indexY;
     missionArray[0][0].x = environmentalPoints.basecampPosition.x;
 	missionArray[0][0].y = environmentalPoints.basecampPosition.y;
-    console.log("basecamp: " + missionArray[0][0].indexX + "," + missionArray[0][0].indexY);
+    //console.log("basecamp: " + missionArray[0][0].indexX + "," + missionArray[0][0].indexY);
 
 	missionArray[1][0].indexX = environmentalPoints.cityPosition.indexX;
 	missionArray[1][0].indexY = environmentalPoints.cityPosition.indexY;
     missionArray[1][0].x = environmentalPoints.cityPosition.x;
 	missionArray[1][0].y = environmentalPoints.cityPosition.y;
-    console.log("farm: " + missionArray[1][0].indexX + "," + missionArray[1][0].indexY);
+    //console.log("farm: " + missionArray[1][0].indexX + "," + missionArray[1][0].indexY);
 
     missionArray[2][0].indexX = environmentalPoints.cityPosition.indexX;
 	missionArray[2][0].indexY = environmentalPoints.cityPosition.indexY;
@@ -72,7 +72,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 	missionArray[5][0].indexY = environmentalPoints.groundZeroPosition.indexY;
     missionArray[5][0].x = environmentalPoints.groundZeroPosition.x;
 	missionArray[5][0].y = environmentalPoints.groundZeroPosition.y;
-    console.log("ground zero: " + missionArray[5][0].indexX + "," + missionArray[5][0].indexY);
+    //console.log("ground zero: " + missionArray[5][0].indexX + "," + missionArray[5][0].indexY);
 
 	missionArray[7][0].indexX = environmentalPoints.basecampPosition.indexX;
 	missionArray[7][0].indexY = environmentalPoints.basecampPosition.indexY;
@@ -83,7 +83,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 	missionArray[9][0].indexY = environmentalPoints.forestPosition.indexY;
     missionArray[9][0].x = environmentalPoints.forestPosition.x;
 	missionArray[9][0].y = environmentalPoints.forestPosition.y;
-    console.log("forest: " + missionArray[9][0].indexX + "," + missionArray[9][0].indexY);
+    //console.log("forest: " + missionArray[9][0].indexX + "," + missionArray[9][0].indexY);
     //console.log(environmentalPoints.forestPosition.indexX + " " + environmentalPoints.forestPosition.indexY);
 
 	missionArray[10][0].indexX = environmentalPoints.basecampPosition.indexX;
@@ -95,7 +95,7 @@ function initiateMissions(missionArray,environmentalPoints,objectArray,survivorI
 	missionArray[11][0].indexY = environmentalPoints.zombiePlayground.indexY;
     missionArray[11][0].x = environmentalPoints.zombiePlayground.x;
 	missionArray[11][0].y = environmentalPoints.zombiePlayground.y;
-    console.log("zombie playground: " + missionArray[11][0].indexX + "," + missionArray[11][0].indexY);
+    //console.log("zombie playground: " + missionArray[11][0].indexX + "," + missionArray[11][0].indexY);
 
     //console.log(missionArray[3][0].x + "," + missionArray[3][0].y);
     var survivor = {
@@ -254,7 +254,7 @@ function validateMission(missionArray,hero,timeControler,gameDisplay,gameVariabl
 	}
     //console.log(missionCompleted);
     if(missionCompleted === true) {
-        console.log("next mission!");
+        //console.log("next mission!");
         if(hero.currentMission < 13);
         hero.currentMission = hero.currentMission + 1;
         hero.missionProgress = hero.missionProgress + 1;
@@ -280,7 +280,7 @@ function presentMission(missionArray,hero,timeControler) {
         document.getElementById("missionInteractionContainer").getElementsByTagName("p")[0].innerHTML = missionArray[hero.currentMission][0].message;
     }
     else {
-        console.log(missionArray[hero.currentMission-1][0].completion);
+        //console.log(missionArray[hero.currentMission-1][0].completion);
         document.getElementById("missionInteractionContainer").getElementsByTagName("p")[0].innerHTML = missionArray[hero.currentMission-1][0].completion + "<br /><br />" + missionArray[hero.currentMission][0].message;
     }
     document.getElementById("missionInteractionContainer").className = "progressActive";
@@ -293,7 +293,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
         //console.log(missionArray[5][0].completionTime + (missionArray[6][0].wave * 3000) + ">" + timeControler.getTime());
         if(missionArray[5][0].completionTime + (missionArray[6][0].wave * 7000) < timeControler.getTime() && missionArray[6][0].wave < 7) {
             //new wave
-            console.log("new wave of small zombies! (wave " + missionArray[6][0].wave + ")");
+            //console.log("new wave of small zombies! (wave " + missionArray[6][0].wave + ")");
             for(x=0;x<4;x++) {
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 900 + 600));
@@ -307,7 +307,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
         }
         if(missionArray[5][0].completionTime + (missionArray[6][1].wave * 12000) < timeControler.getTime() && missionArray[6][1].wave < 4) {
             //new wave
-            console.log("new wave of medium zombies! (wave " + missionArray[6][1].wave + ")");
+            //console.log("new wave of medium zombies! (wave " + missionArray[6][1].wave + ")");
             for(x=0;x<2;x++) {
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 600));
@@ -319,7 +319,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
         }
         if(missionArray[5][0].completionTime + (missionArray[6][2].wave * 17000) < timeControler.getTime() && missionArray[6][2].wave < 4) {
             //new wave
-            console.log("new wave of large zombies! (wave " + missionArray[6][2].wave + ")");
+            //console.log("new wave of large zombies! (wave " + missionArray[6][2].wave + ")");
             for(x=0;x<1;x++) {
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1200 + 1000));
@@ -333,7 +333,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
     if(hero.currentMission === 8) {
        if(missionArray[7][0].completionTime + (missionArray[8][0].wave * 6000) < timeControler.getTime() && missionArray[8][0].wave < 13) {
             //new wave
-            console.log("new wave of zombies to repel! (wave " + missionArray[8][0].wave + ")");
+            //console.log("new wave of zombies to repel! (wave " + missionArray[8][0].wave + ")");
             for(x=0;x<2;x++) {
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
@@ -353,7 +353,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 spawnMonster(xPoint,yPoint,10,300,1000,1000,4,monsterArray,"boss");
-                console.log("boss spawned!");
+                //console.log("boss spawned!");
                 missionArray[12][0].bossSpawned = 1;
                 missionArray[12][0].actionCounter = timeControler.getTime();
             }

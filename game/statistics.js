@@ -178,12 +178,12 @@ function showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops
 	}
     var dropFromMonster = 0;
     for(n=0;n<archivedObjectArray.length;n++) {
-        console.log("dropped from " + archivedObjectArray[n].from);
+        //console.log("dropped from " + archivedObjectArray[n].from);
         if(archivedObjectArray[n].from === "monster") {
             dropFromMonster = dropFromMonster + 1;
         }
     }
-	var dropchance =  Math.round((numberOfDrops/archivedMonsterArray.length * 100) * 10) / 10 || 0;
+	var dropchance =  Math.round((dropFromMonster/archivedMonsterArray.length * 100) * 10) / 10 || 0;
 	document.getElementById("overallStatistics").innerHTML = "<strong>Overall</strong><br />" +
 								"Monsters killed: " + archivedMonsterArray.length +
 								"<br />Attacks made: " + archivedBulletArray.length +
@@ -191,7 +191,7 @@ function showStatistics(archivedBulletArray, archivedMonsterArray, numberOfDrops
 								"<br />" + "Accuracy: " + overallAcc + "%" +
 								"<br /><br /> Granade kills: " + granadeKills +
 								"<br /> Pulse kills: " + pulseKills +
-								"<br /><br />Drops: " + numberOfDrops +
+								"<br /><br />Drops: " + dropFromMonster +
 								"<br />Dropchance/mob: " + dropchance + "%";
 
 

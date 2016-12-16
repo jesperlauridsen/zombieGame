@@ -115,7 +115,7 @@ body {
 #gameClip {
     padding-top:5px;
 	height:35px;
-	width:75px;
+	width:70px;
 	float:left;
 	text-align:center;
 }
@@ -124,7 +124,7 @@ body {
     padding-top:5px;
 	cursor:pointer;
 	height:35px;
-	width:125px;
+	width:105px;
 	float:right;
 	text-align:center;
 }
@@ -227,12 +227,15 @@ body {
 }
 
 .gameItem {
+	width:60px;
+	height:35px;
+	float:left;
     padding-top:5px;
 	border: 0px solid grey;
 	border-style: none solid none solid;
 	box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 	cursor:pointer;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -243,7 +246,7 @@ body {
 }
 
 .gameItemDivider {
-	width:15px;
+	width:0px;
 	height:25px;
 	float:left;
 }
@@ -357,12 +360,6 @@ body {
 	left:207px;
 	text-align:center;
 	cursor:pointer;
-}
-
-.gameItem {
-	width:50px;
-	height:35px;
-	float:left;
 }
 
 .schematicObtained:hover {
@@ -485,7 +482,7 @@ body {
 #gameHealth {
 	height:35px;
     padding-top:5px;
-	width:75px;
+	width:50px;
 	float:left;
 	text-align:center;
 	color:black;

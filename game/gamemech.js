@@ -628,6 +628,15 @@ function playgame() {
 			}
 		}
 
+        if(55 in keysDown) {
+            useAntidote(hero);
+            delete keysDown[55];
+        }
+        if(54 in keysDown) {
+            useMedkit(hero);
+            delete keysDown[54];
+        }
+
 		if (82 in keysDown) { //Reload
 			if(hero.gun === 'pistol' && gameVariables.timeControler.getTime() > hero.reloadDelay + 550) {
 				if(hero.gunshots >= 7) {
@@ -1043,8 +1052,8 @@ function playgame() {
                         //Hero losing health!
 						hero.health = hero.health - gameArrays.monsterArray[b].damage;
                         if(Math.round(Math.random() * 100 + 0) > 85) {
-                            //hero.isPoisoned = 1;
-                            //hero.hitByPoison = gameVariables.timeControler.getTime();
+                            hero.isPoisoned = 1;
+                            hero.hitByPoison = gameVariables.timeControler.getTime();
                         }
 					}
 					gameArrays.monsterArray[b].attackIni = 0;

@@ -350,7 +350,7 @@ function recountMedkit(hero) {
 	else {
 		document.getElementById("utilitiesMedkit").className = "gameItem obtained";
 	}
-	document.getElementById("utilitiesMedkit").innerHTML = hero.medkit + "<br />" + "<span class='smallTextForUtilities'>Medkit</span>";;
+	document.getElementById("utilitiesMedkit").innerHTML = "6 <br />" + "<span class='smallTextForUtilities'>" + hero.medkit + " Medkit</span>";
 }
 
 function useMedkit(hero) {
@@ -501,7 +501,7 @@ function recountGranade(gameArrays) {
 	else {
 		document.getElementById("utilitiesGranade").className = "gameItem obtained";
 	}
-	document.getElementById("utilitiesGranade").innerHTML = gameArrays.granadeArray.length + "<br />" + "<span class='smallTextForUtilities'>Granades</span>";;
+	document.getElementById("utilitiesGranade").innerHTML = "CTRL <br />" + "<span class='smallTextForUtilities'>" + gameArrays.granadeArray.length + " Granade</span>";
 }
 
 function recountAntidote(hero) {
@@ -511,7 +511,7 @@ function recountAntidote(hero) {
 	else {
 		document.getElementById("utilitiesAntidote").className = "gameItem obtained";
 	}
-	document.getElementById("utilitiesAntidote").innerHTML = hero.antidote + "<br />" + "<span class='smallTextForUtilities'>Antidote</span>";
+	document.getElementById("utilitiesAntidote").innerHTML = "7 <br />" + "<span class='smallTextForUtilities'>" + hero.antidote + " Antidote</span>";
 }
 
 function gameWonShowStats(archivedBulletArray,archivedMonsterArray,numberOfDrops,gameVariables,gameArrays,missionArray) {
