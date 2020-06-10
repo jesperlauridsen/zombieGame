@@ -4,7 +4,8 @@
 body {
 	background-color: grey;
 	font-family: Lato;
-	overflow:hidden;
+	/*overflow:hidden; */
+	margin:0px;
 }
 
 #statCanvas {
@@ -18,8 +19,14 @@ body {
 	height: 240px;
 }
 
+#gameContainer canvas {
+	width:1024px;
+	height:768px;	
+} 
+
 #overallStatistics {
-	Width:20%;
+	Width:calc(20% - 10px);
+	margin-left:10px;
 	height:40%;
 	float:left;
 }
@@ -27,18 +34,19 @@ body {
 .smallTextForUtilities {
     position:relative;
     top:-8px;
-    font-size:11px;
+		font-size:11px;
+		font-weight: bold;
     color:dimgray;
     text-align:center;
-    width:100&;
+    width:100%;
 }
 
 #overallContainer {
-/*	height:768px;
-	width:1024px; */
-	height:600px;
-	width:800px;
-	margin:0 auto;
+  height:768px;
+	width:1024px;
+	/*height:600px;
+	width:800px; */
+	margin:15px auto;
 }
 
 .specificGunStat {
@@ -71,8 +79,8 @@ body {
 	border-radius:90px;
 	/*top:725px;
 	left:390px; */
-	top: 560px;
-	left: 300px;
+	top: 680px;
+	left: calc(512px - 100px);
 	display:block;
 	cursor:pointer;
 }
@@ -81,10 +89,10 @@ body {
 	display:none;
 	background-color:white;
 	position:absolute;
-	/* height:768px;
-	width:1024px; */
-	height:600px;
-	width:800px;
+	height:768px;
+	width:1024px;
+	/*height:600px;
+	width:800px; */
 }
 
 .inventoryColorActive {
@@ -97,17 +105,17 @@ body {
 }
 
 #gameContainer {
-/*	width: 1024px;
-	height:768px; */
-	width: 800px;
-	height:600px;
+	width: 1024px;
+	height:768px;
+	/*width: 800px;
+	height:600px; */
 	background-color:green;
 }
 
 #gameVision {
 	float:left;
-     /* width:1024px; */
-    width:800px;
+	position:relative;
+  width:1024px;
 	height:35px;
 	background-color:white;
 }
@@ -309,27 +317,27 @@ body {
 }
 
 #weaponMachete {
-	background-image: url("/game/graphics/weapons/machete.png");
+	background-image: url("./graphics/weapons/machete.png");
 	background-size: 50px 30px;
 }
 
 #weaponPistol {
-	background-image: url("/game/graphics/weapons/pistol.png");
+	background-image: url("./graphics/weapons/pistol.png");
 	background-size: 50px 30px;
 }
 
 #weaponShotgun {
-	background-image: url("/game/graphics/weapons/shotgun.png");
+	background-image: url("./graphics/weapons/shotgun.png");
 	background-size: 50px 30px;
 }
 
 #weaponMachinegun {
-	background-image: url("/game/graphics/weapons/machinegun.png");
+	background-image: url("./graphics/weapons/machinegun.png");
 	background-size: 50px 30px;
 }
 
 #weaponFlamethrower {
-	background-image: url("/game/graphics/weapons/flamethrower.png");
+	background-image: url("./graphics/weapons/flamethrower.png");
 	background-size: 40px 20px;
 }
 
@@ -415,6 +423,28 @@ body {
     color:white;
 }
 
+#unpause {
+	margin-top:-15px;
+	width:100vw;
+	height:100vh;
+	position:fixed;
+	z-index:99999;
+	background-color: rgba(30,30,30,0.8)
+}
+
+#unpauseButton {
+	color: white;
+	font-size: 150%;
+	text-align: center;
+	margin-top: calc(50vh - 18px);
+	width: 120px;
+	position: relative;
+	height: 35px;
+	margin-left: calc(50% - 60px);
+	font-weight: bold;
+	cursor: pointer;
+}
+
 #missionInteractionContainer {
     z-index: 1;
     font-size:14px;
@@ -427,8 +457,8 @@ body {
     position: absolute;
     background-color: rgba(255,255,255,0.2);
     border: 1px solid black;
-    top: 450px;
-    margin-left: 160px;
+		top: 615px;
+		margin-left: calc(512px - 225px);
     color:white;
 }
 

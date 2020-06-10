@@ -594,6 +594,7 @@ function reset(drops,gameVariables,gameArrays,inventory,hero,keyPressed,backgrou
 	hero.shotgun = 0;
 	hero.machinegun = 0;
 	hero.flamethrower = 0;
+	hero.isPoisoned = 0;
 	gameArrays.backgroundArray = [];
 	gameArrays.backgroundObjectArray = [];
 	gameArrays.schematicsyArray = [];

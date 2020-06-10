@@ -248,6 +248,7 @@ function playgame() {
         pickUp:0,
         pickUpSchematics:0,
 		gameStopped:0,
+		paused:false,
 		missionType:"Flashlight",
 		numberOfDrops:0,
 		bulletCounter:0,
@@ -485,8 +486,20 @@ function playgame() {
 	addEventListener("keydown", function (e) {keysDown[e.keyCode] = true;}, false);
 	addEventListener("keyup", function (e) {delete keysDown[e.keyCode]; if(hero.gun === 'pistol' || hero.gun === 'shotgun' || hero.gun === 'machete') {gameVariables.hasFired = 0;} else {gameVariables.isPressed = 0;}}, false);
 
+	document.getElementById("unpauseButton").addEventListener('click',function() {
+		console.log("clicked!!")
+		gameVariables.paused = false;
+		document.getElementById("unpause").style.display = "none";
+	})
+
 	// Update game objects
 	var update = function () {
+		if (80 in keysDown) {
+			gameVariables.paused = true;
+			document.getElementById("unpause").style.display = "block"
+		 }
+
+		if(gameVariables.paused === false) {
 		if(hero.death === 0 && missionArray[13][0].completed === "no") {
 		gameVariables.timeControler = new Date();
 		if(hero.angle > 360) {
@@ -1062,6 +1075,7 @@ function playgame() {
 		}
 		else {
 		}
+	}
 	};
 
 	// Draw everything
@@ -1070,7 +1084,7 @@ function playgame() {
 		//document.getElementById("testdiv2").innerHTML = gameArrays.monsterArray;
 		if (bgReady) {
             if(hero.isPoisoned === 1) {
-				    ctx.globalAlpha = 0.1; // - spændende effekt, kan måske bruges ved poisoned?
+				    ctx.globalAlpha = 0.4; // - spændende effekt, kan måske bruges ved poisoned?
 				}
                 else {
                     ctx.globalAlpha = 1;
@@ -1172,10 +1186,10 @@ function playgame() {
 				}
 				else if(gameArrays.monsterArray[j].skin === 3) {
 					if(gameArrays.monsterArray[j].state === "idle") {
-						drawRotatedMonster(monsterImageIdle3, gameArrays.monsterArray[j].x, gameArrays.monsterArray[j].y, gameArrays.monsterArray[j].angle-180,30,30,gameArrays.monsterArray[j].state);
+						drawRotatedMonster(monsterImageIdle3, gameArrays.monsterArray[j].x, gameArrays.monsterArray[j].y, gameArrays.monsterArray[j].angle-180,50,50,gameArrays.monsterArray[j].state);
 					}
 					else {
-						drawRotatedMonster(monsterImage3, gameArrays.monsterArray[j].x, gameArrays.monsterArray[j].y, gameArrays.monsterArray[j].angle-180,30,30,gameArrays.monsterArray[j].state);
+						drawRotatedMonster(monsterImage3, gameArrays.monsterArray[j].x, gameArrays.monsterArray[j].y, gameArrays.monsterArray[j].angle-180,50,50,gameArrays.monsterArray[j].state);
 					}
 				}
 				else {
@@ -1321,19 +1335,19 @@ function playgame() {
 		}
 		//Display user ammo/gun
 		if(hero.gun === "pistol") {
-			document.getElementById("gameClip").innerHTML = "<strong>" + hero.clip + "</strong>" + " / " + hero.gunshots;
+			document.getElementById("gameClip").innerHTML = "<strong>" + hero.clip + "</strong>" + " / " + hero.gunshots + "<br><span class='smallTextForUtilities'>Ammo</span>";
 		}
 		else if(hero.gun === 'machete') {
-			document.getElementById("gameClip").innerHTML = "<strong>" + "&infin;" + "</strong>";
+			document.getElementById("gameClip").innerHTML = "<strong>" + "&infin;" + "</strong>" + "<br><span class='smallTextForUtilities'>Ammo</span>";
 		}
 		else if(hero.gun === "machinegun") {
-			document.getElementById("gameClip").innerHTML = "<strong>" + hero.machinegunclip + "</strong>" + " / " + hero.machinegunshots;
+			document.getElementById("gameClip").innerHTML = "<strong>" + hero.machinegunclip + "</strong>" + " / " + hero.machinegunshots  + "<br><span class='smallTextForUtilities'>Ammo</span>";
 		}
 		else if(hero.gun === "shotgun") {
-			document.getElementById("gameClip").innerHTML = "<strong>" + hero.shotgunclip + "</strong>" + " / " + hero.shotgunshots;
+			document.getElementById("gameClip").innerHTML = "<strong>" + hero.shotgunclip + "</strong>" + " / " + hero.shotgunshots  + "<br><span class='smallTextForUtilities'>Ammo</span>";
 		}
 		else if(hero.gun === "flamethrower") {
-			document.getElementById("gameClip").innerHTML = "<strong>" + hero.flameshells + "</strong>";
+			document.getElementById("gameClip").innerHTML = "<strong>" + hero.flameshells + "</strong>"  + "<br><span class='smallTextForUtilities'>Ammo</span>";
 		}
 		else {
 		}
@@ -1345,7 +1359,7 @@ function playgame() {
 		else {
 			document.getElementById("gameHealth").className = "gameHealth";
 		}
-		document.getElementById("gameHealth").innerHTML = hero.health;
+		document.getElementById("gameHealth").innerHTML = hero.health + "<br><span class='smallTextForUtilities'>Health</span>";
 
 		//Hero death
 		if(hero.health <= 0) {

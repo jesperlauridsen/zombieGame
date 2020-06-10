@@ -78,11 +78,19 @@ function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,cat
 		randomY = Math.round((Math.random() * (canvas.height) + yStart));
 	}
     if(category === 4) {
-        var monsterSpeed = 4;
+        var monsterSpeed = 2;
     }
     else {
-        var monsterSpeed = (Math.random() * 3 + 5);
-    }
+        var monsterSpeed = (Math.random() * 3 + 2);
+	}
+	let monsterSkin;
+	if(category === 4) {
+		monsterSkin = 3;
+	}
+	else {
+		monsterSkin = Math.round((Math.random() * 1) + 1);
+	}
+	console.log(monsterSkin)
 	var monster = {
         name:mName,
 		x: randomX,
@@ -105,7 +113,7 @@ function spawnMonster(xStart, yStart,damage,damageInterval,health,fullHealth,cat
 		hit:0,
 		hitOpacity:0,
 		hitPeaked:0,
-		skin: Math.round((Math.random() * 2 + 1)),
+		skin: monsterSkin,
 		offAngle:0,
 		offAngleSet:1
 	};

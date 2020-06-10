@@ -4,7 +4,7 @@ function drawRotatedMonster(image, x, y, angle, sizeX, sizeY, state) {
 		ctx.translate(x, y);
 		ctx.rotate(angle * TO_RADIANS);
 		//ctx.drawImage(image, -(image.width/2), -(image.height/2),sizeX,sizeY);
-		ctx.drawImage(image, -(15), -(15), sizeX, sizeY);
+		ctx.drawImage(image, -(sizeX/2), -(sizeY/2), sizeX, sizeY);
 		ctx.restore();
 	}
 	else {
@@ -12,7 +12,7 @@ function drawRotatedMonster(image, x, y, angle, sizeX, sizeY, state) {
 		ctx.translate(x, y);
 		ctx.rotate(angle * TO_RADIANS);
 		//ctx.drawImage(image, -(image.width/2), -(image.height/2),sizeX,sizeY);
-		ctx.drawImage(image, -(15), -(15), sizeX, sizeY);
+		ctx.drawImage(image, -(sizeX/2), -(sizeY/2), sizeX, sizeY);
 		ctx.restore();
     	}
 }
