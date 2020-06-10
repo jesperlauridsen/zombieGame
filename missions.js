@@ -352,7 +352,7 @@ function ambushMissionSpawn(hero,objectArray,timeControler,missionArray,monsterA
                 var randomAngle = (Math.round(Math.random() * 360 + 0));
                 var  xPoint = Math.round(400 + Math.cos(randomAngle) * Math.round(Math.random() * 1000 + 800));
                 var  yPoint = Math.round(300 + Math.sin(randomAngle) * Math.round(Math.random() * 1000 + 800));
-                spawnMonster(xPoint,yPoint,10,300,1000,1000,4,monsterArray,"boss");
+                spawnMonster(xPoint,yPoint,10,300,700,700,4,monsterArray,"boss");
                 //console.log("boss spawned!");
                 missionArray[12][0].bossSpawned = 1;
                 missionArray[12][0].actionCounter = timeControler.getTime();

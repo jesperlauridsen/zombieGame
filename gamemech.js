@@ -1032,9 +1032,13 @@ function playgame() {
 				newPickUpsDisplayed(gameVariables);
 				}
 			}
+			else if(hero.x <= (gameArrays.objectArray[v].x + 45) && gameArrays.objectArray[v].x <= (hero.x + 45) && hero.y <= (gameArrays.objectArray[v].y + 45) && gameArrays.objectArray[v].y <= (hero.y + 45)) {
+				let angle = (Math.atan2(hero.y-10 - gameArrays.objectArray[v].y, hero.x-10 - gameArrays.objectArray[v].x) * 180 / Math.PI) - 90;
+				gameArrays.objectArray[v].x -= (1.8) * Math.sin(angle * TO_RADIANS);
+				gameArrays.objectArray[v].y += (1.8) * Math.cos(angle * TO_RADIANS);
+			}
 		inventoryReload(inventory, schematics, hero, gameVariables);
 		}
-
 		// Are monster touching our dear hero?
 		for(b=0;b<gameArrays.monsterArray.length;b++) {
 			if(hero.x <= (gameArrays.monsterArray[b].x + 30) && gameArrays.monsterArray[b].x <= (hero.x + 30) && hero.y <= (gameArrays.monsterArray[b].y + 30) && gameArrays.monsterArray[b].y <= (hero.y + 30)) {
