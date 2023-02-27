@@ -1409,6 +1409,7 @@ function playgame() {
 										//document.getElementById("testdiv").innerHTML = "Monster dead!";
 										gameArrays.monsterArray[l].timeOfDeath = gameVariables.timeControler.getTime();
 										gameArrays.monsterArray[l].killedBy = gameArrays.bulletArray[i].firedFrom;
+										gameArrays.monsterArray[l].angle = Math.floor(Math.random() * 360);
 										monsterDrop(gameArrays.monsterArray[l], drops, gameArrays.objectArray, gameVariables);
 										gameArrays.archivedMonsterArray.push(gameArrays.monsterArray[l]);
 										//Check mission state && check zombie number - if mission is exact - add to the total killed
@@ -1869,13 +1870,22 @@ function playgame() {
 		// Draw all dead monsters
 		for (h = 0; h < gameArrays.archivedMonsterArray.length; h++) {
 			if (bloodpoolReady) {
-				ctx.drawImage(
+				drawRotatedMonster(
+					bloodpoolImage,
+					gameArrays.archivedMonsterArray[h].x,
+					gameArrays.archivedMonsterArray[h].y,
+					gameArrays.archivedMonsterArray[h].angle,
+					40,
+					40,
+					'dead'
+				);
+				/* ctx.drawImage(
 					bloodpoolImage,
 					gameArrays.archivedMonsterArray[h].x,
 					gameArrays.archivedMonsterArray[h].y,
 					30,
 					30
-				);
+				); */
 			}
 		}
 

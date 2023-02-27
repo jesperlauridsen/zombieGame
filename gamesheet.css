@@ -582,15 +582,17 @@ body {
   width:200px;
   overflow:hidden;
   height:30px;
+  pointer-events:none;
 }
 
 .gameAbility {
-    z-index:100;
+  z-index:100;
   float:left;
   width:25px;
   height:25px;
   border-radius:90px;
   display:inline-block;
+  pointer-events:auto;
 }
 
 .activated {
@@ -635,8 +637,9 @@ body {
 
 #gameAbilityOverallContainer {
     position: absolute;
-		top: 300px;
-		margin-left:5px;
+	top: 300px;
+	margin-left:5px;
+	pointer-events:none;
 }
 
 .gameAbilityName {
