@@ -1,11 +1,13 @@
-@font-face { font-family: Lato; src: url('/game/fonts/Lato-Light.ttf'); }
-@font-face { font-family: Lato; font-weight: bold; src: url('/game/fonts/Lato-Semibold.ttf');}
+@font-face { font-family: Lato; src: url('./fonts/Lato-Light.ttf'); }
+@font-face { font-family: Lato; font-weight: bold; src: url('./fonts/Lato-Semibold.ttf');}
 
 body {
 	background-color: grey;
 	font-family: Lato;
-	/*overflow:hidden; */
+	overflow:hidden;
 	margin:0px;
+	height:100vh;
+	width:100vw;
 }
 
 #statCanvas {
@@ -19,9 +21,21 @@ body {
 	height: 240px;
 }
 
+#centerTest {
+	position:absolute;
+	width:10px;
+	left:-5px;
+	top:-5px;
+	height:10px;
+	background-color:blue;
+	border-radius:180px;
+	z-index:20000;
+}
+
 #gameContainer canvas {
 	width:1024px;
 	height:768px;	
+	cursor:crosshair;
 } 
 
 #overallStatistics {
@@ -42,11 +56,15 @@ body {
 }
 
 #overallContainer {
-  height:768px;
+  	height:768px;
 	width:1024px;
 	/*height:600px;
 	width:800px; */
-	margin:15px auto;
+	/* margin:15px auto; */
+	position: absolute;
+  top: calc(50% - 35px);
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .specificGunStat {
@@ -196,6 +214,13 @@ body {
 	height:400px;
 	top:-400px;
     z-index:0;
+	cursor:crosshair;
+	pointer-events: all;
+}
+
+#inventoryBackpack.closedInventory {
+	z-index:-1;
+	pointer-events: none;
 }
 
 .craftSchematicContainer {
@@ -443,6 +468,11 @@ body {
 	margin-left: calc(50% - 60px);
 	font-weight: bold;
 	cursor: pointer;
+
+}
+
+#unpauseButton span {
+	font-size: 40%;
 }
 
 #missionInteractionContainer {
@@ -463,8 +493,7 @@ body {
 }
 
 #missionInteractionContainer p {
-    padding-right: 10px !important;
-    padding: 5px;
+    padding: 15px;
     margin-top: -5px;
 }
 
@@ -478,6 +507,8 @@ body {
 	text-align:center;
 	cursor:pointer;
     z-index: 50;
+	padding-bottom: 2px;
+    padding-left: 2px;
 }
 
 .progressActive {
