@@ -434,7 +434,11 @@ function showArrowToMission(missionArray, image, hero, timeControler) {
 	) {
 		//console.log(missionArray[hero.currentMission][0].x + "," + missionArray[hero.currentMission][0].y)
 		var angle =
-			(Math.atan2(missionArray[hero.currentMission][0].y - 300, missionArray[hero.currentMission][0].x - 400) * 180) /
+			(Math.atan2(
+				missionArray[hero.currentMission][0].y - canvas.width,
+				missionArray[hero.currentMission][0].x - canvas.height
+			) *
+				180) /
 				Math.PI +
 			90;
 		ctx.beginPath();

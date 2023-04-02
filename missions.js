@@ -34,7 +34,7 @@ function initiateMissions(
 		missionIndexX = missionPointX;
 		missionIndexY = missionPointY;
 		//console.log(missionPointX + "," + missionPointY);
-		missionPointX = missionPointX * canvas.width + canvas.with / 2;
+		missionPointX = missionPointX * canvas.width + canvas.width / 2;
 		missionPointY = missionPointY * canvas.height + canvas.height / 2;
 		//console.log(missionPointX + "," + missionPointY);
 		//console.log("Ny X = " + missionPointX + "| Ny Y = " + missionPointY + " " + environmentalPoints[Object.keys(environmentalPoints)[y]].name);
