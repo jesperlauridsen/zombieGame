@@ -1611,7 +1611,8 @@ function playgame() {
 						hero.x <= gameArrays.objectArray[v].x + 45 &&
 						gameArrays.objectArray[v].x <= hero.x + 45 &&
 						hero.y <= gameArrays.objectArray[v].y + 45 &&
-						gameArrays.objectArray[v].y <= hero.y + 45
+						gameArrays.objectArray[v].y <= hero.y + 45 &&
+						gameArrays.objectArray[v].itemType !== 'survivor'
 					) {
 						let angle =
 							(Math.atan2(hero.y - 10 - gameArrays.objectArray[v].y, hero.x - 10 - gameArrays.objectArray[v].x) * 180) /
@@ -1739,6 +1740,27 @@ function playgame() {
 			);
 			//drawRotatedEnvironmentImage(gameArrays.environmentArray[h],gameArrays.environmentArray[h].targetX,gameArrays.environmentArray[h].targetY,gameArrays.environmentArray[h].angle,800,600);
 		}
+		// Draw all dead monsters
+		for (h = 0; h < gameArrays.archivedMonsterArray.length; h++) {
+			if (bloodpoolReady) {
+				drawRotatedMonster(
+					bloodpoolImage,
+					gameArrays.archivedMonsterArray[h].x,
+					gameArrays.archivedMonsterArray[h].y,
+					gameArrays.archivedMonsterArray[h].angle,
+					40,
+					40,
+					'dead'
+				);
+				/* ctx.drawImage(
+							bloodpoolImage,
+							gameArrays.archivedMonsterArray[h].x,
+							gameArrays.archivedMonsterArray[h].y,
+							30,
+							30
+						); */
+			}
+		}
 		//Draw hero
 		if (heroReady) {
 			drawRotatedImage(heroImage, hero.x, hero.y, hero.angle);
@@ -1781,7 +1803,7 @@ function playgame() {
 				}
 				//ctx.drawImage(questItemImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y,15,15);
 			} else if (gameArrays.objectArray[i].itemType === 'survivor') {
-				ctx.drawImage(survivorImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y, 20, 20);
+				ctx.drawImage(survivorImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y, 60, 60);
 			} else if (gameArrays.objectArray[i].itemType === 'box') {
 				ctx.drawImage(materialImage, gameArrays.objectArray[i].x, gameArrays.objectArray[i].y, 20, 20);
 			} else {
@@ -1865,27 +1887,6 @@ function playgame() {
 					}
 				} else {
 				}
-			}
-		}
-		// Draw all dead monsters
-		for (h = 0; h < gameArrays.archivedMonsterArray.length; h++) {
-			if (bloodpoolReady) {
-				drawRotatedMonster(
-					bloodpoolImage,
-					gameArrays.archivedMonsterArray[h].x,
-					gameArrays.archivedMonsterArray[h].y,
-					gameArrays.archivedMonsterArray[h].angle,
-					40,
-					40,
-					'dead'
-				);
-				/* ctx.drawImage(
-					bloodpoolImage,
-					gameArrays.archivedMonsterArray[h].x,
-					gameArrays.archivedMonsterArray[h].y,
-					30,
-					30
-				); */
 			}
 		}
 
