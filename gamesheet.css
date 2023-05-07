@@ -560,9 +560,9 @@ body {
     width: 300px;
     padding: 5px;
     text-align: center;
-    top: 388px;
+    top: calc(50% - 70px);
     cursor: pointer;
-    left: 463px;
+    left: calc(50% - 150px);
 }
 
 #gameHealth.lowHealth {

@@ -91,8 +91,8 @@ function launchRocket(distance, angle, r, b, g, type, rocketArray, timeControler
 		distance: distance,
 		angle: angle,
 		offAngle: Math.round(Math.random() * 45 + 0),
-		x: 400,
-		y: 300,
+		x: canvas.width / 2,
+		y: canvas.height / 2,
 		speed: speed,
 		red: r,
 		blue: b,
@@ -108,12 +108,12 @@ function launchRocket(distance, angle, r, b, g, type, rocketArray, timeControler
 
 function launchRandomRocket(rocketArray, timeControler) {
 	var rocketType = ['regular', 'sphere'];
-	var speed = Math.round(Math.random() * 5 + 2);
+	var speed = Math.round(Math.random() * 2 + 2);
 	var randomRocket = Math.round(Math.random() * 1 + 0);
 	var red = Math.round(Math.random() * 255 + 0);
 	var blue = Math.round(Math.random() * 255 + 0);
 	var randomAngle = Math.round(Math.random() * 360 + 0);
-	var distance = Math.round(Math.random() * 45 + 40);
+	var distance = Math.round(Math.random() * 20 + 20);
 	//randomAngle = randomAngle * TO_RADIANS;
 	var green = Math.round(Math.random() * 255 + 0);
 	launchRocket(distance, randomAngle, red, blue, green, rocketType[randomRocket], rocketArray, timeControler, speed);
@@ -276,7 +276,7 @@ function rocketFlightPath(rocket, timeControler, rocketArray) {
 			rocket.wave = rocket.wave + 1;
 			rocket.fadeout = rocket.fadeout - 0.05;
 		} else {
-			//rocket.done = "yes";
+			rocket.done = 'yes';
 			//console.log("regular dead");
 		}
 	}
