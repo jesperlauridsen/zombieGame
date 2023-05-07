@@ -2,7 +2,7 @@
 @font-face { font-family: Lato; font-weight: bold; src: url('./fonts/Lato-Semibold.ttf');}
 
 body {
-	background-color: grey;
+	background-image: radial-gradient(circle at 50% 50%, rgba(35,35,60,1) 0%, rgba(30,30,30,1) 90% );
 	font-family: Lato;
 	overflow:hidden;
 	margin:0px;
