@@ -675,30 +675,3 @@ body {
 }	
 
 /* index.html styles  */
-
-.ButtonToPlayGame {
-    margin:auto;
-    width:250px;
-    height:35px;
-    background-color:blueviolet;
-    -webkit-transition: all 200ms linear 0s;
-    -moz-transition: all 200ms linear 0s;
-    -o-transition: all 200ms linear 0s;
-    transition: all 200ms linear 0s;
-    color:black;
-    padding:20px;
-    line-height:35px;
-    text-decoration:none;
-    box-shadow: 0px 0px 0px 0px;
-    text-align:center;
-}
-
-.ButtonToPlayGame:hover {
-    background-color:darkmagenta;
-    color:white;
-}
-
-.linkClassFrontpageButton {
-    text-align:center;
-    text-decoration:none;
-}

@@ -1,2 +1,82 @@
+@font-face { font-family: Lato; src: url('./fonts/Lato-Light.ttf'); }
+@font-face { font-family: Lato; font-weight: bold; src: url('./fonts/Lato-Semibold.ttf');}
+
+
 body {
+    background-image: radial-gradient(circle at 50% 50%, rgba(35,35,60,1) 0%, rgba(30,30,30,1) 90% );
+    margin:30px 20%;
+    color:white;
+    height:100%;
+    overflow-y: scroll;
+    overflow-x:hidden;
+    line-height:20px;
+    padding-bottom:100px;
+    font-family: Lato;
+
 }
+
+p {
+    padding:0;
+    margin:0;
+}
+
+h2 {
+    text-align:center;
+}
+
+h2 span {
+    font-size:0.5em;
+    color:rgba(255,255,255,0.5);
+    font-weight:normal;
+}
+
+h3 {
+    border-top:1px solid rgba(255,255,255,0.05);
+    padding-top:20px;
+    text-transform: uppercase;
+}
+
+.presentation div {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap:40px;
+    padding-bottom:20px;
+}
+
+.controls {
+    flex-direction: row-reverse;
+}
+
+.ui {
+    flex-direction: row;
+}
+
+.game {
+    flex-direction: row;
+    padding-bottom: 00px !important;
+}
+
+.presentation img {
+    width: 50%;
+    height:auto;
+    aspect-ratio: 800/600;
+}
+
+.play {
+    display:block;
+    color:white;
+    text-decoration:none;
+    border:1px solid white;
+    padding:20px 10px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    max-width:500px;
+    width:100%;
+    text-align:center;
+}
+
+.play:hover {
+    background-color:white;
+    color:black;  }
