@@ -99,6 +99,7 @@ function spawnMonster(xStart, yStart, damage, damageInterval, health, fullHealth
 		skin: monsterSkin,
 		offAngle: 0,
 		offAngleSet: 1,
+		firstEngagement: false,
 	};
 	monsterArray.push(monster);
 	//console.log(monster.x + "," + monster.y + " | " + xStart + "," + yStart);
@@ -192,6 +193,10 @@ function monsterState(monster, hero, gameVariables, missionArray, thrownGranadeA
 	} else if (monster.state == 'attacking') {
 		if (hero.x <= monster.x + 18 && monster.x <= hero.x + 18 && hero.y <= monster.y + 18 && monster.y <= hero.y + 18) {
 		} else {
+			if (monster.firstEngagement === false) {
+				monster.firstEngagement = true;
+				cloneAndPlay(audio.monsterinitSound, 0.2);
+			}
 			//document.getElementById("testdiv").innerHTML =" ATTACKING!!!";
 			monster.angle = (Math.atan2(hero.y - 10 - monster.y, hero.x - 10 - monster.x) * 180) / Math.PI - 90;
 			monster.x -= (monster.speed / 1.8) * Math.sin(monster.angle * TO_RADIANS);
@@ -214,6 +219,7 @@ function monsterState(monster, hero, gameVariables, missionArray, thrownGranadeA
 				monster.y += (monster.speed / 1.5) * Math.cos(monster.angle * TO_RADIANS);
 			}
 		} else if (gameVariables.timeControler.getTime() > monster.startledTime + 6050) {
+			monster.firstEngagement = false;
 			monster.state = 'idle';
 		} else {
 		}

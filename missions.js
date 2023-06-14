@@ -288,6 +288,7 @@ function validateMission(
 	}
 	//console.log(missionCompleted);
 	if (missionCompleted === true) {
+		cloneAndPlay(audio.missionSound, 0.2);
 		//console.log("next mission!");
 		if (hero.currentMission < 13);
 		hero.currentMission = hero.currentMission + 1;
@@ -311,7 +312,7 @@ function validateMission(
 
 function tellSurvivorStory(hero, timeControler) {
 	document.getElementById('missionInteractionContainer').getElementsByTagName('p')[0].innerHTML =
-		'They came out of no where and attacked the surrounding lands! I hear they were created by a devil scientist down by the scientist lab, but thats all i know, i swear!';
+		'They came out of no where and attacked, so I hid in my cornfield here! I hear they were created by a devil scientist down by the scientist lab, but thats all i know, i swear!';
 	document.getElementById('missionInteractionContainer').className = 'progressActive';
 	hero.missionShown = 1;
 	hero.missionShownTimer = timeControler.getTime();

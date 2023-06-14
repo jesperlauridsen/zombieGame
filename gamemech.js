@@ -1451,6 +1451,7 @@ function playgame() {
 										}
 										//document.getElementById("testdiv").innerHTML = "Monster health: " + gameArrays.monsterArray[l].health;
 									} else if (gameArrays.monsterArray[l].health - gameArrays.bulletArray[i].bulletDamage <= 0) {
+										cloneAndPlay(audio.monsterDeath, 0.2);
 										//document.getElementById("testdiv").innerHTML = "Monster dead!";
 										gameArrays.monsterArray[l].timeOfDeath = gameVariables.timeControler.getTime();
 										gameArrays.monsterArray[l].killedBy = gameArrays.bulletArray[i].firedFrom;
@@ -1694,6 +1695,7 @@ function playgame() {
 							} else {
 								//console.log("hit!");
 								//Hero losing health!
+								cloneAndPlay(audio.avatarHitSound, 0.2);
 								hero.health = hero.health - gameArrays.monsterArray[b].damage;
 								if (Math.round(Math.random() * 100 + 0) > 85) {
 									hero.isPoisoned = 1;
@@ -1838,6 +1840,9 @@ function playgame() {
 			}
 			//ctx.fillRect(gameArrays.objectArray[i].x,gameArrays.objectArray[i].y,15,15);
 			ctx.font = 'bold 10px Lato';
+			if (gameArrays.objectArray[i].name === 'survivor') {
+				ctx.font = 'bold 15px Lato';
+			}
 			ctx.fillText(
 				gameArrays.objectArray[i].name,
 				gameArrays.objectArray[i].x - gameArrays.objectArray[i].offset,

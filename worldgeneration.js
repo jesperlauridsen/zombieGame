@@ -721,7 +721,7 @@ function setSpecificEnvironment(
 				treeObject.width = 150;
 				treeObject.height = 150;
 			}
-			treeObject.angle = Math.round(Math.random() * 360 + 0);
+			treeObject.angle = 20;
 			treeObject.indexX = indexX;
 			treeObject.indexY = indexY;
 			treeAndHouseArray.push(treeObject);
