@@ -13,6 +13,35 @@ canvas.height = 768;
 document.getElementById('gameContainer').appendChild(canvas);
 var TO_RADIANS = Math.PI / 180;
 
+const audio = {
+	backgroundMusic: new Audio('./sounds/hitman.mp3'),
+	macheteSound: new Audio('./sounds/sword.mp3'),
+	pistolSound: new Audio('./sounds/pistol.mp3'),
+	shotgunSound: new Audio('./sounds/shotgun.mp3'),
+	flamethrowerSound: new Audio('./sounds/flamethrower.mp3'),
+	granadeSound: new Audio('./sounds/granade.mp3'),
+	fireworksSound: new Audio('./sounds/fireworks.mp3'),
+	emptySound: new Audio('./sounds/empty.mp3'),
+	monsterinitSound: new Audio('./sounds/monsterGrunt.mp3'),
+	avatarHitSound: new Audio('./sounds/avatarHit.mp3'),
+	laserSound: new Audio('./sounds/laser.mp3'),
+	missionSound: new Audio('./sounds/mission.mp3'),
+	monsterDeath: new Audio('./sounds/zombie.mp3'),
+};
+
+audio.backgroundMusic.volume = 0.035;
+audio.fireworksSound.volume = 0.1;
+audio.emptySound.volume = 0.2;
+audio.backgroundMusic.loop = true;
+
+function cloneAndPlay(audioNode, start, vol) {
+	const clone = audioNode.cloneNode(true);
+	clone.volume = vol ? vol : 0.1;
+	clone.currentTime = start ? start : 0;
+	clone.play();
+	clone.onended = () => clone.remove();
+}
+
 function playgame() {
 	//set interface buttons
 	document.getElementById('restartGameFromStats').onclick = function () {
@@ -99,6 +128,14 @@ function playgame() {
 	document.getElementById('gameAbilitySeven').onclick = function () {
 		activateFlashlight(hero, keysDown, gameVariables);
 	};
+
+	window.addEventListener('focus', function () {
+		audio.backgroundMusic.paused ? audio.backgroundMusic.play() : null;
+	});
+
+	window.addEventListener('blur', function () {
+		audio.backgroundMusic.pause();
+	});
 
 	// Arrays and variables.
 	var gameArrays = {
@@ -902,7 +939,6 @@ function playgame() {
 		'mousemove',
 		function (e) {
 			const can = document.getElementById('playground').getBoundingClientRect();
-			let test;
 			/* if (document.getElementById('centerTest') !== null) {
 				test = document.getElementById('centerTest');
 			} else {
@@ -1312,11 +1348,13 @@ function playgame() {
 					(hero.mouseFire === true && gameVariables.hasFired === 0)
 				) {
 					if (hero.gun === 'pistol' && hero.clip > 0) {
+						cloneAndPlay(audio.pistolSound, 0.2);
 						delete keysDown[32];
 						gameVariables.hasFired = 1;
 						hero.clip = hero.clip - 1;
 						bulletFire(hero.pistolDamage, hero, gameArrays.bulletArray, gameVariables, hero.angle);
 					} else if (hero.gun === 'machinegun' && hero.machinegunclip > 0) {
+						cloneAndPlay(audio.pistolSound, 0.2);
 						hero.machinegunclip = hero.machinegunclip - 1;
 						gameVariables.hasFired = 0;
 						bulletFire(hero.machinegunDamage, hero, gameArrays.bulletArray, gameVariables, hero.angle);
@@ -1325,6 +1363,8 @@ function playgame() {
 						hero.shotgunclip > 0 &&
 						gameVariables.timeControler.getTime() > hero.lastFire + 350
 					) {
+						cloneAndPlay(audio.shotgunSound, 0.2);
+
 						delete keysDown[32];
 						hero.lastFire = gameVariables.timeControler.getTime();
 						gameVariables.hasFired = 1;
@@ -1333,14 +1373,19 @@ function playgame() {
 							bulletFire(hero.shotgunDamage, hero, gameArrays.bulletArray, gameVariables, hero.angle);
 						}
 					} else if (hero.gun === 'flamethrower' && hero.flameshells > 0) {
+						cloneAndPlay(audio.flamethrowerSound, 0.2);
 						hero.flameshells = hero.flameshells - 1;
 						gameVariables.hasFired = 0;
 						bulletFire(hero.flamethrowerDamage, hero, gameArrays.bulletArray, gameVariables, hero.angle);
 					} else if (hero.gun === 'machete' && gameVariables.timeControler.getTime() > hero.lastFire + 200) {
+						cloneAndPlay(audio.macheteSound, 0.1, 0.5);
+
 						delete keysDown[32];
 						hero.lastFire = gameVariables.timeControler.getTime();
 						gameVariables.hasFired = 1;
 						bulletFire(hero.macheteDamage, hero, gameArrays.bulletArray, gameVariables, hero.angle);
+					} else if (hero.clip === 0 || hero.shotgunclip === 0 || hero.machinegunclip === 0 || hero.flameshells === 0) {
+						audio.emptySound.play();
 					} else {
 						//console.log('Nothing?');
 						//gameVariables.hasFired = 1;
@@ -1703,6 +1748,14 @@ function playgame() {
 
 	// Draw everything
 	var render = function () {
+		console.log(navigator.userActivation.isActive);
+		if (navigator.userActivation.isActive) {
+			audio.backgroundMusic.paused ? audio.backgroundMusic.play() : null;
+		} else {
+			if (audio) {
+				audio.backgroundMusic.paused;
+			}
+		}
 		ctx.fillStyle = 'rgba(0,0,0,0.5)';
 		//document.getElementById("testdiv2").innerHTML = gameArrays.monsterArray;
 		if (bgReady) {

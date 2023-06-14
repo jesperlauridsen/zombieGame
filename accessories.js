@@ -116,6 +116,7 @@ function launchRandomRocket(rocketArray, timeControler) {
 	var distance = Math.round(Math.random() * 20 + 20);
 	//randomAngle = randomAngle * TO_RADIANS;
 	var green = Math.round(Math.random() * 255 + 0);
+	Math.random() < 0.1 ? audio.fireworksSound.play() : null;
 	launchRocket(distance, randomAngle, red, blue, green, rocketType[randomRocket], rocketArray, timeControler, speed);
 }
 
