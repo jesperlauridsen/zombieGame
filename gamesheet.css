@@ -4,7 +4,7 @@
 body {
 	background-image: radial-gradient(circle at 50% 50%, rgba(35,35,60,1) 0%, rgba(30,30,30,1) 90% );
 	font-family: Lato;
-	overflow:hidden;
+	overflow-x: hidden;
 	margin:0px;
 	height:100vh;
 	width:100vw;
