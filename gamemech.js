@@ -1748,7 +1748,6 @@ function playgame() {
 
 	// Draw everything
 	var render = function () {
-		console.log(navigator.userActivation.isActive);
 		if (navigator.userActivation.isActive) {
 			audio.backgroundMusic.paused ? audio.backgroundMusic.play() : null;
 		} else {
